@@ -1,0 +1,109 @@
+.titlebar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  transition: transform 0.5s ease;
+}
+
+.open:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.open:nth-child(2) {
+  opacity: 0;
+}
+
+.open:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  padding: 0.5rem;
+  border: none;
+  background-color: #f1f1f1;
+  margin-right: 0.5rem;
+}
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.searchButton:hover {
+  color: #ccc;
+}
+
+.searchButtonText {
+  margin-left: 0.5rem;
+}
+
+.hamburgerMenuDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  z-index: 2;
+}
+
+.menuList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuItem {
+  position: relative;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.menuIcon {
+  margin-right: 0.5rem;
+}

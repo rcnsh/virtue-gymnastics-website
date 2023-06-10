@@ -1,6 +1,6 @@
-import NextDocument, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
-export default class Document extends NextDocument {
+export default class _Document extends Document {
   render() {
     return (
       <Html lang="en">
