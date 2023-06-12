@@ -1,0 +1,55 @@
+.glow {
+  position: absolute;
+  margin: auto;
+  width: 10rem;
+  top: 45%;
+  left: 45%;
+  height: 10rem;
+  border-radius: 70%;
+  filter: blur(5000px);
+  box-shadow: inset 0 0 50px #fff, 0 0 1000px #fff;
+}
+
+.title {
+  position: absolute;
+  width: 1179px;
+  height: 281px;
+  left: calc(50% - 1179px / 2 + 14.5px);
+  top: 300px;
+
+  font-family: "Cabin", sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 130px;
+  line-height: 140px;
+  /* or 88% */
+
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+  text-transform: uppercase;
+
+  /* Style */
+
+  color: #ffffff;
+}
+
+.squiggle-1 {
+  position: absolute;
+  left: 50.54%;
+  right: 0.45%;
+  top: 0;
+  bottom: 60.02%;
+
+  background: #ffffff;
+}
+
+.squiggle-2 {
+  position: absolute;
+  left: 0.03%;
+  right: 0.45%;
+  top: 58.5%;
+  bottom: 1.52%;
+
+  background: #ffffff;
+}

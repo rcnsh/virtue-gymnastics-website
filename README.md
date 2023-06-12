@@ -1,7 +1,5 @@
 # virtue-gymnastics
 
-🎉 Congratulations, your project was successfully generated with [Create Next Stack](https://www.create-next-stack.com/)!
-
 To get started, run:
 
 ```bash
