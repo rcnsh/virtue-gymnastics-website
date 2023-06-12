@@ -2,7 +2,7 @@
   position: absolute;
   margin: auto;
   width: 10rem;
-  top: 45%;
+  top: 38%;
   left: 45%;
   height: 10rem;
   border-radius: 70%;
@@ -10,17 +10,31 @@
   box-shadow: inset 0 0 50px #fff, 0 0 1000px #fff;
 }
 
-.title {
-  position: absolute;
-  width: 1179px;
-  height: 281px;
-  left: calc(50% - 1179px / 2 + 15px);
-  top: 300px;
-
+.title1 {
+  position: relative;
+  margin: auto;
+  width: 25%;
   font-family: "Cabin", sans-serif;
   font-style: normal;
   font-weight: 800;
-  font-size: 130px;
+  font-size: 100px;
+  line-height: 140px;
+
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}
+.title2 {
+  position: relative;
+  margin: auto;
+  width: 50%;
+  font-family: "Cabin", sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 100px;
   line-height: 140px;
 
   display: flex;
@@ -52,8 +66,52 @@
 }
 
 @media screen and (max-width: 480px) {
-  .title {
+  .title1 {
     width: 400px;
     font-size: 50px;
   }
+  .title2 {
+    width: 400px;
+    font-size: 50px;
+  }
+}
+
+.arrow {
+  position: absolute;
+  margin: auto;
+  width: 50%;
+  left: 65%;
+  bottom: 53%;
+  transform: rotate(10deg);
+}
+
+.buttonJoin {
+  box-sizing: border-box;
+  margin: auto;
+  width: 15rem;
+  height: 4rem;
+  border: 2px solid #ffffff;
+  background: #ffffff;
+  color: black;
+  text-align: center;
+}
+
+.buttonJoin:hover {
+  background: gray;
+  border: lightgray;
+}
+
+.buttonTimetable {
+  box-sizing: border-box;
+  margin: auto;
+  width: 15rem;
+  height: 4rem;
+  border: 2px solid black;
+  background: black;
+  color: white;
+}
+
+.centre {
+  margin: auto;
+  width: 35%;
 }

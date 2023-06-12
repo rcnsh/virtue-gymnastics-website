@@ -41,3 +41,50 @@ body {
   height: 100%;
   flex: 1;
 }
+
+.box {
+  width: 250px;
+  aspect-ratio: 1;
+  position: relative;
+  background: repeating-radial-gradient(
+      closest-corner at 1% 21%,
+      rgba(255, 0, 255, 0.5),
+      rgba(0, 255, 255, 0.5),
+      #000 1.7%
+    ),
+    repeating-radial-gradient(
+      closest-corner at 51% 51%,
+      #fff,
+      #fff,
+      rgba(0, 255, 0, 1) 10%
+    );
+  background-size: 55px 10px;
+}
+
+.box::before {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: repeating-radial-gradient(
+      closest-corner at 21% 21%,
+      #fff,
+      rgba(0, 0, 255, 0.5),
+      rgb(3, 0, 255) 20%
+    ),
+    repeating-radial-gradient(
+      closest-corner at 61% 21%,
+      #fff,
+      rgba(0, 255, 0, 0.5),
+      rgb(3, 0, 255) 20%
+    ),
+    repeating-radial-gradient(
+      closest-corner at 91% 51%,
+      #fff,
+      rgba(255, 255, 1, 0.5),
+      rgb(055, 255, 255) 20%
+    );
+  background-size: 15px 13px, 12px 22px, 12px 22px;
+  background-blend-mode: exclusion, normal;
+  mix-blend-mode: exclusion;
+  content: "";
+}
