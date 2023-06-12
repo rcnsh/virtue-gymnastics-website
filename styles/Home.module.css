@@ -14,7 +14,7 @@
   position: absolute;
   width: 1179px;
   height: 281px;
-  left: calc(50% - 1179px / 2 + 14.5px);
+  left: calc(50% - 1179px / 2 + 15px);
   top: 300px;
 
   font-family: "Cabin", sans-serif;
@@ -22,14 +22,11 @@
   font-weight: 800;
   font-size: 130px;
   line-height: 140px;
-  /* or 88% */
 
   display: flex;
   align-items: flex-end;
   text-align: center;
   text-transform: uppercase;
-
-  /* Style */
 
   color: #ffffff;
 }
@@ -52,4 +49,11 @@
   bottom: 1.52%;
 
   background: #ffffff;
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    width: 400px;
+    font-size: 50px;
+  }
 }
