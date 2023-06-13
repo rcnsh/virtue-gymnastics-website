@@ -1,9 +1,8 @@
 .glow {
-  position: absolute;
+  position: relative;
   margin: auto;
   width: 10rem;
-  top: 38%;
-  left: 45%;
+  top: -13rem;
   height: 10rem;
   border-radius: 70%;
   filter: blur(5000px);
@@ -77,23 +76,25 @@
 }
 
 .arrow {
-  position: absolute;
+  position: relative;
   margin: auto;
-  width: 50%;
-  left: 65%;
-  bottom: 53%;
+  top: -10rem;
+  left: 60rem;
   transform: rotate(10deg);
 }
 
 .buttonJoin {
+  position: relative;
   box-sizing: border-box;
   margin: auto;
+  top: -10rem;
   width: 15rem;
   height: 4rem;
   border: 2px solid #ffffff;
   background: #ffffff;
   color: black;
   text-align: center;
+  z-index: 2;
 }
 
 .buttonJoin:hover {
@@ -102,13 +103,16 @@
 }
 
 .buttonTimetable {
+  position: relative;
   box-sizing: border-box;
   margin: auto;
   width: 15rem;
+  top: -10rem;
   height: 4rem;
-  border: 2px solid black;
-  background: black;
+  border: 1px solid white;
+  background: transparent;
   color: white;
+  z-index: 2;
 }
 
 .centre {

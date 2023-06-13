@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { BsCalendarEvent, BsSearch } from "react-icons/bs";
-import { FaHome, FaQuestion, FaInfo, FaPeace } from "react-icons/fa"; // Import additional icons
+import { BsCalendarEvent } from "react-icons/bs";
+import { FaHome, FaQuestion, FaInfo, FaPeace } from "react-icons/fa";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import styles from "../styles/Titlebar.module.css";
 import Image from "next/image";
 import { BiParty } from "react-icons/bi";
@@ -11,14 +17,9 @@ import Fade from "react-reveal/Fade";
 const Titlebar = () => {
   const { register, handleSubmit } = useForm();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleSearchToggle = () => {
-    setIsSearchOpen(!isSearchOpen);
   };
 
   const onSubmit = (data: any) => {
@@ -40,30 +41,22 @@ const Titlebar = () => {
           height={92}
         />
       </div>
-      {isSearchOpen && (
-        <form className={styles.searchForm} onSubmit={handleSubmit(onSubmit)}>
-          <button
-            type="submit"
-            className={styles.searchButton}
-            onClick={handleSearchToggle}
-          >
-            <BsSearch />
-            <span className={styles.searchButtonText}>Search</span>
-          </button>
-          <input
-            type="text"
-            className={styles.searchInput}
-            placeholder="Search"
-            {...register("search")}
-          />
-        </form>
-      )}
-      {!isSearchOpen && (
-        <button className={styles.searchButton} onClick={handleSearchToggle}>
-          <BsSearch />
-          <span className={styles.searchButtonText}>Search</span>
-        </button>
-      )}
+      <DropdownMenu>
+        <DropdownMenuTrigger>Search</DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.searchContainer}>
+              <input
+                type="text"
+                placeholder="Search..."
+                className={styles.searchInput}
+                {...register("search")}
+              />
+              <button type="submit" className={styles.searchButton} />
+            </div>
+          </form>
+        </DropdownMenuContent>
+      </DropdownMenu>
       {isMenuOpen && (
         <Fade duration={500}>
           <div className={styles.hamburgerMenuDropdown}>
