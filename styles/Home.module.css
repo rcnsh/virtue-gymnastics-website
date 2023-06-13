@@ -12,35 +12,36 @@
 .title1 {
   position: relative;
   margin: auto;
-  width: 25%;
+  width: 100%;
+  max-width: 25rem;
   font-family: "Cabin", sans-serif;
   font-style: normal;
   font-weight: 800;
   font-size: 100px;
   line-height: 140px;
-
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   text-align: center;
   text-transform: uppercase;
-
   color: #ffffff;
 }
+
 .title2 {
   position: relative;
   margin: auto;
-  width: 50%;
+  width: 100%;
+  max-width: 50rem;
   font-family: "Cabin", sans-serif;
   font-style: normal;
   font-weight: 800;
   font-size: 100px;
   line-height: 140px;
-
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   text-align: center;
   text-transform: uppercase;
-
   color: #ffffff;
 }
 
@@ -50,7 +51,6 @@
   right: 0.45%;
   top: 0;
   bottom: 60.02%;
-
   background: #ffffff;
 }
 
@@ -60,17 +60,14 @@
   right: 0.45%;
   top: 58.5%;
   bottom: 1.52%;
-
   background: #ffffff;
 }
 
 @media screen and (max-width: 480px) {
   .title1 {
-    width: 400px;
     font-size: 50px;
   }
   .title2 {
-    width: 400px;
     font-size: 50px;
   }
 }
@@ -85,10 +82,8 @@
 
 .buttonJoin {
   position: relative;
-  box-sizing: border-box;
-  margin: auto;
-  top: -10rem;
-  width: 15rem;
+  margin: auto 10px;
+  width: 12rem;
   height: 4rem;
   border: 2px solid #ffffff;
   background: #ffffff;
@@ -98,16 +93,14 @@
 }
 
 .buttonJoin:hover {
-  background: gray;
-  border: lightgray;
+  background: #f1f1f1;
+  border: #f1f1f1;
 }
 
 .buttonTimetable {
   position: relative;
-  box-sizing: border-box;
-  margin: auto;
-  width: 15rem;
-  top: -10rem;
+  margin: auto 10px;
+  width: 12rem;
   height: 4rem;
   border: 1px solid white;
   background: transparent;
@@ -115,7 +108,25 @@
   z-index: 2;
 }
 
-.centre {
+.homeButtons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 300%);
+}
+
+.child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.homeImage {
+  position: relative;
   margin: auto;
-  width: 35%;
+  width: 100%;
+  top: 60rem;
+
+  overflow: hidden;
 }

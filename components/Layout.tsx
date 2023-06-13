@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Titlebar from "@/components/Titlebar";
 import Bottombar from "@/components/Bottombar";
 import { Separator } from "@/components/ui/separator";
+import styles from "@/styles/Layout.module.css";
 
 interface LayoutProps {
   children: ReactNode;
@@ -14,10 +15,10 @@ const Layout = ({ children }: LayoutProps) => {
       <br />
       <Separator />
       <div className={"flex"}>
-        <div style={{ width: "100%" }}>
-          <main className={"p-2 font-mono flex-1 overflow-y-auto"}>
-            {children}
-          </main>
+        <div className={styles.layout}>
+          <div style={{ width: "100%" }}>
+            <main className={styles.contentWrapper}>{children}</main>
+          </div>
         </div>
       </div>
       <Bottombar />
