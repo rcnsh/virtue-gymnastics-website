@@ -1,37 +1,87 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { BsCalendarEvent } from "react-icons/bs";
-import { FaHome, FaQuestion, FaInfo, FaPeace } from "react-icons/fa";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import React from "react";
+import Image from "next/image";
 
 import styles from "../styles/Titlebar.module.css";
-import Image from "next/image";
-import { BiParty } from "react-icons/bi";
-import { MdRememberMe } from "react-icons/md";
-import Fade from "react-reveal/Fade";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
+
+const components: { title: string; href: string; description: string }[] = [
+  {
+    title: "Events/Camps",
+    href: "/events",
+    description: "Events and camps that are happening.",
+  },
+  {
+    title: "FAQS",
+    href: "/faqs",
+    description: "Frequently asked questions.",
+  },
+  {
+    title: "Parties",
+    href: "/parties",
+    description: "Book a party or event at Virtue Movement.",
+  },
+  {
+    title: "About Us",
+    href: "/about-us",
+    description: "Learn more about Virtue Movement.",
+  },
+  {
+    title: "Member Info",
+    href: "/members",
+    description: "Become a member of Virtue Movement.",
+  },
+  {
+    title: "Wellfare",
+    href: "/wellfare",
+    description: "Learn more about our wellfare program.",
+  },
+  {
+    title: "External Hire",
+    href: "/external-hire",
+    description: "Hire Virtue Movement!",
+  },
+  {
+    title: "Socials",
+    href: "/socials",
+    description: "Learn more about our socials.",
+  },
+];
 
 const Titlebar = () => {
-  const { register, handleSubmit } = useForm();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
   return (
     <section className={styles.titlebar}>
-      <div className={styles.hamburger} onClick={handleMenuToggle}>
-        <div className={`${styles.line} ${isMenuOpen ? styles.open : ""}`} />
-        <div className={`${styles.line} ${isMenuOpen ? styles.open : ""}`} />
-        <div className={`${styles.line} ${isMenuOpen ? styles.open : ""}`} />
+      <div className={styles.title}>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className={styles.background}>
+                Menu
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className={styles.navMenu}>
+                <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[400px] ">
+                  {components.map((component) => (
+                    <ListItem
+                      key={component.title}
+                      title={component.title}
+                      href={component.href}
+                      className={styles.items}
+                    >
+                      {component.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
       <div className={styles.logo}>
         <Image
@@ -41,74 +91,33 @@ const Titlebar = () => {
           height={92}
         />
       </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger>Search</DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles.searchContainer}>
-              <input
-                type="text"
-                placeholder="Search..."
-                className={styles.searchInput}
-                {...register("search")}
-              />
-              <button type="submit" className={styles.searchButton} />
-            </div>
-          </form>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      {isMenuOpen && (
-        <Fade duration={500}>
-          <div className={styles.hamburgerMenuDropdown}>
-            <ul className={styles.menuList}>
-              <li className={styles.menuItem}>
-                <a href="#" className={styles.menuLink}>
-                  <FaHome className={styles.menuIcon} />
-                  Home
-                </a>
-              </li>
-              <li className={styles.menuItem}>
-                <a href="#" className={styles.menuLink}>
-                  <BsCalendarEvent className={styles.menuIcon} />
-                  Events/Camps
-                </a>
-              </li>
-              <li className={styles.menuItem}>
-                <a href="#" className={styles.menuLink}>
-                  <FaQuestion className={styles.menuIcon} />
-                  FAQS
-                </a>
-              </li>
-              <li className={styles.menuItem}>
-                <a href="#" className={styles.menuLink}>
-                  <BiParty className={styles.menuIcon} />
-                  Parties
-                </a>
-              </li>
-              <li className={styles.menuItem}>
-                <a href="#" className={styles.menuLink}>
-                  <FaInfo className={styles.menuIcon} />
-                  About us
-                </a>
-              </li>
-              <li className={styles.menuItem}>
-                <a href="#" className={styles.menuLink}>
-                  <MdRememberMe className={styles.menuIcon} />
-                  Member Info
-                </a>
-              </li>
-              <li className={styles.menuItem}>
-                <a href="#" className={styles.menuLink}>
-                  <FaPeace className={styles.menuIcon} />
-                  Welfare
-                </a>
-              </li>
-            </ul>
-          </div>
-        </Fade>
-      )}
     </section>
   );
 };
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
 
 export default Titlebar;

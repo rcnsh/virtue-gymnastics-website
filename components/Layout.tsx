@@ -11,7 +11,9 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
+      <br />
       <Titlebar />
+      <br />
       <br />
       <Separator />
       <div className={"flex"}>
