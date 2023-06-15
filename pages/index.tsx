@@ -21,8 +21,8 @@ const Index: NextPage = () => {
         <div className={styles.homeButtons}>
           <motion.button
             className={styles.buttonJoin}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             JOIN THE FAMILY
           </motion.button>
