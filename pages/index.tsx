@@ -38,7 +38,6 @@ const Index: NextPage = () => {
           <Image src="/homeImage.png" alt="" width={3000} height={3397} />
         </div>
         <br />
-        <h1>ABOUT US</h1>
       </div>
     </>
   );
