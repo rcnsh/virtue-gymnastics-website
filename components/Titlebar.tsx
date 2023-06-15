@@ -11,8 +11,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-
-const components: { title: string; href: string; description: string }[] = [
+const listItems: { title: string; href: string; description: string }[] = [
   {
     title: "Events/Camps",
     href: "/events",
@@ -55,6 +54,25 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
+const socials: { title: string; href: string }[] = [
+  {
+    title: "Facebook",
+    href: "https://www.facebook.com/virtuegymnastics/",
+  },
+  {
+    title: "Instagram",
+    href: "https://www.instagram.com/virtuegymnastics/",
+  },
+  {
+    title: "Twitter",
+    href: "https://twitter.com/virtuegymnastic",
+  },
+  {
+    title: "Youtube",
+    href: "https://www.youtube.com/channel/UCbsY0WKc8xcVGJAq3y_I7Vg",
+  },
+];
+
 const Titlebar = () => {
   return (
     <section className={styles.titlebar}>
@@ -67,14 +85,14 @@ const Titlebar = () => {
               </NavigationMenuTrigger>
               <NavigationMenuContent className={styles.navMenu}>
                 <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[400px] ">
-                  {components.map((component) => (
+                  {listItems.map((listItem) => (
                     <ListItem
-                      key={component.title}
-                      title={component.title}
-                      href={component.href}
+                      key={listItem.title}
+                      title={listItem.title}
+                      href={listItem.href}
                       className={styles.items}
                     >
-                      {component.description}
+                      {listItem.description}
                     </ListItem>
                   ))}
                 </ul>
@@ -90,6 +108,29 @@ const Titlebar = () => {
           width={215}
           height={92}
         />
+      </div>
+      <div>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className={styles.background}>
+                Socials
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className={styles.navMenu}>
+                <ul className="grid w-[120px] gap-3 p-4">
+                  {socials.map((social) => (
+                    <ListItem
+                      key={social.title}
+                      title={social.title}
+                      href={social.href}
+                      className={styles.items}
+                    ></ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
     </section>
   );
