@@ -26,8 +26,11 @@ const Index: NextPage = () => {
 
         <div>
           <div className={styles.child}>
-            <h1 className={styles.title1}>Virtue</h1>
-            <h1 className={styles.title2}>Movement Co.</h1>
+            <div>
+              <h1 className={styles.title1}>Virtue</h1>
+
+              <h1 className={styles.title2}>Movement Co.</h1>
+            </div>
             <div className={styles.glow}></div>
           </div>
           <div className={styles.homeButtons}>
@@ -54,6 +57,8 @@ const Index: NextPage = () => {
               width={200}
               height={200}
               className={styles.arrow}
+              animate={{ x: [0, 20, 0], offset: 1, y: [0, -20, 0] }}
+              transition={{ repeat: Infinity, duration: 10 }}
             />
             <motion.img
               src={"/other arrow.png"}
@@ -61,6 +66,12 @@ const Index: NextPage = () => {
               width={75}
               height={75}
               className={styles.otherarrow}
+              animate={{
+                x: [0, 10, 0],
+                y: [0, -10, 0],
+                speed: 0.5,
+              }}
+              transition={{ repeat: Infinity, duration: 3 }}
             />
             <motion.img
               src={"/double arrow.png"}
@@ -68,6 +79,8 @@ const Index: NextPage = () => {
               width={30}
               height={30}
               className={styles.doublearrow}
+              animate={{ x: [0, 50, 0], offset: 0.5 }}
+              transition={{ repeat: Infinity, duration: 10 }}
             />
             <motion.img
               src={"/wave 1.png"}
