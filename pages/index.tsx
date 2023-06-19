@@ -55,6 +55,34 @@ const Index: NextPage = () => {
               height={200}
               className={styles.arrow}
             />
+            <motion.img
+              src={"/other arrow.png"}
+              alt={""}
+              width={75}
+              height={75}
+              className={styles.otherarrow}
+            />
+            <motion.img
+              src={"/double arrow.png"}
+              alt={""}
+              width={30}
+              height={30}
+              className={styles.doublearrow}
+            />
+            <motion.img
+              src={"/wave 1.png"}
+              alt={""}
+              width={100}
+              height={100}
+              className={styles.wave1}
+            />
+            <motion.img
+              src={"/wave 2.png"}
+              alt={""}
+              width={200}
+              height={200}
+              className={styles.wave2}
+            />
           </div>
 
           <div>

@@ -63,12 +63,36 @@
   background: #ffffff;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1000px) {
   .title1 {
     font-size: 50px;
   }
   .title2 {
     font-size: 50px;
+  }
+  .arrow {
+    visibility: hidden;
+  }
+  .doublearrow {
+    visibility: hidden;
+  }
+  .otherarrow {
+    visibility: hidden;
+  }
+  .squiggle-1 {
+    visibility: hidden;
+  }
+  .squiggle-2 {
+    visibility: hidden;
+  }
+  .wave1 {
+    visibility: hidden;
+  }
+  .wave2 {
+    visibility: hidden;
+  }
+  .believeInMovement {
+    visibility: hidden;
   }
 }
 
@@ -109,9 +133,10 @@
 
 .homeButtons {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, 300%);
+  z-index: 3;
 }
 
 .child {
@@ -133,5 +158,33 @@
   position: relative;
   left: 80vw;
   top: 30vh;
+  overflow: clip;
+}
+
+.otherarrow {
+  position: absolute;
+  left: 25vw;
+  top: 66vh;
+  overflow: hidden;
+}
+
+.doublearrow {
+  position: relative;
+  left: 20vw;
+  top: 20vh;
+  overflow: clip;
+}
+
+.wave1 {
+  position: relative;
+  left: 25vw;
+  top: -20vh;
+  overflow: clip;
+}
+
+.wave2 {
+  position: relative;
+  left: 18.4vw;
+  top: -20vh;
   overflow: clip;
 }
