@@ -46,6 +46,19 @@ const Index: NextPage = () => {
               TIMETABLE
             </motion.button>
           </div>
+          <div>
+            <motion.img
+              src={"/BELIEVE IN MOVEMENT.png"}
+              alt={""}
+              width={200}
+              height={200}
+              className={styles.believeInMovement}
+              animate={{
+                rotate: [360, 0],
+              }}
+              transition={{ repeat: Infinity, duration: 20 }}
+            />
+          </div>
           <div className={styles.homeImage}>
             <Image src="/homeImage.png" alt="" width={3000} height={3397} />
           </div>
