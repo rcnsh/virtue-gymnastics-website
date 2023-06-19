@@ -115,6 +115,7 @@ const Index: NextPage = () => {
             <Image src="/homeImage.png" alt="" width={3000} height={3397} />
           </div>
           <br />
+          <h1>test</h1>
         </div>
       </motion.div>
     </>
