@@ -46,6 +46,17 @@ const Index: NextPage = () => {
               TIMETABLE
             </motion.button>
           </div>
+
+          <div>
+            <motion.img
+              src={"/arrow.png"}
+              alt={""}
+              width={200}
+              height={200}
+              className={styles.arrow}
+            />
+          </div>
+
           <div>
             <motion.img
               src={"/BELIEVE IN MOVEMENT.png"}

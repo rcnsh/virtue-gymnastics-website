@@ -74,10 +74,9 @@
 
 .arrow {
   position: relative;
-  margin: auto;
-  top: -10rem;
-  left: 60rem;
-  transform: rotate(10deg);
+  left: 65vw;
+  top: 10vh;
+  overflow: clip;
 }
 
 .buttonJoin {
@@ -126,14 +125,13 @@
   position: relative;
   margin: auto;
   width: 100%;
-  top: 60rem;
-
+  top: 25rem;
   overflow: hidden;
 }
 
 .believeInMovement {
   position: relative;
-  left: 75vw;
-  top: 50vh;
+  left: 80vw;
+  top: 30vh;
   overflow: clip;
 }
