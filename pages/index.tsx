@@ -3,6 +3,7 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import LineBreaks from "@/components/line-breaks";
 
 const Index: NextPage = () => {
   return (
@@ -52,7 +53,7 @@ const Index: NextPage = () => {
 
           <div>
             <motion.img
-              src={"/arrow.png"}
+              src={"/home/arrow.png"}
               alt={""}
               width={200}
               height={200}
@@ -61,7 +62,7 @@ const Index: NextPage = () => {
               transition={{ repeat: Infinity, duration: 10 }}
             />
             <motion.img
-              src={"/other arrow.png"}
+              src={"/home/other arrow.png"}
               alt={""}
               width={75}
               height={75}
@@ -74,7 +75,7 @@ const Index: NextPage = () => {
               transition={{ repeat: Infinity, duration: 3 }}
             />
             <motion.img
-              src={"/double arrow.png"}
+              src={"/home/double arrow.png"}
               alt={""}
               width={30}
               height={30}
@@ -83,14 +84,14 @@ const Index: NextPage = () => {
               transition={{ repeat: Infinity, duration: 10 }}
             />
             <motion.img
-              src={"/wave 1.png"}
+              src={"/home/wave 1.png"}
               alt={""}
               width={100}
               height={100}
               className={styles.wave1}
             />
             <motion.img
-              src={"/wave 2.png"}
+              src={"/home/wave 2.png"}
               alt={""}
               width={200}
               height={200}
@@ -100,7 +101,7 @@ const Index: NextPage = () => {
 
           <div>
             <motion.img
-              src={"/BELIEVE IN MOVEMENT.png"}
+              src={"/home/BELIEVE IN MOVEMENT.png"}
               alt={""}
               width={200}
               height={200}
@@ -112,10 +113,91 @@ const Index: NextPage = () => {
             />
           </div>
           <div className={styles.homeImage}>
-            <Image src="/homeImage.png" alt="" width={3000} height={3397} />
+            <Image
+              src="/home/homeImage.png"
+              alt=""
+              width={3000}
+              height={3397}
+            />
           </div>
-          <br />
-          <h1>test</h1>
+          <LineBreaks />
+          <div>
+            <div className={"overflow-hidden"}>
+              <motion.img
+                src={"/home/dots.png"}
+                className={styles.dots1}
+                alt={""}
+                width={200}
+              />
+              <h2 className={styles.getToKnowUs}>GET TO KNOW US</h2>
+              <motion.img
+                src={"/home/dots.png"}
+                className={styles.dots2}
+                alt={""}
+                width={200}
+              />
+            </div>
+            <h5 className={styles.textGetToKnowUs}>
+              Virtue aims to provide opportunities for all! Our members will
+              progress to reach their highest individual standard, in a fun
+              safe, protective environment. Our mission is to increase all round
+              strength, co ordination, agility, balance and fitness whilst
+              enjoying every second. We believe every one can achieve, which in
+              turn fosters confidence, self-discipline and motivation. We
+              believe in movement for all!
+            </h5>
+            <motion.img
+              src={"/home/double arrow bold.png"}
+              alt={""}
+              width={50}
+              className={styles.doubleArrowBold}
+            />
+            <div className={styles.glow2}></div>
+          </div>
+          <div className={"overflow-hidden z-10"}>
+            <h1 className={styles.instagram}>INSTAGRAM</h1>
+            <h1 className={"text-6xl bottom-80 left-28 font-bold relative"}>
+              INSTAGRAM
+            </h1>
+            <motion.img
+              src={"/home/instagram arrow.png"}
+              className={styles.instagramArrow}
+              alt={""}
+              width={100}
+            />
+            <motion.button
+              className={styles.buttonFollow}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              FOLLOW
+            </motion.button>
+          </div>
+          <div className={"container"}>
+            <div className={"flex flex-wrap justify-center"}>
+              <Image
+                src={"/home/promo image 3.png"}
+                alt={""}
+                width={400}
+                height={400}
+                className={`${styles.instagram2} ${styles.promoImages}`}
+              />
+              <Image
+                src={"/home/promo image 1.png"}
+                alt={""}
+                width={400}
+                height={400}
+                className={`${styles.instagram1} ${styles.promoImages}`}
+              />
+              <Image
+                src={"/home/promo image 2.png"}
+                alt={""}
+                width={400}
+                height={400}
+                className={`${styles.instagram3} ${styles.promoImages}`}
+              />
+            </div>
+          </div>
         </div>
       </motion.div>
     </>
