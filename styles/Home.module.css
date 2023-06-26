@@ -300,3 +300,11 @@
 .promoImages:hover {
   opacity: 0.9;
 }
+
+.banner {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  overflow: hidden;
+  top: -5rem;
+}

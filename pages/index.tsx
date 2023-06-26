@@ -198,6 +198,15 @@ const Index: NextPage = () => {
               />
             </div>
           </div>
+          <div className={"overflow-hidden"}>
+            <Image
+              src={"/home/banner.png"}
+              alt={""}
+              width={3000}
+              height={3397}
+              className={styles.banner}
+            />
+          </div>
         </div>
       </motion.div>
     </>
