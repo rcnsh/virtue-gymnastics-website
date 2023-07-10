@@ -214,3 +214,4 @@ const Index: NextPage = () => {
 };
 
 export default Index;
+// TODO: https://www.embla-carousel.com/
