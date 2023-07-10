@@ -4,8 +4,19 @@ import styles from "@/styles/Home.module.css";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import LineBreaks from "@/components/line-breaks";
+import useEmblaCarousel from "embla-carousel-react";
+import { useEffect } from "react";
+import Link from "next/link";
 
 const Index: NextPage = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+
+  useEffect(() => {
+    if (emblaApi) {
+      console.log(emblaApi.slideNodes());
+    }
+  }, [emblaApi]);
+
   return (
     <>
       <motion.div
@@ -208,10 +219,45 @@ const Index: NextPage = () => {
             />
           </div>
         </div>
+        <div>
+          <div
+            className={
+              "w-[100%] text-center text-[80px] xl:text-[100px] 2xl:text-[120px] uppercase leading-none"
+            }
+          >
+            <h1 className={styles.testimonialsTitle}>TESTIMONIALS</h1>
+          </div>
+          <h1 className={"text-7xl bottom-60 left-28 font-bold relative"}>
+            TESTIMONIALS
+          </h1>
+          <div className={styles.leaveAReview}>
+            <Link href={""}>
+              <button
+                className={
+                  "bg-gray-900 hover:bg-gray-800 text-white font-bold py-5 px-5 rounded bottom-60 relative border-white border-2 hover:border-gray-800"
+                }
+              >
+                Leave a review
+              </button>
+            </Link>
+          </div>
+          <div className={styles.viewAllReviews}>
+            <Link href={""}>
+              <button
+                className={
+                  "bg-gray-900 hover:bg-gray-800 text-white font-bold py-5 px-5 rounded bottom-60 relative border-white border-2 hover:border-gray-800"
+                }
+              >
+                View All Reviews
+              </button>
+            </Link>
+          </div>
+        </div>
       </motion.div>
     </>
   );
 };
 
 export default Index;
-// TODO: https://www.embla-carousel.com/
+
+// TODO reminder to use https://www.embla-carousel.com/get-started/react/

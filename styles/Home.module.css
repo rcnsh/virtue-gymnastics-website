@@ -308,3 +308,36 @@
   overflow: hidden;
   top: -5rem;
 }
+
+.testimonialsTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  color: transparent;
+  position: relative;
+  opacity: 0.4;
+  margin: auto;
+  width: 100%;
+  align-self: center;
+  top: -5rem;
+  font-size: 240px;
+  -webkit-text-stroke: thick white;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.leaveAReview {
+  position: relative;
+  margin: auto 10px;
+  width: 12rem;
+  height: 4rem;
+  top: -5rem;
+  left: 70vw;
+}
+
+.viewAllReviews {
+  position: relative;
+  margin: auto 10px;
+  width: 12rem;
+  height: 4rem;
+  top: -9rem;
+  left: 80vw;
+}
