@@ -1,11 +1,17 @@
 import { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import LineBreaks from "@/components/line-breaks";
-import InstagramSection from "@/components/InstagramSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
+const InstagramSection = dynamic(() => import("@/components/InstagramSection"));
+const TestimonialsSection = dynamic(
+  () => import("@/components/TestimonialsSection"),
+  {
+    ssr: false,
+  },
+);
 
 const Index: NextPage = () => {
   return (
