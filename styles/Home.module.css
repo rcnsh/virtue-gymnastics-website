@@ -148,8 +148,7 @@
 
 .homeImage {
   position: relative;
-  margin: auto;
-  width: 100%;
+  width: 100vw;
   top: 25rem;
   overflow: hidden;
 }
@@ -331,6 +330,7 @@
   height: 4rem;
   top: -5rem;
   left: 70vw;
+  overflow: hidden;
 }
 
 .viewAllReviews {
@@ -340,4 +340,5 @@
   height: 4rem;
   top: -9rem;
   left: 80vw;
+  overflow: hidden;
 }

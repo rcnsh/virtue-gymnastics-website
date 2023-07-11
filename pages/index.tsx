@@ -1,22 +1,14 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
+import testimonialStyles from "@/styles/testimonialsCarousel.module.css";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import LineBreaks from "@/components/line-breaks";
 import useEmblaCarousel from "embla-carousel-react";
-import { useEffect } from "react";
 import Link from "next/link";
-
 const Index: NextPage = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
-
-  useEffect(() => {
-    if (emblaApi) {
-      console.log(emblaApi.slideNodes());
-    }
-  }, [emblaApi]);
-
+  const [emblaRef] = useEmblaCarousel({ startIndex: 1 });
   return (
     <>
       <motion.div
@@ -31,12 +23,11 @@ const Index: NextPage = () => {
           ease: "easeInOut",
         }}
       >
-        <Head>
-          <title>virtue-gymnastics</title>
-          <meta name="description" content="Virtue Gymnastics" />
-        </Head>
-
         <div>
+          <Head>
+            <title>virtue-gymnastics</title>
+            <meta name="description" content="Virtue Gymnastics" />
+          </Head>
           <div className={styles.child}>
             <div>
               <h1 className={styles.title1}>Virtue</h1>
@@ -209,7 +200,7 @@ const Index: NextPage = () => {
               />
             </div>
           </div>
-          <div className={"overflow-hidden"}>
+          <div className={"relative bottom-52"}>
             <Image
               src={"/home/banner.png"}
               alt={""}
@@ -227,14 +218,22 @@ const Index: NextPage = () => {
           >
             <h1 className={styles.testimonialsTitle}>TESTIMONIALS</h1>
           </div>
-          <h1 className={"text-7xl bottom-60 left-28 font-bold relative"}>
+          <h1
+            className={
+              "text-7xl bottom-60 left-28 font-bold relative overflow-hidden"
+            }
+          >
             TESTIMONIALS
           </h1>
           <div className={styles.leaveAReview}>
-            <Link href={""}>
+            <Link
+              href={
+                "https://www.google.com/maps/place/Virtue+movement+co./@51.4620734,-1.0170551,17z/data=!4m8!3m7!1s0x48769bbc0776c789:0x26f3bea60b3487ff!8m2!3d51.4620734!4d-1.0144748!9m1!1b1!16s%2Fg%2F11bxfyzhx5"
+              }
+            >
               <button
                 className={
-                  "bg-gray-900 hover:bg-gray-800 text-white font-bold py-5 px-5 rounded bottom-60 relative border-white border-2 hover:border-gray-800"
+                  "bg-gray-900 hover:bg-gray-800 text-white font-bold py-5 px-5 rounded bottom-60 relative border-white border-2 hover:border-gray-800 overflow-hidden"
                 }
               >
                 Leave a review
@@ -242,15 +241,48 @@ const Index: NextPage = () => {
             </Link>
           </div>
           <div className={styles.viewAllReviews}>
-            <Link href={""}>
+            <Link
+              href={
+                "https://www.google.com/maps/place/Virtue+movement+co./@51.4620734,-1.0170551,17z/data=!4m8!3m7!1s0x48769bbc0776c789:0x26f3bea60b3487ff!8m2!3d51.4620734!4d-1.0144748!9m1!1b1!16s%2Fg%2F11bxfyzhx5"
+              }
+            >
               <button
                 className={
-                  "bg-gray-900 hover:bg-gray-800 text-white font-bold py-5 px-5 rounded bottom-60 relative border-white border-2 hover:border-gray-800"
+                  "bg-gray-900 hover:bg-gray-800 text-white font-bold py-5 px-5 rounded bottom-60 relative border-white border-2 hover:border-gray-800 overflow-hidden"
                 }
               >
                 View All Reviews
               </button>
             </Link>
+          </div>
+          <div className={"relative bottom-64 overflow-hidden"}>
+            <div className={"flex align-middle justify-center"}>
+              <div className={testimonialStyles.embla} ref={emblaRef}>
+                <div className={testimonialStyles.embla__container}>
+                  <Image
+                    className={testimonialStyles.embla__slide}
+                    alt={"testimonial1"}
+                    src={"/home/testimonials/testimonial1.png"}
+                    width={500}
+                    height={500}
+                  />
+                  <Image
+                    className={testimonialStyles.embla__slide}
+                    alt={"testimonial2"}
+                    src={"/home/testimonials/testimonial2.png"}
+                    width={500}
+                    height={500}
+                  />
+                  <Image
+                    className={testimonialStyles.embla__slide}
+                    alt={"testimonial3"}
+                    src={"/home/testimonials/testimonial3.png"}
+                    width={500}
+                    height={500}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>
