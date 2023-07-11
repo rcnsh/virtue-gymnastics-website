@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Titlebar from "@/components/Titlebar";
-import Bottombar from "@/components/Bottombar";
+import Footer from "@/components/Footer";
 import { Separator } from "@/components/ui/separator";
 import styles from "@/styles/Layout.module.css";
 
@@ -23,7 +23,7 @@ const Layout = ({ children }: LayoutProps) => {
           </div>
         </div>
       </div>
-      <Bottombar />
+      <Footer />
     </>
   );
 };

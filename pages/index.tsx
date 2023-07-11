@@ -8,7 +8,9 @@ import LineBreaks from "@/components/line-breaks";
 import useEmblaCarousel from "embla-carousel-react";
 import Link from "next/link";
 const Index: NextPage = () => {
-  const [emblaRef] = useEmblaCarousel({ startIndex: 1 });
+  const [emblaRef] = useEmblaCarousel({
+    startIndex: 2,
+  });
   return (
     <>
       <motion.div
@@ -158,7 +160,11 @@ const Index: NextPage = () => {
           </div>
           <div className={"overflow-hidden z-10"}>
             <h1 className={styles.instagram}>INSTAGRAM</h1>
-            <h1 className={"text-6xl bottom-80 left-28 font-bold relative"}>
+            <h1
+              className={
+                "text-6xl bottom-80 left-28 font-bold relative unselectable"
+              }
+            >
               INSTAGRAM
             </h1>
             <motion.img
@@ -213,14 +219,14 @@ const Index: NextPage = () => {
         <div>
           <div
             className={
-              "w-[100%] text-center text-[80px] xl:text-[100px] 2xl:text-[120px] uppercase leading-none"
+              "w-[100%] text-center text-[80px] xl:text-[100px] 2xl:text-[120px] uppercase leading-none unselectable"
             }
           >
             <h1 className={styles.testimonialsTitle}>TESTIMONIALS</h1>
           </div>
           <h1
             className={
-              "text-7xl bottom-60 left-28 font-bold relative overflow-hidden"
+              "text-7xl bottom-60 left-28 font-bold relative overflow-hidden unselectable"
             }
           >
             TESTIMONIALS
@@ -263,22 +269,36 @@ const Index: NextPage = () => {
                     className={testimonialStyles.embla__slide}
                     alt={"testimonial1"}
                     src={"/home/testimonials/testimonial1.png"}
-                    width={500}
-                    height={500}
+                    width={1000}
+                    height={1000}
                   />
                   <Image
                     className={testimonialStyles.embla__slide}
                     alt={"testimonial2"}
                     src={"/home/testimonials/testimonial2.png"}
-                    width={500}
-                    height={500}
+                    width={1000}
+                    height={1000}
                   />
                   <Image
                     className={testimonialStyles.embla__slide}
                     alt={"testimonial3"}
                     src={"/home/testimonials/testimonial3.png"}
-                    width={500}
-                    height={500}
+                    width={1000}
+                    height={1000}
+                  />
+                  <Image
+                    className={testimonialStyles.embla__slide}
+                    alt={"testimonial4"}
+                    src={"/home/testimonials/testimonial4.png"}
+                    width={1000}
+                    height={1000}
+                  />
+                  <Image
+                    className={testimonialStyles.embla__slide}
+                    alt={"testimonial5"}
+                    src={"/home/testimonials/testimonial5.png"}
+                    width={1000}
+                    height={1000}
                   />
                 </div>
               </div>
