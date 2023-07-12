@@ -1,13 +1,13 @@
-import { NextPage } from "next";
-import dynamic from "next/dynamic";
-import Head from "next/head";
-import styles from "@/styles/Home.module.css";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import LineBreaks from "@/components/line-breaks";
-const InstagramSection = dynamic(() => import("@/components/InstagramSection"));
+import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import styles from '@/styles/Home.module.css';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import LineBreaks from '@/components/line-breaks';
+const InstagramSection = dynamic(() => import('@/components/InstagramSection'));
 const TestimonialsSection = dynamic(
-  () => import("@/components/TestimonialsSection"),
+  () => import('@/components/TestimonialsSection'),
   {
     ssr: false,
   },
@@ -25,7 +25,7 @@ const Index: NextPage = () => {
         }}
         transition={{
           duration: 1,
-          ease: "easeInOut",
+          ease: 'easeInOut',
         }}
       >
         <div>
@@ -60,8 +60,8 @@ const Index: NextPage = () => {
 
           <div>
             <motion.img
-              src={"/home/arrow.png"}
-              alt={""}
+              src={'/home/arrow.png'}
+              alt={''}
               width={200}
               height={200}
               className={styles.arrow}
@@ -69,8 +69,8 @@ const Index: NextPage = () => {
               transition={{ repeat: Infinity, duration: 10 }}
             />
             <motion.img
-              src={"/home/other arrow.png"}
-              alt={""}
+              src={'/home/other arrow.png'}
+              alt={''}
               width={75}
               height={75}
               className={styles.otherarrow}
@@ -82,8 +82,8 @@ const Index: NextPage = () => {
               transition={{ repeat: Infinity, duration: 3 }}
             />
             <motion.img
-              src={"/home/double arrow.png"}
-              alt={""}
+              src={'/home/double arrow.png'}
+              alt={''}
               width={30}
               height={30}
               className={styles.doublearrow}
@@ -91,15 +91,15 @@ const Index: NextPage = () => {
               transition={{ repeat: Infinity, duration: 10 }}
             />
             <motion.img
-              src={"/home/wave 1.png"}
-              alt={""}
+              src={'/home/wave 1.png'}
+              alt={''}
               width={100}
               height={100}
               className={styles.wave1}
             />
             <motion.img
-              src={"/home/wave 2.png"}
-              alt={""}
+              src={'/home/wave 2.png'}
+              alt={''}
               width={200}
               height={200}
               className={styles.wave2}
@@ -108,8 +108,8 @@ const Index: NextPage = () => {
 
           <div>
             <motion.img
-              src={"/home/BELIEVE IN MOVEMENT.png"}
-              alt={""}
+              src={'/home/BELIEVE IN MOVEMENT.png'}
+              alt={''}
               width={200}
               height={200}
               className={styles.believeInMovement}
@@ -129,18 +129,18 @@ const Index: NextPage = () => {
           </div>
           <LineBreaks />
           <div>
-            <div className={"overflow-hidden"}>
+            <div className={'overflow-hidden'}>
               <motion.img
-                src={"/home/dots.png"}
+                src={'/home/dots.png'}
                 className={styles.dots1}
-                alt={""}
+                alt={''}
                 width={200}
               />
               <h2 className={styles.getToKnowUs}>GET TO KNOW US</h2>
               <motion.img
-                src={"/home/dots.png"}
+                src={'/home/dots.png'}
                 className={styles.dots2}
-                alt={""}
+                alt={''}
                 width={200}
               />
             </div>
@@ -154,8 +154,8 @@ const Index: NextPage = () => {
               believe in movement for all!
             </h5>
             <motion.img
-              src={"/home/double arrow bold.png"}
-              alt={""}
+              src={'/home/double arrow bold.png'}
+              alt={''}
               width={50}
               className={styles.doubleArrowBold}
             />

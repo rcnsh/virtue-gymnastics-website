@@ -1,7 +1,7 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
-import styles from "../styles/Titlebar.module.css";
+import styles from '../styles/Titlebar.module.css';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,67 +9,67 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/navigation-menu';
+import { cn } from '@/lib/utils';
 const listItems: { title: string; href: string; description: string }[] = [
   {
-    title: "Events/Camps",
-    href: "/events",
-    description: "Events and camps that are happening.",
+    title: 'Events/Camps',
+    href: '/events',
+    description: 'Events and camps that are happening.',
   },
   {
-    title: "FAQS",
-    href: "/faqs",
-    description: "Frequently asked questions.",
+    title: 'FAQS',
+    href: '/faqs',
+    description: 'Frequently asked questions.',
   },
   {
-    title: "Parties",
-    href: "/parties",
-    description: "Book a party or event at Virtue Movement.",
+    title: 'Parties',
+    href: '/parties',
+    description: 'Book a party or event at Virtue Movement.',
   },
   {
-    title: "About Us",
-    href: "/about-us",
-    description: "Learn more about Virtue Movement.",
+    title: 'About Us',
+    href: '/about-us',
+    description: 'Learn more about Virtue Movement.',
   },
   {
-    title: "Member Info",
-    href: "/members",
-    description: "Become a member of Virtue Movement.",
+    title: 'Member Info',
+    href: '/members',
+    description: 'Become a member of Virtue Movement.',
   },
   {
-    title: "Wellfare",
-    href: "/wellfare",
-    description: "Learn more about our wellfare program.",
+    title: 'Wellfare',
+    href: '/wellfare',
+    description: 'Learn more about our wellfare program.',
   },
   {
-    title: "External Hire",
-    href: "/external-hire",
-    description: "Hire Virtue Movement!",
+    title: 'External Hire',
+    href: '/external-hire',
+    description: 'Hire Virtue Movement!',
   },
   {
-    title: "Socials",
-    href: "/socials",
-    description: "Learn more about our socials.",
+    title: 'Socials',
+    href: '/socials',
+    description: 'Learn more about our socials.',
   },
 ];
 
 const socials: { title: string; href: string }[] = [
   {
-    title: "Facebook",
-    href: "https://www.facebook.com/virtuegymnastics/",
+    title: 'Facebook',
+    href: 'https://www.facebook.com/virtuegymnastics/',
   },
   {
-    title: "Instagram",
-    href: "https://www.instagram.com/virtuegymnastics/",
+    title: 'Instagram',
+    href: 'https://www.instagram.com/virtuegymnastics/',
   },
   {
-    title: "Twitter",
-    href: "https://twitter.com/virtuegymnastic",
+    title: 'Twitter',
+    href: 'https://twitter.com/virtuegymnastic',
   },
   {
-    title: "Youtube",
-    href: "https://www.youtube.com/channel/UCbsY0WKc8xcVGJAq3y_I7Vg",
+    title: 'Youtube',
+    href: 'https://www.youtube.com/channel/UCbsY0WKc8xcVGJAq3y_I7Vg',
   },
 ];
 
@@ -103,8 +103,8 @@ const Titlebar = () => {
       </div>
       <div className={styles.logo}>
         <Image
-          src={"/virtue-icon.png"}
-          alt={"Virtue Icon"}
+          src={'/virtue-icon.png'}
+          alt={'Virtue Icon'}
           width={215}
           height={92}
         />
@@ -136,8 +136,8 @@ const Titlebar = () => {
   );
 };
 const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>
@@ -145,7 +145,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
             className,
           )}
           {...props}
@@ -159,6 +159,6 @@ const ListItem = React.forwardRef<
     </li>
   );
 });
-ListItem.displayName = "ListItem";
+ListItem.displayName = 'ListItem';
 
 export default Titlebar;
