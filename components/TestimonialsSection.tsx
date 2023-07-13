@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import styles from '@/styles/TestimonialsSection.module.css';
 import testimonialStyles from '@/styles/testimonialsCarousel.module.css';
 import Link from 'next/link';
@@ -58,40 +57,30 @@ const TestimonialsSection = () => {
         <div className={'flex align-middle justify-center'}>
           <div className={testimonialStyles.embla} ref={emblaRef}>
             <div className={testimonialStyles.embla__container}>
-              <Image
+              <img
                 className={testimonialStyles.embla__slide}
                 alt={'testimonial1'}
                 src={'/home/testimonials/testimonial1.png'}
-                width={1000}
-                height={1000}
               />
-              <Image
+              <img
                 className={testimonialStyles.embla__slide}
                 alt={'testimonial2'}
                 src={'/home/testimonials/testimonial2.png'}
-                width={1000}
-                height={1000}
               />
-              <Image
+              <img
                 className={testimonialStyles.embla__slide}
                 alt={'testimonial3'}
                 src={'/home/testimonials/testimonial3.png'}
-                width={1000}
-                height={1000}
               />
-              <Image
+              <img
                 className={testimonialStyles.embla__slide}
                 alt={'testimonial4'}
                 src={'/home/testimonials/testimonial4.png'}
-                width={1000}
-                height={1000}
               />
-              <Image
+              <img
                 className={testimonialStyles.embla__slide}
                 alt={'testimonial5'}
                 src={'/home/testimonials/testimonial5.png'}
-                width={1000}
-                height={1000}
               />
             </div>
           </div>
