@@ -28,29 +28,32 @@ const InstagramSection = () => {
           FOLLOW
         </motion.button>
       </div>
-      <div className={'container'}>
+      <div className={'container unselectable'}>
         <div className={'flex flex-wrap justify-center'}>
-          <Image
-            src={'/home/promo image 3.png'}
-            alt={''}
-            width={400}
-            height={400}
-            className={`${styles.instagram2} ${styles.promoImages}`}
-          />
-          <Image
-            src={'/home/promo image 1.png'}
-            alt={''}
-            width={400}
-            height={400}
-            className={`${styles.instagram1} ${styles.promoImages}`}
-          />
-          <Image
-            src={'/home/promo image 2.png'}
-            alt={''}
-            width={400}
-            height={400}
-            className={`${styles.instagram3} ${styles.promoImages}`}
-          />
+          <div className={styles.instagram2}>
+            <Image
+              src={'/home/promo image 3.png'}
+              alt={''}
+              width={400}
+              height={400}
+            />
+          </div>
+          <div className={styles.instagram1}>
+            <Image
+              src={'/home/promo image 1.png'}
+              alt={''}
+              width={400}
+              height={400}
+            />
+          </div>
+          <div className={styles.instagram3}>
+            <Image
+              src={'/home/promo image 2.png'}
+              alt={''}
+              width={400}
+              height={400}
+            />
+          </div>
         </div>
       </div>
       <div className={'relative bottom-52'}>

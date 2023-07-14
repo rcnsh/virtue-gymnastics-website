@@ -153,6 +153,7 @@
   width: 100vw;
   top: 25rem;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .believeInMovement {

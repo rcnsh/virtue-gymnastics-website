@@ -119,12 +119,13 @@ const Index: NextPage = () => {
               transition={{ repeat: Infinity, duration: 20 }}
             />
           </div>
-          <div className={styles.homeImage}>
+          <div className={'grid'}>
             <Image
               src="/home/homeImage.png"
               alt=""
               width={3000}
               height={3397}
+              className={styles.homeImage}
             />
           </div>
           <LineBreaks />

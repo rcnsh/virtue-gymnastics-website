@@ -1,5 +1,4 @@
 import styles from '@/styles/TestimonialsSection.module.css';
-import testimonialStyles from '@/styles/testimonialsCarousel.module.css';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 
@@ -55,30 +54,30 @@ const TestimonialsSection = () => {
       </div>
       <section className={'relative bottom-64 overflow-hidden'}>
         <div className={'flex align-middle justify-center'}>
-          <div className={testimonialStyles.embla} ref={emblaRef}>
-            <div className={testimonialStyles.embla__container}>
+          <div className={'embla'} ref={emblaRef}>
+            <div className={'embla__container'}>
               <img
-                className={testimonialStyles.embla__slide}
+                className={'embla__slide'}
                 alt={'testimonial1'}
                 src={'/home/testimonials/testimonial1.png'}
               />
               <img
-                className={testimonialStyles.embla__slide}
+                className={'embla__slide'}
                 alt={'testimonial2'}
                 src={'/home/testimonials/testimonial2.png'}
               />
               <img
-                className={testimonialStyles.embla__slide}
+                className={'embla__slide'}
                 alt={'testimonial3'}
                 src={'/home/testimonials/testimonial3.png'}
               />
               <img
-                className={testimonialStyles.embla__slide}
+                className={'embla__slide'}
                 alt={'testimonial4'}
                 src={'/home/testimonials/testimonial4.png'}
               />
               <img
-                className={testimonialStyles.embla__slide}
+                className={'embla__slide'}
                 alt={'testimonial5'}
                 src={'/home/testimonials/testimonial5.png'}
               />
