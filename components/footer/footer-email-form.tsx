@@ -5,13 +5,13 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useState } from 'react';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -20,6 +20,9 @@ const formSchema = z.object({
 });
 
 export const FooterEmailForm = () => {
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,7 +33,28 @@ export const FooterEmailForm = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
     console.log(values);
+
+    fetch('/api/footer-send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+      .then((r) => {
+        if (r.ok) {
+          setSubmitted(true);
+          form.reset();
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+        alert('Something went wrong, please try again later.');
+      });
+
+    setLoading(false);
   }
 
   return (
@@ -41,18 +65,53 @@ export const FooterEmailForm = () => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input
+                  placeholder="Name"
+                  {...field}
+                  className={'bg-transparent m-1'}
+                />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  placeholder="Email"
+                  {...field}
+                  className={'bg-transparent m-1'}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="message"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Textarea
+                  placeholder="Message"
+                  {...field}
+                  className={'bg-transparent m-1'}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" disabled={loading}>
+          {loading ? 'Submitting...' : 'Submit'}
+        </Button>
+        {submitted && <p>Thanks, your message was sent!</p>}
       </form>
     </Form>
   );

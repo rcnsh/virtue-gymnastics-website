@@ -302,3 +302,13 @@ body {
   right: 0;
   bottom: 0;
 }
+
+.centre {
+  width: 100vw;
+}
+
+.centre-inner {
+  margin: auto;
+  width: 50%;
+  padding-top: 1rem;
+}

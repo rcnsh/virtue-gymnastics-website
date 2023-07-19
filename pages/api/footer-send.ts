@@ -5,16 +5,18 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const { name, email, message } = req.body;
+
   try {
     const data = await resend.emails.send({
-      from: 'Virtue-Test <onboarding@resend.dev>',
-      text: 'Hello world',
+      from: 'Virtue Website Enquiry <onboarding@resend.dev>',
+      text: 'Virtue Email',
       to: ['jacobjameswiltshire@protonmail.com'],
-      subject: 'Hello world',
+      subject: 'New Enquiry from Virtue Website',
       react: EmailTemplate({
-        Name: 'John',
-        Email: 'email',
-        Message: 'message',
+        Name: name,
+        Email: email,
+        Message: message,
       }),
     });
 

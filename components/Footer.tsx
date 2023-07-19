@@ -51,8 +51,11 @@ const Footer = () => {
       </main>
       <main>
         <section>
-          <div className={'grid centre'}>
-            <h5 className={'text-5xl centre-inner'}>LETS CHAT</h5>
+          <div className={'flex centre'}>
+            <div className={'centre-inner'}>
+              <h5 className={'text-5xl m-5'}>LETS CHAT</h5>
+              <FooterEmailForm />
+            </div>
           </div>
         </section>
       </main>
