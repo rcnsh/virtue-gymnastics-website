@@ -69,7 +69,9 @@ export const FooterEmailForm = () => {
                 <Input
                   placeholder="Name"
                   {...field}
-                  className={'bg-transparent m-1'}
+                  className={
+                    'bg-transparent m-1 border-0 underline-footer-form'
+                  }
                 />
               </FormControl>
               <FormMessage />
@@ -85,7 +87,9 @@ export const FooterEmailForm = () => {
                 <Input
                   placeholder="Email"
                   {...field}
-                  className={'bg-transparent m-1'}
+                  className={
+                    'bg-transparent m-1 border-0 underline-footer-form'
+                  }
                 />
               </FormControl>
               <FormMessage />
@@ -101,7 +105,9 @@ export const FooterEmailForm = () => {
                 <Textarea
                   placeholder="Message"
                   {...field}
-                  className={'bg-transparent m-1'}
+                  className={
+                    'bg-transparent m-1 border-0 resize-none underline-footer-form'
+                  }
                 />
               </FormControl>
               <FormMessage />
