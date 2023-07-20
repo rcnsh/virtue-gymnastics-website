@@ -1,6 +1,7 @@
 import styles from '@/styles/TestimonialsSection.module.css';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
+import Image from 'next/image';
 
 const TestimonialsSection = () => {
   const [emblaRef] = useEmblaCarousel({
@@ -56,30 +57,50 @@ const TestimonialsSection = () => {
         <div className={'flex align-middle justify-center'}>
           <div className={'embla'} ref={emblaRef}>
             <div className={'embla__container'}>
-              <img
+              <Image
                 className={'embla__slide'}
                 alt={'testimonial1'}
                 src={'/home/testimonials/testimonial1.png'}
+                width={500}
+                height={500}
+                loading={'eager'}
+                priority={true}
               />
-              <img
+              <Image
                 className={'embla__slide'}
                 alt={'testimonial2'}
                 src={'/home/testimonials/testimonial2.png'}
+                width={500}
+                height={500}
+                loading={'eager'}
+                priority={true}
               />
-              <img
+              <Image
                 className={'embla__slide'}
                 alt={'testimonial3'}
                 src={'/home/testimonials/testimonial3.png'}
+                width={500}
+                height={500}
+                loading={'eager'}
+                priority={true}
               />
-              <img
+              <Image
                 className={'embla__slide'}
                 alt={'testimonial4'}
                 src={'/home/testimonials/testimonial4.png'}
+                width={500}
+                height={500}
+                loading={'eager'}
+                priority={true}
               />
-              <img
+              <Image
                 className={'embla__slide'}
                 alt={'testimonial5'}
                 src={'/home/testimonials/testimonial5.png'}
+                width={500}
+                height={500}
+                loading={'eager'}
+                priority={true}
               />
             </div>
           </div>
