@@ -5,6 +5,7 @@ import styles from '@/styles/Home.module.css';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import LineBreaks from '@/components/line-breaks';
+import Link from 'next/link';
 const InstagramSection = dynamic(() => import('@/components/InstagramSection'));
 const TestimonialsSection = dynamic(
   () => import('@/components/TestimonialsSection'),
@@ -121,7 +122,23 @@ const Index: NextPage = () => {
               transition={{ repeat: Infinity, duration: 20 }}
             />
           </div>
-          <div className={'grid'}>
+          <div className={'container'}>
+            <div className={'flex w-[100vw]'}>
+              <Link
+                className={
+                  ' h-[10rem] z-10 w-[74.1vw] relative top-[50rem] bg-transparent'
+                }
+                href={'/events'}
+              >
+                Events/Camps
+              </Link>
+              <Link
+                className={' h-[10rem] z-10 w-[100vw] relative centre-inner'}
+                href={'/faq'}
+              >
+                FAQs
+              </Link>
+            </div>
             <Image
               src="/home/homeImage.png"
               alt=""

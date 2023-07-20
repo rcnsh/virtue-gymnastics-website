@@ -154,6 +154,8 @@
   top: 25rem;
   overflow: hidden;
   margin: 0 auto;
+  z-index: 1;
+  display: block;
 }
 
 .believeInMovement {
