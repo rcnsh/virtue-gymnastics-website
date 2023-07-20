@@ -11,7 +11,7 @@ import {
 
 const Footer = () => {
   return (
-    <main>
+    <main className={'w-[100vw]'}>
       <main className={'container'}>
         <section>
           <Image
@@ -61,6 +61,15 @@ const Footer = () => {
             <h5 className={'text-5xl m-auto w-1/3'}>LETS CHAT</h5>
             <FooterEmailForm />
           </div>
+          <Image
+            src={'/home/BELIEVE IN MOVEMENT.png'}
+            alt={''}
+            width={200}
+            height={200}
+            className={
+              'relative float-right top-[5rem] right-[5rem] w-[8rem] h-[8rem]'
+            }
+          />
         </div>
       </section>
       <section>

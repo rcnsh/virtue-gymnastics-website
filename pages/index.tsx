@@ -17,6 +17,7 @@ const Index: NextPage = () => {
   return (
     <>
       <motion.main
+        className={'w-[100vw]'}
         initial={{
           opacity: 0,
         }}
