@@ -105,7 +105,8 @@ const Index: NextPage = () => {
               className={styles.wave2}
             />
           </div>
-
+          <br />
+          <br />
           <div>
             <motion.img
               src={'/home/BELIEVE IN MOVEMENT.png'}
