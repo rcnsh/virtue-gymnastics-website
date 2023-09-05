@@ -5,7 +5,10 @@ import styles from '@/styles/Home.module.css';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import LineBreaks from '@/components/line-breaks';
-import Link from 'next/link';
+import { useAuth } from '@clerk/nextjs';
+import { useEffect } from 'react';
+import { app } from '@/pages/api/firebaseConfig';
+import { getAuth, signInWithCustomToken } from '@firebase/auth';
 const InstagramSection = dynamic(() => import('@/components/InstagramSection'));
 const TestimonialsSection = dynamic(
   () => import('@/components/TestimonialsSection'),
@@ -15,6 +18,29 @@ const TestimonialsSection = dynamic(
 );
 
 const Index: NextPage = () => {
+  const { getToken } = useAuth();
+
+  useEffect(() => {
+    const signInWithClerk = async () => {
+      const auth = getAuth(app);
+
+      try {
+        const token = await getToken({ template: 'integration_firebase' });
+        if (!token) {
+          return;
+        }
+        const userCredentials = await signInWithCustomToken(auth, token);
+        console.log('User signed in successfully:', userCredentials.user);
+      } catch (error) {
+        console.log('An error occurred:', error);
+      }
+    };
+
+    signInWithClerk().catch((error) => {
+      console.log('An error occurred:', error);
+    });
+  }, [getToken]);
+
   return (
     <>
       <motion.main
@@ -123,22 +149,6 @@ const Index: NextPage = () => {
             />
           </div>
           <div className={'container'}>
-            <div className={'flex w-[100vw]'}>
-              <Link
-                className={
-                  ' h-[10rem] z-10 w-[74.1vw] relative top-[50rem] bg-transparent'
-                }
-                href={'/events'}
-              >
-                Events/Camps
-              </Link>
-              <Link
-                className={' h-[10rem] z-10 w-[100vw] relative centre-inner'}
-                href={'/faq'}
-              >
-                FAQs
-              </Link>
-            </div>
             <Image
               src="/home/homeImage.png"
               alt=""
