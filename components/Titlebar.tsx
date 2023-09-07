@@ -16,6 +16,11 @@ import { Button } from '@/components/ui/button';
 
 const listItems: { title: string; href: string; description: string }[] = [
   {
+    title: 'Home',
+    href: '/',
+    description: "Virtue's Home Page.",
+  },
+  {
     title: 'Events/Camps',
     href: '/events',
     description: 'Events and camps that are happening.',
@@ -31,20 +36,11 @@ const listItems: { title: string; href: string; description: string }[] = [
     description: 'Book a party or event at Virtue Movement.',
   },
   {
-    title: 'About Us',
-    href: '/about-us',
-    description: 'Learn more about Virtue Movement.',
-  },
-  {
     title: 'Member Info',
     href: '/members',
     description: 'Become a member of Virtue Movement.',
   },
-  {
-    title: 'Wellfare',
-    href: '/wellfare',
-    description: 'Learn more about our wellfare program.',
-  },
+
   {
     title: 'External Hire',
     href: '/external-hire',
@@ -54,6 +50,11 @@ const listItems: { title: string; href: string; description: string }[] = [
     title: 'Socials',
     href: '/socials',
     description: 'Learn more about our socials.',
+  },
+  {
+    title: 'About Us',
+    href: '/about-us',
+    description: 'Learn more about Virtue Movement.',
   },
 ];
 
