@@ -3,7 +3,7 @@
 To get started, run:
 
 ```bash
-bun dev
+bun run dev
 ```
 
 ## Scripts
