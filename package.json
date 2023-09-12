@@ -60,6 +60,7 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "autoprefixer": "^10.4.15",
     "eslint-config-prettier": "^9.0.0",
     "husky": ">=8",

@@ -5,6 +5,12 @@ const Calendar: NextPage = () => {
   return (
     <div>
       <Timetable />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };
