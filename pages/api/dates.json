@@ -1,6 +1,14 @@
 [
   {
-    "title": "test",
-    "start": 1994
+    "title": "Event 1",
+    "start": "2023-09-15T10:00:00"
+  },
+  {
+    "title": "Event 2",
+    "start": "2023-09-16T14:30:00"
+  },
+  {
+    "title": "Event 3",
+    "start": "2023-09-17T09:45:00"
   }
 ]

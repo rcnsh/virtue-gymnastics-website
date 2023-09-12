@@ -3,8 +3,14 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import adaptivePlugin from '@fullcalendar/adaptive';
 import styles from '@/styles/Timetable.module.css';
+import dates from '@/pages/api/dates.json';
 
 export default function Timetable() {
+  const events = dates.map((event) => ({
+    title: event.title,
+    start: new Date(event.start),
+  }));
+
   return (
     <div className={styles.calendar}>
       <FullCalendar
@@ -20,7 +26,12 @@ export default function Timetable() {
         editable={false}
         selectable={true}
         selectMirror={true}
-        events={[{ title: 'nice event', start: new Date() }]}
+        events={events}
+        eventTimeFormat={{
+          hour: 'numeric',
+          minute: '2-digit',
+          meridiem: false,
+        }}
       />
     </div>
   );
