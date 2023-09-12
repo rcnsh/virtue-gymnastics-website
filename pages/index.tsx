@@ -9,6 +9,7 @@ import { useAuth } from '@clerk/nextjs';
 import { useEffect } from 'react';
 import { app } from '@/pages/api/firebaseConfig';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
+import Link from 'next/link';
 const InstagramSection = dynamic(() => import('@/components/InstagramSection'));
 const TestimonialsSection = dynamic(
   () => import('@/components/TestimonialsSection'),
@@ -77,13 +78,15 @@ const Index: NextPage = () => {
             >
               JOIN THE FAMILY
             </motion.button>
-            <motion.button
-              className={styles.buttonTimetable}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              TIMETABLE
-            </motion.button>
+            <Link href={'/calendar'}>
+              <motion.button
+                className={styles.buttonTimetable}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                TIMETABLE
+              </motion.button>
+            </Link>
           </div>
 
           <div>
