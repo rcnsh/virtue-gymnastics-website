@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import Titlebar from '@/components/Titlebar';
 import Footer from '@/components/Footer';
 import { Separator } from '@/components/ui/separator';
+import { motion } from 'framer-motion';
 
 interface LayoutProps {
   children: ReactNode;
@@ -10,13 +11,27 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      <br />
-      <Titlebar />
-      <br />
-      <br />
-      <Separator />
-      {children}
-      <Footer />
+      <motion.main
+        className={'w-[100vw]'}
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
+        transition={{
+          duration: 1,
+          ease: 'easeInOut',
+        }}
+      >
+        <br />
+        <Titlebar />
+        <br />
+        <br />
+        <Separator />
+        {children}
+        <Footer />
+      </motion.main>
     </>
   );
 };

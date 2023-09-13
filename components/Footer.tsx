@@ -15,7 +15,7 @@ const Footer = () => {
       <main className={'container'}>
         <section>
           <Image
-            src={'/footer/footer imgs.png'}
+            src={'/footer/footer imgs.webp'}
             alt={'promo image 1'}
             width={600}
             height={600}
@@ -62,7 +62,7 @@ const Footer = () => {
             <FooterEmailForm />
           </div>
           <Image
-            src={'/home/BELIEVE IN MOVEMENT.png'}
+            src={'/home/BELIEVE IN MOVEMENT.webp'}
             alt={''}
             width={200}
             height={200}
@@ -75,7 +75,7 @@ const Footer = () => {
       <section>
         <div className={'flex w-[100vw]'}>
           <Image
-            src={'/footer/bottom card.png'}
+            src={'/footer/bottom card.webp'}
             alt={'policies card'}
             width={600}
             height={600}
@@ -84,7 +84,7 @@ const Footer = () => {
         </div>
       </section>
       <Image
-        src={'/home/scribble.png'}
+        src={'/home/scribble.webp'}
         alt={'scribble deco'}
         className={'relative float-right w-[10vw] top-[15rem] right-[35vw]'}
         width={200}
@@ -124,7 +124,7 @@ const Footer = () => {
             </div>
           </div>
           <img
-            src={'/footer/double wave.png'}
+            src={'/footer/double wave.webp'}
             alt={'duel wave decoration'}
             className={'w-[15vw] my-20'}
           />

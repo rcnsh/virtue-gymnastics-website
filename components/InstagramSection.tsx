@@ -15,7 +15,7 @@ const InstagramSection = () => {
           INSTAGRAM
         </h1>
         <motion.img
-          src={'/home/instagram arrow.png'}
+          src={'/home/instagram arrow.webp'}
           className={styles.instagramArrow}
           alt={''}
           width={100}
@@ -32,7 +32,7 @@ const InstagramSection = () => {
         <div className={'flex flex-wrap justify-center'}>
           <div className={styles.instagram2}>
             <Image
-              src={'/home/promo image 3.png'}
+              src={'/home/promo image 3.webp'}
               alt={''}
               width={400}
               height={400}
@@ -40,7 +40,7 @@ const InstagramSection = () => {
           </div>
           <div className={styles.instagram1}>
             <Image
-              src={'/home/promo image 1.png'}
+              src={'/home/promo image 1.webp'}
               alt={''}
               width={400}
               height={400}
@@ -48,7 +48,7 @@ const InstagramSection = () => {
           </div>
           <div className={styles.instagram3}>
             <Image
-              src={'/home/promo image 2.png'}
+              src={'/home/promo image 2.webp'}
               alt={''}
               width={400}
               height={400}
@@ -58,7 +58,7 @@ const InstagramSection = () => {
       </div>
       <div className={'relative bottom-52'}>
         <Image
-          src={'/home/banner.png'}
+          src={'/home/banner.webp'}
           alt={''}
           width={3000}
           height={3397}
