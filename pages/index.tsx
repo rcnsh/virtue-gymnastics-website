@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import { motion } from 'framer-motion';
@@ -10,13 +9,8 @@ import { useEffect } from 'react';
 import { app } from '@/pages/api/firebaseConfig';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
 import Link from 'next/link';
-const InstagramSection = dynamic(() => import('@/components/InstagramSection'));
-const TestimonialsSection = dynamic(
-  () => import('@/components/TestimonialsSection'),
-  {
-    ssr: false,
-  },
-);
+import InstagramSection from '@/components/InstagramSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
 
 const Index: NextPage = () => {
   const { getToken } = useAuth();

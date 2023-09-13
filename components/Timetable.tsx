@@ -8,7 +8,9 @@ import dates from '@/pages/api/dates.json';
 export default function Timetable() {
   const events = dates.map((event) => ({
     title: event.title,
-    start: new Date(event.start),
+    startTime: event.startTime,
+    endTime: event.endTime,
+    daysOfWeek: event.daysOfWeek,
   }));
 
   return (
@@ -21,8 +23,8 @@ export default function Timetable() {
           center: 'title',
           right: 'dayGridMonth,timeGridWeek',
         }}
-        initialView="dayGridMonth"
-        nowIndicator={true}
+        initialView="timeGridWeek"
+        nowIndicator={false}
         editable={false}
         selectable={true}
         selectMirror={true}
