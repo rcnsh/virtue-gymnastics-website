@@ -824,6 +824,13 @@
     "@fullcalendar/scrollgrid" "~6.1.8"
     "@fullcalendar/timeline" "~6.1.8"
 
+"@fullcalendar/resource@^6.1.8":
+  version "6.1.8"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/resource/-/resource-6.1.8.tgz#2f3616b8616a86abba62fef63cfba6ab468930d1"
+  integrity sha512-xwRqPdPyJu0PRo7JwRd0OcHBYdcD7AstMczyUKe4JJ+nEpn2qrmidwX+Pk+Ceg/3c/EvcX07wtxkyBBl3LLRVg==
+  dependencies:
+    "@fullcalendar/premium-common" "~6.1.8"
+
 "@fullcalendar/scrollgrid@~6.1.8":
   version "6.1.8"
   resolved "https://registry.yarnpkg.com/@fullcalendar/scrollgrid/-/scrollgrid-6.1.8.tgz#04246ba9cd09379a083e6ef792ef913ce1373ae5"
