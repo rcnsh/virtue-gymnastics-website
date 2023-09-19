@@ -11,40 +11,19 @@
     0 0 1000px #fff;
 }
 
-.title1 {
+.title {
   position: relative;
   margin: auto;
   width: 100%;
-  max-width: 25rem;
   font-family: 'Cabin', sans-serif;
   font-style: normal;
   font-weight: 800;
   font-size: 100px;
   line-height: 140px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  text-align: center;
   text-transform: uppercase;
-  color: #ffffff;
-}
-
-.title2 {
-  position: relative;
-  margin: auto;
-  width: 100%;
-  max-width: 50rem;
-  font-family: 'Cabin', sans-serif;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 100px;
-  line-height: 140px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
   text-align: center;
-  text-transform: uppercase;
   color: #ffffff;
+  top: -2.5rem;
 }
 
 .squiggle-1 {
