@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { FooterEmailForm } from '@/components/footer/footer-email-form';
 import {
   BiLogoFacebook,
-  BiLogoTiktok,
   BiLogoYoutube,
   BiLogoInstagram,
+  BiLogoWhatsapp,
 } from 'react-icons/bi';
 
 const Footer = () => {
@@ -79,7 +79,7 @@ const Footer = () => {
             alt={'policies card'}
             width={600}
             height={600}
-            className={'w-[100vw] my-20'}
+            className={'w-[75vw] my-20 relative overflow-hidden m-auto'}
           />
         </div>
       </section>
@@ -117,10 +117,22 @@ const Footer = () => {
           <div>
             <h5 className={'text-3xl'}>SOCIAL MEDIA LINKS</h5>
             <div className={'flex p-5 space-x-10'}>
-              <BiLogoFacebook className={'border-2 border-white w-8 h-8'} />
-              <BiLogoInstagram className={'border-2 border-white w-8 h-8'} />
-              <BiLogoTiktok className={'border-2 border-white w-8 h-8'} />
-              <BiLogoYoutube className={'border-2 border-white w-8 h-8'} />
+              <Link href={'https://www.facebook.com/virtuemovementco'}>
+                <BiLogoFacebook className={'border-2 border-white w-8 h-8'} />
+              </Link>
+              <Link href={'https://instagram.com/virtuemovementco'}>
+                <BiLogoInstagram className={'border-2 border-white w-8 h-8'} />
+              </Link>
+              <Link href={'https://api.whatsapp.com/send?phone=7715306363'}>
+                <BiLogoWhatsapp className={'border-2 border-white w-8 h-8'} />
+              </Link>
+              <Link
+                href={
+                  'https://www.youtube.com/channel/UCbsY0WKc8xcVGJAq3y_I7Vg'
+                }
+              >
+                <BiLogoYoutube className={'border-2 border-white w-8 h-8'} />
+              </Link>
             </div>
           </div>
           <img

@@ -11,3 +11,13 @@
     inset 0 0 50px #fff,
     0 0 1000px #fff;
 }
+
+.footerImage {
+  position: relative;
+  width: 100vw;
+  top: 26rem;
+  overflow: hidden;
+  margin: 0 auto;
+  z-index: 1;
+  display: block;
+}

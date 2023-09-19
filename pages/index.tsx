@@ -20,8 +20,7 @@ const TestimonialsSection = dynamic(
 );
 
 const Index: NextPage = () => {
-  const { getToken, userId } = useAuth();
-
+  const { getToken, userId, isLoaded } = useAuth();
   useEffect(() => {
     const signInWithClerk = async () => {
       const auth = getAuth(app);
@@ -38,7 +37,7 @@ const Index: NextPage = () => {
     signInWithClerk().catch((error) => {
       console.log('An error occurred:', error);
     });
-  }, [getToken, userId]);
+  }, [getToken, userId, isLoaded]);
 
   return (
     <>
