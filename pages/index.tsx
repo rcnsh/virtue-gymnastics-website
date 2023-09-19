@@ -58,8 +58,8 @@ const Index: NextPage = () => {
           >
             Virtue Movement Co.
           </AnimatedText>
+          <div className={styles.glow} />
         </div>
-        <div className={styles.glow}></div>
       </div>
       <div className={styles.homeButtons}>
         <Link href={'/booking'}>
