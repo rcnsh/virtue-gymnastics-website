@@ -4,8 +4,7 @@ import { getAuth, signInWithCustomToken } from '@firebase/auth';
 import { app } from '@/pages/api/firebaseConfig';
 import Head from 'next/head';
 import NewBookingForm from '@/components/NewBookingForm';
-
-function Booking() {
+function NewBooking() {
   const { getToken, userId } = useAuth();
 
   useEffect(() => {
@@ -32,9 +31,23 @@ function Booking() {
         <title>Virtue Gymnastics - Booking</title>
         <meta name="description" content="Virtue Gymnastics" />
       </Head>
-      <div></div>
+      <div className={'m-auto w-max'}>
+        <h1 className={'text-6xl font-bold text-white leading-tight'}>
+          Booking
+        </h1>
+        <br />
+        <br />
+        <div className={'w-[80vw]'}>
+          <NewBookingForm />
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
     </>
   );
 }
 
-export default Booking;
+export default NewBooking;
