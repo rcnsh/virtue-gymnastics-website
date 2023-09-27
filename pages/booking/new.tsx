@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
 import { app } from '@/pages/api/firebaseConfig';
 import Head from 'next/head';
-import ParentDetails from '@/components/ParentDetails';
+import BookingForm from '@/components/booking/BookingForm';
 function NewBooking() {
   const { getToken, userId } = useAuth();
 
@@ -38,7 +38,7 @@ function NewBooking() {
         <br />
         <br />
         <div className={'w-[80vw]'}>
-          <ParentDetails />
+          <BookingForm />
         </div>
         <br />
         <br />

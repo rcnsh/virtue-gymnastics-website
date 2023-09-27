@@ -312,3 +312,7 @@ body {
 .underline-footer-form {
   border-bottom: 1px solid #ffffff;
 }
+
+.rdp-vhidden {
+  @apply hidden;
+}
