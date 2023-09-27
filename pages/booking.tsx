@@ -3,8 +3,6 @@ import React, { useEffect } from 'react';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
 import { app } from '@/pages/api/firebaseConfig';
 import Head from 'next/head';
-import NewBookingForm from '@/components/NewBookingForm';
-
 function Booking() {
   const { getToken, userId } = useAuth();
 
