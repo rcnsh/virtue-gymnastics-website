@@ -70,7 +70,7 @@ export const FooterEmailForm = () => {
                   placeholder="Name"
                   {...field}
                   className={
-                    'bg-transparent m-1 border-0 underline-footer-form'
+                    'bg-transparent m-1 border-0 underline-footer-form outline-white'
                   }
                 />
               </FormControl>

@@ -73,6 +73,7 @@
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.279.0",
     "next": "13.5.3",
+    "next-themes": "^0.2.1",
     "popmotion": "^11.0.5",
     "react": "18.2.0",
     "react-animated-text-content": "^1.0.1",

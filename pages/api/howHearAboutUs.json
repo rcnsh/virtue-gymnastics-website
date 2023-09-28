@@ -1,0 +1,34 @@
+[
+  {
+    "id": "none",
+    "name": "(None)"
+  },
+  {
+    "id": "wom",
+    "name": "word of mouth"
+  },
+  {
+    "id": "social",
+    "name": "social media"
+  },
+  {
+    "id": "flyer",
+    "name": "flyer or leaflet"
+  },
+  {
+    "id": "internet",
+    "name": "internet search"
+  },
+  {
+    "id": "display",
+    "name": "display/showcase"
+  },
+  {
+    "id": "returning",
+    "name": "returning student"
+  },
+  {
+    "id": "other",
+    "name": "other"
+  }
+]

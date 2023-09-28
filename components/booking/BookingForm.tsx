@@ -2,6 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { Check, ChevronsUpDown } from 'lucide-react';
+import conditions from '@/pages/api/conditions.json';
+import howHearAboutUs from '@/pages/api/howHearAboutUs.json';
+import days from '@/pages/api/daysOfTheWeek.json';
+import preferredClasses from '@/pages/api/preferredClasses.json';
 import {
   Form,
   FormField,
@@ -27,6 +31,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+
 import { Switch } from '@/components/ui/switch';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -82,8 +95,8 @@ const FormSchema = z.object({
   studentMedicalConditions: z.array(z.string()).optional(),
   studentAdditionalInfo: z
     .string()
-    .max(160, {
-      message: 'Bio must not be longer than 30 characters.',
+    .max(500, {
+      message: 'Additional Info must be less than 500 characters.',
     })
     .optional(),
   studentPreferredDays: z.array(z.string()).optional(),
@@ -91,184 +104,10 @@ const FormSchema = z.object({
   studentVideoConsent: z.boolean().default(false).optional(),
   studentWalkingHomeConsent: z.boolean().optional(),
   preferredClass: z.string().optional(),
+  termsAndConditions: z.boolean().default(false),
+  privacyPolicy: z.boolean().default(false),
+  marketingConsent: z.boolean().default(false),
 });
-
-const howDidYouHearAboutUs = [
-  {
-    id: 'none',
-    name: '(None)',
-  },
-  {
-    id: 'wom',
-    name: 'word of mouth',
-  },
-  {
-    id: 'social',
-    name: 'social media',
-  },
-  {
-    id: 'flyer',
-    name: 'flyer or leaflet',
-  },
-  {
-    id: 'internet',
-    name: 'internet search',
-  },
-  {
-    id: 'display',
-    name: 'display/showcase',
-  },
-  {
-    id: 'returning',
-    name: 'returning student',
-  },
-  {
-    id: 'other',
-    name: 'other',
-  },
-] as const;
-
-const medicalConditions = [
-  {
-    id: 'add',
-    name: 'ADD',
-  },
-  {
-    id: 'adhd',
-    name: 'ADHD',
-  },
-  {
-    id: 'adpkd',
-    name: 'ADPKD',
-  },
-  {
-    id: 'anxiety',
-    name: 'Anxiety',
-  },
-  {
-    id: 'asd',
-    name: 'ASD',
-  },
-  {
-    id: 'asthma',
-    name: 'Asthma',
-  },
-  {
-    id: 'autism',
-    name: 'Autism',
-  },
-  {
-    id: 'coeliacDisease',
-    name: 'Coeliac Disease',
-  },
-  {
-    id: 'congenitalMyotonicDystrophy',
-    name: 'Congenital Myotonic Dystrophy',
-  },
-  {
-    id: 'dyspraxia',
-    name: 'Dyspraxia',
-  },
-  {
-    id: 'downsSyndrome',
-    name: 'Downs Syndrome',
-  },
-  {
-    id: 'eczema',
-    name: 'Eczema',
-  },
-  {
-    id: 'epilepsy',
-    name: 'Epilepsy',
-  },
-  {
-    id: 'hayfever',
-    name: 'Hayfever',
-  },
-  {
-    id: 'hearingLoss',
-    name: 'Hearing Loss',
-  },
-  {
-    id: 'hypermobility',
-    name: 'Hypermobility',
-  },
-  {
-    id: 'ironDeficiency',
-    name: 'Iron Deficiency',
-  },
-  {
-    id: 'learningDifficulties',
-    name: 'Learning Difficulties',
-  },
-  {
-    id: 'nutAllergy',
-    name: 'Nut Allergy',
-  },
-  {
-    id: 'ocd',
-    name: 'OCD',
-  },
-  {
-    id: 'other',
-    name: 'Other (please state in notes)',
-  },
-  {
-    id: 'odgoodSchlatter',
-    name: 'Osgood-Schlatter',
-  },
-  {
-    id: 'polycysticKidneyDisease',
-    name: 'Polycystic Kidney Disease',
-  },
-  {
-    id: 'refluxAnoxicSeizures',
-    name: 'Reflux Anoxic Seizures',
-  },
-  {
-    id: 'spd',
-    name: 'SPD',
-  },
-  {
-    id: 'type1Diabetic',
-    name: 'Type 1 Diabetic',
-  },
-  {
-    id: 'visuallyImpaired',
-    name: 'Visually Impaired',
-  },
-];
-
-const days = [
-  {
-    id: 'monday',
-    name: 'Monday',
-  },
-  {
-    id: 'tuesday',
-    name: 'Tuesday',
-  },
-  {
-    id: 'wednesday',
-    name: 'Wednesday',
-  },
-  {
-    id: 'thursday',
-    name: 'Thursday',
-  },
-  {
-    id: 'friday',
-    name: 'Friday',
-  },
-  {
-    id: 'saturday',
-    name: 'Saturday',
-  },
-  {
-    id: 'sunday',
-    name: 'Sunday',
-  },
-] as const;
 
 const BookingForm = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -281,9 +120,13 @@ const BookingForm = () => {
 
   const [date, setDate] = React.useState<Date>();
   const [openDatePicker, setOpenDatePicker] = React.useState(false);
+  const [openHearAboutUs, setOpenHearAboutUs] = React.useState(false);
   const [selectedConditions, setSelectedConditions] = React.useState<string[]>(
     [],
   );
+  const [selectedPreferredClass, setSelectedPreferredClass] = React.useState<
+    string[]
+  >([]);
 
   return (
     <div className="flex flex-col justify-center py-2 border border-white rounded-lg p-10">
@@ -473,7 +316,10 @@ const BookingForm = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>How did you hear about us?</FormLabel>
-                  <Popover>
+                  <Popover
+                    open={openHearAboutUs}
+                    onOpenChange={setOpenHearAboutUs}
+                  >
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
@@ -485,7 +331,7 @@ const BookingForm = () => {
                           )}
                         >
                           {field.value
-                            ? howDidYouHearAboutUs.find(
+                            ? howHearAboutUs.find(
                                 (hearchoice) => hearchoice.name === field.value,
                               )?.name
                             : ''}
@@ -498,12 +344,13 @@ const BookingForm = () => {
                         <CommandInput placeholder="Search..." />
                         <CommandEmpty>Nothing found.</CommandEmpty>
                         <CommandGroup>
-                          {howDidYouHearAboutUs.map((hearchoice) => (
+                          {howHearAboutUs.map((hearchoice) => (
                             <CommandItem
                               value={hearchoice.id}
                               key={hearchoice.name}
                               onSelect={() => {
                                 form.setValue('hearAboutUs', hearchoice.name);
+                                setOpenHearAboutUs(false);
                               }}
                             >
                               <Check
@@ -644,16 +491,12 @@ const BookingForm = () => {
                 <FormItem className="flex flex-col">
                   <FormLabel>Medical Conditions:</FormLabel>
                   <MultiSelect
-                    {...field}
                     selected={selectedConditions}
-                    onChange={() => {
-                      setSelectedConditions(selectedConditions);
-                      form.setValue(
-                        'studentMedicalConditions',
-                        selectedConditions,
-                      );
+                    onChange={(newSelected) => {
+                      setSelectedConditions(newSelected);
+                      field.onChange(newSelected);
                     }}
-                    options={medicalConditions}
+                    options={conditions}
                     className="sm:w-[510px]"
                   />
                   <FormMessage />
@@ -770,6 +613,116 @@ const BookingForm = () => {
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">
                       Student Walking Home Consent:
+                    </FormLabel>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="preferredClass"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Preferred Class:</FormLabel>
+                  <MultiSelect
+                    selected={selectedPreferredClass}
+                    onChange={(newSelected) => {
+                      setSelectedPreferredClass(newSelected);
+                      field.onChange(newSelected);
+                    }}
+                    options={preferredClasses}
+                    className="sm:w-[510px]"
+                  />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="termsAndConditions"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">
+                      I accept the Terms and Conditions:
+                    </FormLabel>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="privacyPolicy"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">
+                      I accept the &nbsp;
+                      <Dialog>
+                        <DialogTrigger className={'underline text-blue-400'}>
+                          Privacy Policy
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Privacy Policy</DialogTitle>
+                            <DialogDescription>
+                              <h3>
+                                Virtue privacy notice – members and volunteers
+                              </h3>
+                              Virtue is the data controller and is committed to
+                              complying with our legal responsibilities under
+                              data protection law. We take your privacy
+                              seriously and will ensure your personal
+                              information is kept secure. When we collect, use,
+                              share, retain or do anything else with your
+                              personal information (known collectively as
+                              ‘processing’) we are regulated under the General
+                              Data Protection Regulation (GDPR) and are
+                              responsible as ‘controller’ of your information.
+                              This notice applies to you if you are: An existing
+                              or prospective member of our club A person with
+                              parental responsibility for a member An existing
+                              or prospective club coach, volunteer or official
+                              It is important that you read this carefully as it
+                              contains key information about how we use your
+                              personal data and your associated rights.
+                            </DialogDescription>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
+                      :
+                    </FormLabel>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="marketingConsent"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">
+                      Do you wish to receive marketing-related emails from
+                      Virtue movement co.?
                     </FormLabel>
                   </div>
                   <FormControl>

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "generalGymnastics",
+    "name": "General Gymnastics"
+  },
+  {
+    "id": "freestyleparkour",
+    "name": "Freestyle / Parkour"
+  },
+  {
+    "id": "preschool",
+    "name": "Pre-School"
+  },
+  {
+    "id": "flipsandtricks",
+    "name": "Flips & Tricks"
+  },
+  {
+    "id": "homeed",
+    "name": "Home Ed"
+  }
+]
