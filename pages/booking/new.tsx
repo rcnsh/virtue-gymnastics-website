@@ -6,11 +6,9 @@ import Head from 'next/head';
 import BookingForm from '@/components/booking/BookingForm';
 function NewBooking() {
   const { getToken, userId } = useAuth();
-
   useEffect(() => {
     const signInWithClerk = async () => {
       const auth = getAuth(app);
-
       const token = await getToken({ template: 'integration_firebase' });
       if (!token) {
         return;

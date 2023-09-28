@@ -48,6 +48,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
+
+import 'firebase/firestore';
+import { db } from '@/pages/api/firebaseConfig';
+import { useAuth } from '@clerk/nextjs';
+import { collection, addDoc } from '@firebase/firestore';
+
 const FormSchema = z.object({
   parentFirstName: z.string(),
   parentLastName: z.string(),
@@ -102,20 +108,81 @@ const FormSchema = z.object({
   studentPreferredDays: z.array(z.string()).optional(),
   studentPhotoConsent: z.boolean().default(false).optional(),
   studentVideoConsent: z.boolean().default(false).optional(),
-  studentWalkingHomeConsent: z.boolean().optional(),
-  preferredClass: z.string().optional(),
+  studentWalkingHomeConsent: z.boolean().default(false).optional(),
+  preferredClass: z.array(z.string()).optional(),
   termsAndConditions: z.boolean().default(false),
   privacyPolicy: z.boolean().default(false),
   marketingConsent: z.boolean().default(false),
 });
 
 const BookingForm = () => {
+  const { userId } = useAuth();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+    const bookingsCollection = collection(
+      db,
+      `bookings/${userId}/individualBookings`,
+    );
+
+    if (typeof data.address2 === 'undefined') {
+      data.address2 = '';
+    }
+    if (typeof data.homePhone === 'undefined') {
+      data.homePhone = '';
+    }
+    if (typeof data.workPhone === 'undefined') {
+      data.workPhone = '';
+    }
+    if (typeof data.mobilePhone2 === 'undefined') {
+      data.mobilePhone2 = '';
+    }
+    if (typeof data.email2 === 'undefined') {
+      data.email2 = '';
+    }
+    if (typeof data.studentDOB === 'undefined') {
+      data.studentDOB = new Date();
+    }
+    if (typeof data.studentMedicalConditions === 'undefined') {
+      data.studentMedicalConditions = [];
+    }
+    if (typeof data.studentAdditionalInfo === 'undefined') {
+      data.studentAdditionalInfo = '';
+    }
+    if (typeof data.studentPhotoConsent === 'undefined') {
+      data.studentPhotoConsent = false;
+    }
+    if (typeof data.studentVideoConsent === 'undefined') {
+      data.studentVideoConsent = false;
+    }
+    if (typeof data.studentWalkingHomeConsent === 'undefined') {
+      data.studentWalkingHomeConsent = false;
+    }
+    if (typeof data.preferredClass === 'undefined') {
+      data.preferredClass = [];
+    }
+    if (typeof data.studentPreferredDays === 'undefined') {
+      data.studentPreferredDays = [];
+    }
+    if (!data.termsAndConditions) {
+      alert('You must accept the terms and conditions');
+      return;
+    }
+    if (!data.privacyPolicy) {
+      alert('You must accept the privacy policy');
+      return;
+    }
+
+    addDoc(bookingsCollection, data)
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef.id);
+        form.reset();
+      })
+      .catch((error) => {
+        console.error('Error adding document: ', error);
+      });
   }
 
   const [date, setDate] = React.useState<Date>();
