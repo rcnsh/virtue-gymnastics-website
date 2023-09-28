@@ -1,10 +1,12 @@
 import { useAuth } from '@clerk/nextjs';
 import React, { useEffect } from 'react';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
-import { app } from '@/pages/api/firebaseConfig';
 import Head from 'next/head';
+import { app } from '@/pages/api/firebaseConfig';
+import UserBookings from '@/components/booking/userBookings';
+
 function Booking() {
-  const { getToken, userId } = useAuth();
+  const { getToken, userId, isLoaded } = useAuth();
 
   useEffect(() => {
     const signInWithClerk = async () => {
@@ -24,13 +26,18 @@ function Booking() {
     });
   }, [getToken, userId]);
 
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Head>
         <title>Virtue Gymnastics - Booking</title>
         <meta name="description" content="Virtue Gymnastics" />
       </Head>
-      <div></div>
+
+      {isLoaded && userId && <UserBookings userId={userId} />}
     </>
   );
 }
