@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { db } from '@/pages/api/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/router';
 
 interface UserBookingsProps {
   userId: string;
 }
 
 const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
+  const router = useRouter();
   const [userBookings, setUserBookings] = useState<any[]>([]);
 
   useEffect(() => {
@@ -37,39 +42,67 @@ const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
   }, [userId]);
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {userBookings.map((booking, index) => (
-        <Link href={`/booking/${booking.id}`} key={index}>
-          <div className="bg-gray-800 rounded-lg shadow-lg p-4">
-            <h2 className="text-lg font-semibold">
-              Booking Details {index + 1}
-            </h2>
-            <p className="mb-2">
-              <span className="font-semibold">Email:</span> {booking.email}
-            </p>
-            <p className="mb-2">
-              <span className="font-semibold">Student First Name:</span>{' '}
-              {booking.studentFirstName}
-            </p>
-            <p className="mb-2">
-              <span className="font-semibold">Student Last Name:</span>{' '}
-              {booking.studentLastName}
-            </p>
-            <p className="mb-2">
-              <span className="font-semibold">City:</span> {booking.city}
-            </p>
-            <p className="mb-2">
-              <span className="font-semibold">Address 1:</span>{' '}
-              {booking.address1}
-            </p>
-            <p className="mb-2">
-              <span className="font-semibold">Address 2:</span>{' '}
-              {booking.address2}
-            </p>
-          </div>
-        </Link>
-      ))}
-    </div>
+    <>
+      <br />
+      <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-50 flex justify-center">
+        Your Bookings
+      </h1>
+      <br />
+      <Separator />
+      <Button
+        variant={'ghost'}
+        className={'w-[100%] m-auto'}
+        size={'lg'}
+        onClick={() => {
+          router.push('/booking/new');
+        }}
+      >
+        New Booking
+      </Button>
+      <br />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-8">
+        {userBookings.map((booking, index) => (
+          <Link href={`/booking/${booking.id}`} key={index}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Booking Details {index + 1}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>
+                  <span className="font-semibold">Email:</span> {booking.email}
+                </p>
+                <p>
+                  <span className="font-semibold">Student First Name:</span>{' '}
+                  {booking.studentFirstName}
+                </p>
+                <p>
+                  <span className="font-semibold">Student Last Name:</span>{' '}
+                  {booking.studentLastName}
+                </p>
+                <p>
+                  <span className="font-semibold">City:</span> {booking.city}
+                </p>
+                <p>
+                  <span className="font-semibold">Address 1:</span>{' '}
+                  {booking.address1}
+                </p>
+                <p>
+                  <span className="font-semibold">Address 2:</span>{' '}
+                  {booking.address2}
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+    </>
   );
 };
 

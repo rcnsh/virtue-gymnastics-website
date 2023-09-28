@@ -15,7 +15,6 @@ import {
   FormItem,
 } from '@/components/ui/form';
 import { MultiSelect } from '@/components/ui/multiselect';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
@@ -53,6 +52,14 @@ import 'firebase/firestore';
 import { db } from '@/pages/api/firebaseConfig';
 import { useAuth } from '@clerk/nextjs';
 import { collection, addDoc } from '@firebase/firestore';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { router } from 'next/client';
 
 const FormSchema = z.object({
   parentFirstName: z.string(),
@@ -97,7 +104,7 @@ const FormSchema = z.object({
   studentFirstName: z.string(),
   studentLastName: z.string(),
   studentDOB: z.date().optional(),
-  studentGender: z.string(),
+  studentGender: z.enum(['male', 'female', 'na', 'other']),
   studentMedicalConditions: z.array(z.string()).optional(),
   studentAdditionalInfo: z
     .string()
@@ -179,6 +186,9 @@ const BookingForm = () => {
       .then((docRef) => {
         console.log('Document written with ID: ', docRef.id);
         form.reset();
+        router.push('/booking').catch((error) => {
+          console.error('Error redirecting to bookings:', error);
+        });
       })
       .catch((error) => {
         console.error('Error adding document: ', error);
@@ -519,42 +529,23 @@ const BookingForm = () => {
               control={form.control}
               name="studentGender"
               render={({ field }) => (
-                <FormItem className="space-y-3">
-                  <FormLabel>Gender:</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="flex flex-col space-y-1"
-                    >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="male" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Male</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="female" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Female</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="na" />
-                        </FormControl>
-                        <FormLabel className="font-normal">
-                          Not Specified
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="other" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Other</FormLabel>
-                      </FormItem>
-                    </RadioGroup>
-                  </FormControl>
+                <FormItem>
+                  <FormLabel>Student Gender:</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select gender" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

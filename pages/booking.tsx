@@ -4,6 +4,7 @@ import { getAuth, signInWithCustomToken } from '@firebase/auth';
 import Head from 'next/head';
 import { app } from '@/pages/api/firebaseConfig';
 import UserBookings from '@/components/booking/userBookings';
+import LineBreaks from '@/components/line-breaks';
 
 function Booking() {
   const { getToken, userId, isLoaded } = useAuth();
@@ -27,7 +28,12 @@ function Booking() {
   }, [getToken, userId]);
 
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <LineBreaks />
+        <LineBreaks />
+      </div>
+    );
   }
 
   return (

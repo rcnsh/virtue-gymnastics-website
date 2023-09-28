@@ -30,8 +30,12 @@ function NewBooking() {
         <meta name="description" content="Virtue Gymnastics" />
       </Head>
       <div className={'m-auto w-max'}>
-        <h1 className={'text-6xl font-bold text-white leading-tight'}>
-          Booking
+        <h1
+          className={
+            'text-6xl font-bold text-white leading-tight flex justify-center'
+          }
+        >
+          Booking Form
         </h1>
         <br />
         <br />

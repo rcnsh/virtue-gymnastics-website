@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { db } from '@/pages/api/firebaseConfig';
-import { doc, getDoc } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { useAuth } from '@clerk/nextjs';
 import { Timestamp } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
@@ -20,7 +20,7 @@ const BookingDetailsPage = () => {
   };
 
   useEffect(() => {
-    if (id) {
+    if (id && userId) {
       const bookingPath = `bookings/${userId}/individualBookings/${id}`;
 
       const fetchBookingData = async () => {
@@ -45,6 +45,19 @@ const BookingDetailsPage = () => {
     }
   }, [id, userId]);
 
+  const removeBooking = async () => {
+    if (id) {
+      const bookingPath = `bookings/${userId}/individualBookings/${id}`;
+
+      try {
+        const bookingRef = doc(db, bookingPath);
+        await deleteDoc(bookingRef);
+        await router.push('/booking');
+      } catch (error) {
+        console.error('Error removing booking:', error);
+      }
+    }
+  };
   if (!bookingData) {
     return <div>Loading...</div>;
   }
@@ -116,7 +129,9 @@ const BookingDetailsPage = () => {
         <Link href={'/booking'}>
           <Button variant={'default'}>Back</Button>
         </Link>
-        <Button variant={'destructive'}>Remove</Button>
+        <Button variant={'destructive'} onClick={removeBooking}>
+          Remove
+        </Button>
       </div>
       <br />
       <br />
