@@ -771,7 +771,7 @@ const BookingForm = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className={'flex justify-center'}>
+            <Button type="submit" className={'w-[100%] m-auto'}>
               Book Class
             </Button>
           </form>
