@@ -22,7 +22,10 @@ const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
           `bookings/${userId}/individualBookings`,
         );
         const querySnapshot = await getDocs(bookingsRef);
-        const bookings = querySnapshot.docs.map((doc) => doc.data());
+        const bookings = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         console.log('Bookings:', bookings);
         setUserBookings(bookings);
       } catch (error) {
@@ -36,7 +39,7 @@ const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {userBookings.map((booking, index) => (
-        <Link href={'/'} key={index}>
+        <Link href={`/booking/${booking.id}`} key={index}>
           <div className="bg-gray-800 rounded-lg shadow-lg p-4">
             <h2 className="text-lg font-semibold">
               Booking Details {index + 1}
