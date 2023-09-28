@@ -780,5 +780,4 @@ const BookingForm = () => {
     </div>
   );
 };
-// TODO: Add preferred class using multiselect component
 export default BookingForm;
