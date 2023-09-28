@@ -130,11 +130,17 @@ const BookingForm = () => {
 
   return (
     <div className="flex flex-col justify-center py-2 border border-white rounded-lg p-10">
-      <h2 className="text-4xl font-bold text-white">Book a New Class</h2>
+      <h2 className="text-4xl font-bold text-white flex justify-center p-10">
+        Book a New Class
+      </h2>
       <Separator />
       <div className={'p-8'}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <h2 className="text-2xl font-bold text-white flex justify-center">
+              Parent Details
+            </h2>
+            <Separator />
             <FormField
               control={form.control}
               name="parentFirstName"
@@ -373,7 +379,9 @@ const BookingForm = () => {
               )}
             />
             <Separator />
-            <h2 className="text-2xl font-bold text-white">Student Details</h2>
+            <h2 className="text-2xl font-bold text-white flex justify-center">
+              Student Details
+            </h2>
             <FormField
               control={form.control}
               name="studentFirstName"
@@ -650,7 +658,36 @@ const BookingForm = () => {
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">
-                      I accept the Terms and Conditions:
+                      I accept the{' '}
+                      <Dialog>
+                        <DialogTrigger className={'underline text-blue-400'}>
+                          Terms and Conditions
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Terms and Conditions</DialogTitle>
+                            <DialogDescription>
+                              I confirm that I hereby give permission for a
+                              first aider to carry out any necessary procedures
+                              and that I have read, understood and accepted all
+                              club policies of Virtue movement co. I agree and
+                              understand that Virtue are not able to administer
+                              EPI pens. If myself or my child needs an EPI pen
+                              someone will required to stay on site. I confirm I
+                              accept full responsibility to aquire the relevent
+                              and necessary British Gymnastics insurance for
+                              myself or my child prior to participation in any
+                              Virtue activity. I understand that all fees are
+                              due on demand and are non-returnable. I confirm I
+                              agree to all Virtue policies and terms and
+                              conditions. Virtue policies and terms and
+                              conditions can be found on our website at all
+                              times.
+                            </DialogDescription>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
+                      :
                     </FormLabel>
                   </div>
                   <FormControl>
