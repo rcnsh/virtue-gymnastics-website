@@ -59,7 +59,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { router } from 'next/client';
+import { useRouter } from 'next/router';
 
 const FormSchema = z.object({
   parentFirstName: z.string(),
@@ -124,6 +124,7 @@ const FormSchema = z.object({
 
 const BookingForm = () => {
   const { userId } = useAuth();
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });

@@ -4,6 +4,7 @@ import { getAuth, signInWithCustomToken } from '@firebase/auth';
 import { app } from '@/pages/api/firebaseConfig';
 import Head from 'next/head';
 import BookingForm from '@/components/booking/BookingForm';
+
 function NewBooking() {
   const { getToken, userId } = useAuth();
   useEffect(() => {

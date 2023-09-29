@@ -54,7 +54,9 @@ const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
         className={'w-[100%] m-auto'}
         size={'lg'}
         onClick={() => {
-          router.push('/booking/new');
+          router.push('/booking/new').catch((error) => {
+            console.error('Error navigating to new booking page:', error);
+          });
         }}
       >
         New Booking
