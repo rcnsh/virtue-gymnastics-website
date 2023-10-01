@@ -517,6 +517,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="studentLastName"
@@ -530,6 +531,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="studentDOB"
@@ -574,6 +576,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="studentGender"
@@ -599,6 +602,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="studentMedicalConditions"
@@ -618,7 +622,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
-
+                  <br />
                   <FormField
                     control={form.control}
                     name="studentAdditionalInfo"
@@ -636,6 +640,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="studentPreferredDays"
@@ -682,6 +687,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="studentPhotoConsent"
@@ -701,6 +707,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="studentVideoConsent"
@@ -720,6 +727,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="studentWalkingHomeConsent"
@@ -739,6 +747,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="preferredClass"
@@ -758,6 +767,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="termsAndConditions"
@@ -812,6 +822,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="privacyPolicy"
@@ -870,6 +881,7 @@ const BookingForm = () => {
                       </FormItem>
                     )}
                   />
+                  <br />
                   <FormField
                     control={form.control}
                     name="marketingConsent"

@@ -55,7 +55,17 @@ const Index: NextPage = () => {
             includeWhiteSpaces={true}
             className={styles.title}
           >
-            Virtue Movement Co.
+            Virtue
+          </AnimatedText>
+          <AnimatedText
+            type={'chars'}
+            animationType="throw"
+            interval={0.06}
+            duration={1}
+            includeWhiteSpaces={true}
+            className={styles.title}
+          >
+            Movement Co.
           </AnimatedText>
           <div className={styles.glow} />
         </div>
