@@ -1,20 +1,240 @@
 [
   {
-    "title": "Event 1",
-    "startTime": "10:00",
-    "endTime": "11:00",
-    "daysOfWeek": [2, 3, 5]
+    "title": "Bows",
+    "startTime": "09:30",
+    "endTime": "10:30",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [0, 2, 4]
   },
   {
-    "title": "Event 2",
-    "startTime": "13:00",
-    "endTime": "14:00",
-    "daysOfWeek": [1, 6]
+    "title": "Bows",
+    "startTime": "09:00",
+    "endTime": "10:00",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [5]
   },
   {
-    "title": "Event 3",
+    "title": "PAYG",
+    "startTime": "16:00",
+    "endTime": "16:45",
+    "cost": "£7-8 per session",
+    "daysOfWeek": [1]
+  },
+  {
+    "title": "A1",
+    "startTime": "16:00",
+    "endTime": "20:00",
+    "cost": "£30 per week (£125.00 pcm)",
+    "daysOfWeek": [3]
+  },
+  {
+    "title": "Arrows",
+    "startTime": "10:35",
+    "endTime": "11:35",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [0, 2, 4]
+  },
+  {
+    "title": "Arrows",
+    "startTime": "10:05",
+    "endTime": "11:05",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [5]
+  },
+  {
+    "title": "FS0",
     "startTime": "16:00",
     "endTime": "17:00",
-    "daysOfWeek": [0, 4]
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [1]
+  },
+  {
+    "title": "CS3",
+    "startTime": "16:00",
+    "endTime": "20:00",
+    "cost": "£24 per week (£92.00 pcm)",
+    "daysOfWeek": [3]
+  },
+  {
+    "title": "GG0",
+    "startTime": "15:45",
+    "endTime": "16:45",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [0]
+  },
+  {
+    "title": "A4",
+    "startTime": "16:00",
+    "endTime": "19:00",
+    "cost": "£18 per week (£75.00 pcm)",
+    "daysOfWeek": [1]
+  },
+  {
+    "title": "HOME ED",
+    "startTime": "11:40",
+    "endTime": "12:40",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [2, 4]
+  },
+  {
+    "title": "CS1",
+    "startTime": "16:00",
+    "endTime": "20:00",
+    "cost": "£26.04 per week (£100.00 pcm)",
+    "daysOfWeek": [3]
+  },
+  {
+    "title": "PS PARKOUR",
+    "startTime": "10:15",
+    "endTime": "11:15",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [5]
+  },
+  {
+    "title": "Private",
+    "startTime": "16:00",
+    "endTime": "17:00",
+    "cost": "£35 per session",
+    "daysOfWeek": [0]
+  },
+  {
+    "title": "GG1",
+    "startTime": "16:50",
+    "endTime": "17:50",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [1]
+  },
+  {
+    "title": "GG0",
+    "startTime": "15:45",
+    "endTime": "18:45",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [2]
+  },
+  {
+    "title": "CS2",
+    "startTime": "16:00",
+    "endTime": "20:00",
+    "cost": "£24 per week (£92.00 pcm)",
+    "daysOfWeek": [3]
+  },
+  {
+    "title": "GG1",
+    "startTime": "15:45",
+    "endTime": "16:45",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [4]
+  },
+  {
+    "title": "FLIPS AND TRICKS",
+    "startTime": "11:25",
+    "endTime": "13:25",
+    "cost": "£16 per week (£61:33 pcm)",
+    "daysOfWeek": [5]
+  },
+  {
+    "title": "A2",
+    "startTime": "16:00",
+    "endTime": "19:00",
+    "cost": "£24 per week (£100.00 pcm)",
+    "daysOfWeek": [0, 2]
+  },
+  {
+    "title": "FS1",
+    "startTime": "17:05",
+    "endTime": "18:05",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [1]
+  },
+  {
+    "title": "FS JNR+",
+    "startTime": "16:15",
+    "endTime": "17:45",
+    "cost": "£15 per week (£57.50 pcm)",
+    "daysOfWeek": [3]
+  },
+  {
+    "title": "A3",
+    "startTime": "16:00",
+    "endTime": "18:00",
+    "cost": "£28 per week (£116.00 pcm)",
+    "daysOfWeek": [4]
+  },
+  {
+    "title": "GG0",
+    "startTime": "11:30",
+    "endTime": "12:30",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [5]
+  },
+  {
+    "title": "A3",
+    "startTime": "16:00",
+    "endTime": "19:00",
+    "cost": "£28 per week (£116.00 pcm)",
+    "daysOfWeek": [0, 2]
+  },
+  {
+    "title": "GG2",
+    "startTime": "17:55",
+    "endTime": "18:55",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [1]
+  },
+  {
+    "title": "FS SNR+",
+    "startTime": "17:50",
+    "endTime": "19:50",
+    "cost": "£16 per week (£61.33 pcm)",
+    "daysOfWeek": [3]
+  },
+  {
+    "title": "FS0",
+    "startTime": "16:00",
+    "endTime": "17:00",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [4]
+  },
+  {
+    "title": "GG1",
+    "startTime": "12:35",
+    "endTime": "13:35",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [5]
+  },
+  {
+    "title": "PAYG",
+    "startTime": "16:00",
+    "endTime": "17:00",
+    "cost": "£7-8 per session",
+    "daysOfWeek": [0]
+  },
+  {
+    "title": "PAYG",
+    "startTime": "13:30",
+    "endTime": "14:30",
+    "cost": "£7-8 per session",
+    "daysOfWeek": [5]
+  },
+  {
+    "title": "FS2",
+    "startTime": "18:10",
+    "endTime": "19:10",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [1]
+  },
+  {
+    "title": "FSGIRLS",
+    "startTime": "16:00",
+    "endTime": "17:00",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [2]
+  },
+  {
+    "title": "CS4",
+    "startTime": "16:00",
+    "endTime": "18:00",
+    "cost": "£16 per week (£61.33 pcm)",
+    "daysOfWeek": [4]
   }
 ]

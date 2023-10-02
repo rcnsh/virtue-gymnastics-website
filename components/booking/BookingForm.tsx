@@ -904,6 +904,14 @@ const BookingForm = () => {
                   />
                 </AccordionContent>
               </AccordionItem>
+              <AccordionItem value={'class-details'}>
+                <AccordionTrigger>
+                  <h2 className="text-2xl font-bold text-white flex justify-center">
+                    Class Details
+                  </h2>
+                </AccordionTrigger>
+                <AccordionContent></AccordionContent>
+              </AccordionItem>
             </Accordion>
             <Button type="submit" className={'w-[100%] m-auto'}>
               Book Class
