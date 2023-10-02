@@ -39,9 +39,6 @@ function NewBookingForm() {
   const router = useRouter();
   const classTitle = searchParams.get('class') || undefined;
   const [userBookings, setUserBookings] = useState<any[]>([]);
-  const [selectedClass, setSelectedClass] = useState<string | undefined>(
-    classTitle,
-  );
   const { userId } = useAuth();
 
   useEffect(() => {
@@ -92,9 +89,6 @@ function NewBookingForm() {
   const uniqueClassOptions = sortedUniqueClassNames.map((className) => ({
     name: className,
   }));
-  useEffect(() => {
-    setSelectedClass(searchParams.get('class') || undefined);
-  }, [searchParams]);
 
   return (
     <div className="flex flex-col justify-center py-2 border border-white rounded-lg p-10">
@@ -116,12 +110,11 @@ function NewBookingForm() {
                   <Select
                     onValueChange={(value) => {
                       field.onChange;
-                      setSelectedClass(value);
                       router.push(`/bookings/new?class=${value}`).catch(() => {
                         console.error('Error pushing to new booking page');
                       });
                     }}
-                    value={selectedClass}
+                    value={classTitle}
                   >
                     <FormControl>
                       <SelectTrigger>
