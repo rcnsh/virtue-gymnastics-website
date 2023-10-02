@@ -92,6 +92,7 @@ const Footer = () => {
       />
       <section>
         <div className={'flex w-[100vw] justify-evenly align-middle'}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={'/virtue-icon.png'}
             alt={'Virtue Icon'}
@@ -135,6 +136,7 @@ const Footer = () => {
               </Link>
             </div>
           </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={'/footer/double wave.webp'}
             alt={'duel wave decoration'}

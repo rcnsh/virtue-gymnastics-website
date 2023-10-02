@@ -1,12 +1,12 @@
 import { NextPage } from 'next';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import adaptivePlugin from '@fullcalendar/adaptive';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import styles from '@/styles/Timetable.module.css';
-import dates from '@/pages/api/dates.json';
+import dates from '@/pages/api/classes.json';
 import { useState } from 'react';
 import LineBreaks from '@/components/line-breaks';
 import { EventClickArg } from '@fullcalendar/core';
@@ -25,7 +25,8 @@ const Calendar: NextPage = () => {
   const [eventInfo, setEventInfo] = useState<EventClickArg | null>(null);
 
   const events = dates.map((event) => ({
-    title: event.title,
+    id: event.id,
+    title: event.name,
     startTime: event.startTime,
     endTime: event.endTime,
     cost: event.cost,
@@ -86,13 +87,7 @@ const Calendar: NextPage = () => {
             </DialogHeader>
             <p>{eventInfo?.event?.extendedProps?.description}</p>
             <Link href={`/bookings/new?class=${eventInfo?.event?.title}`}>
-              <Button
-                className={'w-full'}
-                type={'submit'}
-                onClick={() => {
-                  console.log('Booked');
-                }}
-              >
+              <Button className={'w-full'} type={'submit'}>
                 Book This Class
               </Button>
             </Link>

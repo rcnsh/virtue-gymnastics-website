@@ -17,13 +17,11 @@ function Students() {
       if (!token) {
         return;
       }
-      const userCredentials = await signInWithCustomToken(auth, token);
-      console.log('User signed in successfully:', userCredentials.user);
-      console.log('User ID:', userId);
+      await signInWithCustomToken(auth, token);
     };
 
     signInWithClerk().catch((error) => {
-      console.log('An error occurred:', error);
+      console.error('An error occurred:', error);
     });
   }, [getToken, userId]);
 
