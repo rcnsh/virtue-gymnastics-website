@@ -5,7 +5,7 @@ import Head from 'next/head';
 import NewStudentForm from '@/components/students/NewStudentForm';
 import { useAuth, SignedIn, SignedOut } from '@clerk/nextjs';
 
-function NewBookingPage() {
+function NewStudentPage() {
   const { getToken, userId } = useAuth();
   useEffect(() => {
     const signInWithClerk = async () => {
@@ -34,7 +34,7 @@ function NewBookingPage() {
             'text-6xl font-bold text-white leading-tight flex justify-center'
           }
         >
-          Booking Form
+          New Student Form
         </h1>
         <br />
         <br />
@@ -45,7 +45,7 @@ function NewBookingPage() {
           <SignedOut>
             <div className={'flex justify-center'}>
               <h1 className={'text-2xl text-white '}>
-                Please sign in to book a class
+                Please sign in to register a new Student
               </h1>
             </div>
           </SignedOut>
@@ -60,4 +60,4 @@ function NewBookingPage() {
   );
 }
 
-export default NewBookingPage;
+export default NewStudentPage;

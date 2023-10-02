@@ -134,7 +134,7 @@ const NewStudentForm = () => {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const bookingsCollection = collection(
       db,
-      `bookings/${userId}/individualBookings`,
+      `bookings/${userId}/registeredStudents`,
     );
 
     if (typeof data.address2 === 'undefined') {
@@ -202,7 +202,7 @@ const NewStudentForm = () => {
   return (
     <div className="flex flex-col justify-center py-2 border border-white rounded-lg p-10">
       <h2 className="text-4xl font-bold text-white flex justify-center p-10">
-        Book a New Class
+        Register a New Student
       </h2>
       <div className={'p-8'}>
         <Form {...form}>
@@ -843,17 +843,9 @@ const NewStudentForm = () => {
                   />
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value={'class-details'}>
-                <AccordionTrigger>
-                  <h2 className="text-2xl font-bold text-white flex justify-center">
-                    Class Details
-                  </h2>
-                </AccordionTrigger>
-                <AccordionContent></AccordionContent>
-              </AccordionItem>
             </Accordion>
             <Button type="submit" className={'w-[100%] m-auto'}>
-              Book Class
+              Register New Student
             </Button>
           </form>
         </Form>

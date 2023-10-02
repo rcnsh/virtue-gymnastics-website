@@ -24,7 +24,7 @@ const UserStudents: React.FC<UserBookingsProps> = ({ userId }) => {
       try {
         const bookingsRef = collection(
           db,
-          `bookings/${userId}/individualBookings`,
+          `bookings/${userId}/registeredStudents`,
         );
         const querySnapshot = await getDocs(bookingsRef);
         const bookings = querySnapshot.docs.map((doc) => ({

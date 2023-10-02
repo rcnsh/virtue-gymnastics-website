@@ -21,7 +21,7 @@ const BookingDetailsPage = () => {
 
   useEffect(() => {
     if (id && userId) {
-      const bookingPath = `bookings/${userId}/individualBookings/${id}`;
+      const bookingPath = `bookings/${userId}/registeredStudents/${id}`;
 
       const fetchBookingData = async () => {
         try {
@@ -47,7 +47,7 @@ const BookingDetailsPage = () => {
 
   const removeBooking = async () => {
     if (id) {
-      const bookingPath = `bookings/${userId}/individualBookings/${id}`;
+      const bookingPath = `bookings/${userId}/registeredStudents/${id}`;
 
       try {
         const bookingRef = doc(db, bookingPath);

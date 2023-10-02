@@ -53,7 +53,7 @@ function NewBookingForm() {
       try {
         const bookingsRef = collection(
           db,
-          `bookings/${userId}/individualBookings`,
+          `bookings/${userId}/registeredStudents`,
         );
         const querySnapshot = await getDocs(bookingsRef);
         const bookings = querySnapshot.docs.map((doc) => ({
