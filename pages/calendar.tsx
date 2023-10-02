@@ -7,8 +7,22 @@ import interactionPlugin from '@fullcalendar/interaction';
 import styles from '@/styles/Timetable.module.css';
 import dates from '@/pages/api/dates.json';
 import { useState } from 'react';
+import LineBreaks from '@/components/line-breaks';
+import { EventClickArg } from '@fullcalendar/core';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 const Calendar: NextPage = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [eventInfo, setEventInfo] = useState<EventClickArg | null>(null);
+
   const events = dates.map((event) => ({
     title: event.title,
     startTime: event.startTime,
@@ -39,10 +53,8 @@ const Calendar: NextPage = () => {
           selectable={true}
           selectMirror={true}
           eventClick={(info) => {
-            console.log(info.event.title);
-            console.log(info.event.extendedProps.cost);
-            console.log(info.event.start);
-            console.log(info.event.end);
+            setModalIsOpen(true);
+            setEventInfo(info);
           }}
           events={events}
           eventTimeFormat={{
@@ -52,7 +64,27 @@ const Calendar: NextPage = () => {
           }}
           weekNumberCalculation={'ISO'}
         />
+        <Dialog open={modalIsOpen}>
+          <DialogContent>
+            <DialogClose onClick={() => setModalIsOpen(false)}></DialogClose>
+            <DialogHeader>
+              <DialogTitle>{eventInfo?.event?.title}</DialogTitle>
+              <DialogDescription>
+                {eventInfo?.event?.extendedProps?.cost}
+              </DialogDescription>
+            </DialogHeader>
+            <Button
+              type={'submit'}
+              onClick={() => {
+                console.log('Booked');
+              }}
+            >
+              Book
+            </Button>
+          </DialogContent>
+        </Dialog>
       </div>
+      <LineBreaks />
     </>
   );
 };
