@@ -1,4 +1,4 @@
-import { useAuth } from '@clerk/nextjs';
+import { SignedIn, SignedOut, useAuth } from '@clerk/nextjs';
 import React, { useEffect } from 'react';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
 import Head from 'next/head';
@@ -40,8 +40,16 @@ function Students() {
         <title>Virtue Gymnastics - Booking</title>
         <meta name="description" content="Virtue Gymnastics" />
       </Head>
-
-      {isLoaded && userId && <UserStudents userId={userId} />}
+      <SignedIn>
+        {isLoaded && userId && <UserStudents userId={userId} />}
+      </SignedIn>
+      <SignedOut>
+        <div className={'flex justify-center'}>
+          <h1 className={'text-2xl text-white '}>
+            Please sign in to view your registered students
+          </h1>
+        </div>
+      </SignedOut>
     </>
   );
 }
