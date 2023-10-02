@@ -6,13 +6,9 @@ import adaptivePlugin from '@fullcalendar/adaptive';
 import interactionPlugin from '@fullcalendar/interaction';
 import styles from '@/styles/Timetable.module.css';
 import dates from '@/pages/api/dates.json';
-import Modal from 'react-modal';
 import { useState } from 'react';
 
 const Calendar: NextPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
   const events = dates.map((event) => ({
     title: event.title,
     startTime: event.startTime,
