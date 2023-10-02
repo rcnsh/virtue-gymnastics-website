@@ -11,7 +11,7 @@ interface UserBookingsProps {
   userId: string;
 }
 
-const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
+const UserStudents: React.FC<UserBookingsProps> = ({ userId }) => {
   const router = useRouter();
   const [userBookings, setUserBookings] = useState<any[]>([]);
 
@@ -45,7 +45,7 @@ const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
     <>
       <br />
       <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-50 flex justify-center">
-        Your Bookings
+        Current Students
       </h1>
       <br />
       <Separator />
@@ -54,25 +54,22 @@ const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
         className={'w-[100%] m-auto'}
         size={'lg'}
         onClick={() => {
-          router.push('/booking/new').catch((error) => {
-            console.error('Error navigating to new booking page:', error);
+          router.push('/students/new').catch((error) => {
+            console.error('Error navigating to new students page:', error);
           });
         }}
       >
-        New Booking
+        Add New Student
       </Button>
       <br />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-8">
         {userBookings.map((booking, index) => (
-          <Link href={`/booking/${booking.id}`} key={index}>
+          <Link href={`/students/${booking.id}`} key={index}>
             <Card>
               <CardHeader>
-                <CardTitle>Booking Details {index + 1}</CardTitle>
+                <CardTitle>Student {index + 1}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p>
-                  <span className="font-semibold">Email:</span> {booking.email}
-                </p>
                 <p>
                   <span className="font-semibold">Student First Name:</span>{' '}
                   {booking.studentFirstName}
@@ -108,4 +105,4 @@ const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
   );
 };
 
-export default UserBookings;
+export default UserStudents;

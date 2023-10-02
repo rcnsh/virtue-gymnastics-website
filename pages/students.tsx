@@ -3,10 +3,10 @@ import React, { useEffect } from 'react';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
 import Head from 'next/head';
 import { app } from '@/pages/api/firebaseConfig';
-import UserBookings from '@/components/booking/userBookings';
+import UserStudents from '@/components/booking/userStudents';
 import LineBreaks from '@/components/line-breaks';
 
-function Booking() {
+function Students() {
   const { getToken, userId, isLoaded } = useAuth();
 
   useEffect(() => {
@@ -43,9 +43,9 @@ function Booking() {
         <meta name="description" content="Virtue Gymnastics" />
       </Head>
 
-      {isLoaded && userId && <UserBookings userId={userId} />}
+      {isLoaded && userId && <UserStudents userId={userId} />}
     </>
   );
 }
 
-export default Booking;
+export default Students;

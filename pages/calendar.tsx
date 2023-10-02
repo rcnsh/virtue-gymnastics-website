@@ -15,7 +15,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogClose,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
@@ -64,9 +63,8 @@ const Calendar: NextPage = () => {
           }}
           weekNumberCalculation={'ISO'}
         />
-        <Dialog open={modalIsOpen}>
+        <Dialog open={modalIsOpen} onOpenChange={setModalIsOpen}>
           <DialogContent>
-            <DialogClose onClick={() => setModalIsOpen(false)}></DialogClose>
             <DialogHeader>
               <DialogTitle>{eventInfo?.event?.title}</DialogTitle>
               <DialogDescription>

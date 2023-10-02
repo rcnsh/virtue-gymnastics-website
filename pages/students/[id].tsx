@@ -35,12 +35,12 @@ const BookingDetailsPage = () => {
             console.error(`No booking found at path: ${bookingPath}`);
           }
         } catch (error) {
-          console.error('Error fetching booking data:', error);
+          console.error('Error fetching students data:', error);
         }
       };
 
       fetchBookingData().catch((error) => {
-        console.error('Error fetching booking data:', error);
+        console.error('Error fetching students data:', error);
       });
     }
   }, [id, userId]);
@@ -52,9 +52,9 @@ const BookingDetailsPage = () => {
       try {
         const bookingRef = doc(db, bookingPath);
         await deleteDoc(bookingRef);
-        await router.push('/booking');
+        await router.push('/students');
       } catch (error) {
-        console.error('Error removing booking:', error);
+        console.error('Error removing students:', error);
       }
     }
   };
@@ -73,7 +73,6 @@ const BookingDetailsPage = () => {
             <p>
               Name: {bookingData.parentFirstName} {bookingData.parentLastName}
             </p>
-            <p>Email: {bookingData.email}</p>
             <p>Home Phone: {bookingData.homePhone || 'N/A'}</p>
             <p>Work Phone: {bookingData.workPhone || 'N/A'}</p>
             <p>Mobile Phone 1: {bookingData.mobilePhone1}</p>
@@ -126,7 +125,7 @@ const BookingDetailsPage = () => {
         </div>
       </div>
       <div className={'flex justify-evenly'}>
-        <Link href={'/booking'}>
+        <Link href={'/students'}>
           <Button variant={'default'}>Back</Button>
         </Link>
         <Button variant={'destructive'} onClick={removeBooking}>

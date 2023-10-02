@@ -71,7 +71,7 @@ const Index: NextPage = () => {
         </div>
       </div>
       <div className={styles.homeButtons}>
-        <Link href={'/booking'}>
+        <Link href={'/students'}>
           <motion.button
             className={styles.buttonJoin}
             whileHover={{ scale: 1.05 }}

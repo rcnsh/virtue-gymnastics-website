@@ -104,8 +104,6 @@ const FormSchema = z.object({
       'Invalid Phone Number',
     )
     .optional(),
-  email: z.string().email(),
-  email2: z.string().email().optional(),
   hearAboutUs: z.string(),
   studentFirstName: z.string(),
   studentLastName: z.string(),
@@ -128,7 +126,7 @@ const FormSchema = z.object({
   marketingConsent: z.boolean().default(false),
 });
 
-const BookingForm = () => {
+const NewStudentForm = () => {
   const { userId } = useAuth();
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -152,9 +150,6 @@ const BookingForm = () => {
     }
     if (typeof data.mobilePhone2 === 'undefined') {
       data.mobilePhone2 = '';
-    }
-    if (typeof data.email2 === 'undefined') {
-      data.email2 = '';
     }
     if (typeof data.studentDOB === 'undefined') {
       data.studentDOB = new Date();
@@ -193,7 +188,7 @@ const BookingForm = () => {
       .then((docRef) => {
         console.log('Document written with ID: ', docRef.id);
         form.reset();
-        router.push('/booking').catch((error) => {
+        router.push('/students').catch((error) => {
           console.error('Error redirecting to bookings:', error);
         });
       })
@@ -393,34 +388,6 @@ const BookingForm = () => {
                         <FormLabel>Mobile 2:</FormLabel>
                         <FormControl>
                           <Input placeholder="Enter mobile 2" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <br />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Email:</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter email" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <br />
-                  <FormField
-                    control={form.control}
-                    name="email2"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Email 2:</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter email 2" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -922,4 +889,4 @@ const BookingForm = () => {
     </div>
   );
 };
-export default BookingForm;
+export default NewStudentForm;
