@@ -5,7 +5,6 @@ import { Check, ChevronsUpDown } from 'lucide-react';
 import conditions from '@/pages/api/conditions.json';
 import howHearAboutUs from '@/pages/api/howHearAboutUs.json';
 import days from '@/pages/api/daysOfTheWeek.json';
-import preferredClasses from '@/pages/api/preferredClasses.json';
 import {
   Form,
   FormField,
@@ -120,7 +119,6 @@ const FormSchema = z.object({
   studentPhotoConsent: z.boolean().default(false).optional(),
   studentVideoConsent: z.boolean().default(false).optional(),
   studentWalkingHomeConsent: z.boolean().default(false).optional(),
-  preferredClass: z.array(z.string()).optional(),
   termsAndConditions: z.boolean().default(false),
   privacyPolicy: z.boolean().default(false),
   marketingConsent: z.boolean().default(false),
@@ -169,9 +167,6 @@ const NewStudentForm = () => {
     if (typeof data.studentWalkingHomeConsent === 'undefined') {
       data.studentWalkingHomeConsent = false;
     }
-    if (typeof data.preferredClass === 'undefined') {
-      data.preferredClass = [];
-    }
     if (typeof data.studentPreferredDays === 'undefined') {
       data.studentPreferredDays = [];
     }
@@ -189,7 +184,7 @@ const NewStudentForm = () => {
         console.log('Document written with ID: ', docRef.id);
         form.reset();
         router.push('/students').catch((error) => {
-          console.error('Error redirecting to bookings:', error);
+          console.error('Error redirecting to booking:', error);
         });
       })
       .catch((error) => {
@@ -203,9 +198,6 @@ const NewStudentForm = () => {
   const [selectedConditions, setSelectedConditions] = React.useState<string[]>(
     [],
   );
-  const [selectedPreferredClass, setSelectedPreferredClass] = React.useState<
-    string[]
-  >([]);
 
   return (
     <div className="flex flex-col justify-center py-2 border border-white rounded-lg p-10">
@@ -711,26 +703,6 @@ const NewStudentForm = () => {
                             onCheckedChange={field.onChange}
                           />
                         </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <br />
-                  <FormField
-                    control={form.control}
-                    name="preferredClass"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Preferred Class:</FormLabel>
-                        <MultiSelect
-                          selected={selectedPreferredClass}
-                          onChange={(newSelected) => {
-                            setSelectedPreferredClass(newSelected);
-                            field.onChange(newSelected);
-                          }}
-                          options={preferredClasses}
-                          className="sm:w-[510px]"
-                        />
-                        <FormMessage />
                       </FormItem>
                     )}
                   />

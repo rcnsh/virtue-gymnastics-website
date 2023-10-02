@@ -34,7 +34,7 @@ const UserStudents: React.FC<UserBookingsProps> = ({ userId }) => {
         console.log('Bookings:', bookings);
         setUserBookings(bookings);
       } catch (error) {
-        console.error('Error fetching user bookings:', error);
+        console.error('Error fetching user booking:', error);
       }
     };
 

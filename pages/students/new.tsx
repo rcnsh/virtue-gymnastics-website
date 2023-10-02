@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
 import { app } from '@/pages/api/firebaseConfig';
 import Head from 'next/head';
-import NewStudentForm from '@/components/booking/NewStudentForm';
+import NewStudentForm from '@/components/students/NewStudentForm';
 
-function NewBooking() {
+function NewBookingPage() {
   const { getToken, userId } = useAuth();
   useEffect(() => {
     const signInWithClerk = async () => {
@@ -53,4 +53,4 @@ function NewBooking() {
   );
 }
 
-export default NewBooking;
+export default NewBookingPage;

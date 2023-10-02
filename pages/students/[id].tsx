@@ -65,7 +65,7 @@ const BookingDetailsPage = () => {
   return (
     <>
       <div className="bg-gray-800 rounded-lg shadow-lg p-8 text-center">
-        <h2 className="text-lg font-semibold">Booking Details {id}</h2>
+        <h2 className="text-lg font-semibold">Student Details {id}</h2>
         <br />
         <div className="grid grid-cols-2 gap-4">
           <div className="mb-4">
@@ -117,11 +117,7 @@ const BookingDetailsPage = () => {
           <p>City: {bookingData.city}</p>
           <p>County: {bookingData.county}</p>
           <p>Postcode: {bookingData.postcode}</p>
-          <p>Email 2: {bookingData.email2 || 'N/A'}</p>
           <p>Hear About Us: {bookingData.hearAboutUs}</p>
-          <p>
-            Preferred Class: {bookingData.preferredClass.join(', ') || 'N/A'}
-          </p>
         </div>
       </div>
       <div className={'flex justify-evenly'}>

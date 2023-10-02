@@ -1,18 +1,14 @@
 import { useAuth } from '@clerk/nextjs';
 import React, { useEffect } from 'react';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
-import Head from 'next/head';
 import { app } from '@/pages/api/firebaseConfig';
-import UserStudents from '@/components/students/userStudents';
-import LineBreaks from '@/components/line-breaks';
-
-function Students() {
-  const { getToken, userId, isLoaded } = useAuth();
-
+import Head from 'next/head';
+import NewBookingForm from '@/components/booking/BookingForm';
+function NewStudent() {
+  const { getToken, userId } = useAuth();
   useEffect(() => {
     const signInWithClerk = async () => {
       const auth = getAuth(app);
-
       const token = await getToken({ template: 'integration_firebase' });
       if (!token) {
         return;
@@ -27,25 +23,33 @@ function Students() {
     });
   }, [getToken, userId]);
 
-  if (!isLoaded) {
-    return (
-      <div>
-        <LineBreaks />
-        <LineBreaks />
-      </div>
-    );
-  }
-
   return (
     <>
       <Head>
         <title>Virtue Gymnastics - Booking</title>
         <meta name="description" content="Virtue Gymnastics" />
       </Head>
-
-      {isLoaded && userId && <UserStudents userId={userId} />}
+      <div className={'m-auto w-max'}>
+        <h1
+          className={
+            'text-6xl font-bold text-white leading-tight flex justify-center'
+          }
+        >
+          Booking Form
+        </h1>
+        <br />
+        <br />
+        <div className={'w-[80vw]'}>
+          <NewBookingForm />
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
     </>
   );
 }
 
-export default Students;
+export default NewStudent;

@@ -4,237 +4,514 @@
     "startTime": "09:30",
     "endTime": "10:30",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [0, 2, 4]
+    "daysOfWeek": [0, 2, 4],
+    "backgroundColor": "#827900",
+    "age": "Aged 1-4 years!",
+    "description": "A fun filled structured session for preschool children which requires the assistance of a parent/guardian. We will use themed structured gymnastics circuits to explore the wonderful world of gymnastics. "
   },
   {
     "title": "Bows",
     "startTime": "09:00",
     "endTime": "10:00",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [5]
+    "daysOfWeek": [5],
+    "backgroundColor": "#827900",
+    "age": "Aged 1-4 years!",
+    "description": "A fun filled structured session for preschool children which requires the assistance of a parent/guardian. We will use themed structured gymnastics circuits to explore the wonderful world of gymnastics. "
   },
   {
     "title": "PAYG",
     "startTime": "16:00",
     "endTime": "16:45",
     "cost": "£7-8 per session",
-    "daysOfWeek": [1]
+    "daysOfWeek": [1],
+    "backgroundColor": "#2c930d",
+    "age": "Aged 5+ years!",
+    "description": "Our PAYG sessions are suitable for members and non members and are non structured. Please check the class type and age range before booking a class. Please note these session require British Gymnastics insurance."
   },
   {
     "title": "A1",
     "startTime": "16:00",
     "endTime": "20:00",
     "cost": "£30 per week (£125.00 pcm)",
-    "daysOfWeek": [3]
+    "daysOfWeek": [3],
+    "backgroundColor": "#6d21a2",
+    "description": "Our A1 aerobic squad train 10 hours per week. They compete at competitions both nationally and internationally. Our aerobic squad is invitation only. "
   },
   {
     "title": "Arrows",
     "startTime": "10:35",
     "endTime": "11:35",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [0, 2, 4]
+    "daysOfWeek": [0, 2, 4],
+    "backgroundColor": "#6b6300",
+    "age": "Aged 1-4 years!",
+    "description": "A fun filled structured session for preschool children which requires the assistance of a parent/guardian. We will use themed structured gymnastics circuits to explore the wonderful world of gymnastics. "
   },
   {
     "title": "Arrows",
     "startTime": "10:05",
     "endTime": "11:05",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [5]
+    "daysOfWeek": [5],
+    "backgroundColor": "#6b6300",
+    "age": "Aged 1-4 years!",
+    "description": "A fun filled structured session for preschool children which requires the assistance of a parent/guardian. We will use themed structured gymnastics circuits to explore the wonderful world of gymnastics. "
   },
   {
     "title": "FS0",
     "startTime": "16:00",
     "endTime": "17:00",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [1]
+    "daysOfWeek": [1],
+    "backgroundColor": "#2030a8",
+    "age": "Aged 4-6 years!",
+    "description": "Our general parkour classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do freerunning, classes are based on ages and groups within the session are based on ability."
   },
   {
     "title": "CS3",
     "startTime": "16:00",
     "endTime": "20:00",
     "cost": "£24 per week (£92.00 pcm)",
-    "daysOfWeek": [3]
+    "daysOfWeek": [3],
+    "backgroundColor": "#7f1265",
+    "description": "Our CS3 squad train 4 hours per week and train all four pieces of apparatus. They compete at competitions across the country and perform at local displays over the course of the year. Our club squad is invitation only. "
   },
   {
     "title": "GG0",
     "startTime": "15:45",
     "endTime": "16:45",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [0]
+    "daysOfWeek": [0],
+    "backgroundColor": "#10a69e",
+    "age": "Aged 4-5 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
   },
   {
     "title": "A4",
     "startTime": "16:00",
     "endTime": "19:00",
     "cost": "£18 per week (£75.00 pcm)",
-    "daysOfWeek": [1]
+    "daysOfWeek": [1],
+    "backgroundColor": "#40175d",
+    "description": "Our A4 aerobic squad train 3 hours per week. They compete at national level competitions. Our aerobic squad is invitation only. "
   },
   {
-    "title": "HOME ED",
+    "title": "HOME-ED",
     "startTime": "11:40",
     "endTime": "12:40",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [2, 4]
+    "daysOfWeek": [2, 4],
+    "backgroundColor": "#8d0701",
+    "age": "Aged 6-14 years!",
+    "description": "A general session in either parkour or gymnastics specifically designed for home educated children. Classes are suitable for both boys and girls and are action packed and full of fun! "
   },
   {
     "title": "CS1",
     "startTime": "16:00",
     "endTime": "20:00",
     "cost": "£26.04 per week (£100.00 pcm)",
-    "daysOfWeek": [3]
+    "daysOfWeek": [3],
+    "backgroundColor": "#b1158c",
+    "description": "Our CS1 squad train 6 hours per week and train all four pieces of apparatus. They compete at competitions across the country and perform at local displays over the course of the year. Our club squad is invitation only. "
   },
   {
-    "title": "PS PARKOUR",
+    "title": "PS-PARKOUR",
     "startTime": "10:15",
     "endTime": "11:15",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [5]
+    "daysOfWeek": [5],
+    "backgroundColor": "#544e00",
+    "age": "Aged 1-4 years!",
+    "description": "A semi structured session for preschool children which requires the assistance of a parent/guardian. We will use physically challenging circuits each week to explore the wonderful world of parkour and freerunning. "
   },
   {
     "title": "Private",
     "startTime": "16:00",
     "endTime": "17:00",
     "cost": "£35 per session",
-    "daysOfWeek": [0]
+    "daysOfWeek": [0],
+    "backgroundColor": "#50575b",
+    "age": "Aged 5-16 years!",
+    "description": "Our private sessions are on a PAYG basis and are suitable for members and non members age 5+. Please check the private session activity type and age before booking a class. Please note these sessions require British Gymnastics insurance."
   },
   {
     "title": "GG1",
     "startTime": "16:50",
     "endTime": "17:50",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [1]
+    "daysOfWeek": [1],
+    "backgroundColor": "#1f9b96",
+    "age": "Aged 6-7 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
   },
   {
     "title": "GG0",
     "startTime": "15:45",
     "endTime": "18:45",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [2]
+    "daysOfWeek": [2],
+    "backgroundColor": "#1f9b96",
+    "age": "Aged 4-5 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
   },
   {
     "title": "CS2",
     "startTime": "16:00",
     "endTime": "20:00",
     "cost": "£24 per week (£92.00 pcm)",
-    "daysOfWeek": [3]
+    "daysOfWeek": [3],
+    "backgroundColor": "#9a177b",
+    "description": "Our CS2 squad train 4 hours per week and train all four pieces of apparatus. They compete at competitions across the country and perform at local displays over the course of the year. Our club squad is invitation only. "
   },
   {
     "title": "GG1",
     "startTime": "15:45",
     "endTime": "16:45",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [4]
+    "daysOfWeek": [4],
+    "backgroundColor": "#1f9b96",
+    "age": "Aged 6-7 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
   },
   {
-    "title": "FLIPS AND TRICKS",
+    "title": "FLIPS-AND-TRICKS",
     "startTime": "11:25",
     "endTime": "13:25",
     "cost": "£16 per week (£61:33 pcm)",
-    "daysOfWeek": [5]
+    "daysOfWeek": [5],
+    "backgroundColor": "#006666",
+    "age": "Aged 8+ years!",
+    "description": "Our flips and tricks class is for school age children, who want to push them selves that little bit further in parkour, they are action packed and full of fun. They are suitable for both boys and girls, classes are based on ages and groups within the session are based on ability."
   },
   {
     "title": "A2",
     "startTime": "16:00",
     "endTime": "19:00",
     "cost": "£24 per week (£100.00 pcm)",
-    "daysOfWeek": [0, 2]
+    "daysOfWeek": [0, 2],
+    "backgroundColor": "#632390",
+    "description": "Our A2 aerobic squad train 6 hours per week. They compete at national level competitions. Our aerobic squad is invitation only."
   },
   {
     "title": "FS1",
     "startTime": "17:05",
     "endTime": "18:05",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [1]
+    "daysOfWeek": [1],
+    "backgroundColor": "#2030a8",
+    "age": "Aged 7-8 years!",
+    "description": "Our general parkour classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do freerunning, classes are based on ages and groups within the session are based on ability."
   },
   {
-    "title": "FS JNR+",
+    "title": "FS-JNR+",
     "startTime": "16:15",
     "endTime": "17:45",
     "cost": "£15 per week (£57.50 pcm)",
-    "daysOfWeek": [3]
+    "daysOfWeek": [3],
+    "backgroundColor": "#b80000",
+    "description": "These classes are suitable for participants who show natural ability in tricking, parkour or free running. Our advanced program is split up into two classes; junior and senior and is by invitation only. "
   },
   {
     "title": "A3",
     "startTime": "16:00",
     "endTime": "18:00",
     "cost": "£28 per week (£116.00 pcm)",
-    "daysOfWeek": [4]
+    "daysOfWeek": [4],
+    "backgroundColor": "#521d76",
+    "description": "Our A3 aerobic squad train 8 hours per week. They compete at national level competitions. Our aerobic squad is invitation only. "
   },
   {
     "title": "GG0",
     "startTime": "11:30",
     "endTime": "12:30",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [5]
+    "daysOfWeek": [5],
+    "backgroundColor": "#10a69e",
+    "age": "Aged 4-5 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
   },
   {
     "title": "A3",
     "startTime": "16:00",
     "endTime": "19:00",
     "cost": "£28 per week (£116.00 pcm)",
-    "daysOfWeek": [0, 2]
+    "daysOfWeek": [0, 2],
+    "backgroundColor": "#521d76",
+    "description": "Our A3 aerobic squad train 8 hours per week. They compete at national level competitions. Our aerobic squad is invitation only."
   },
   {
     "title": "GG2",
     "startTime": "17:55",
     "endTime": "18:55",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [1]
+    "daysOfWeek": [1],
+    "backgroundColor": "#197f7a",
+    "age": "Aged 8-9 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
   },
   {
-    "title": "FS SNR+",
+    "title": "FS-SNR+",
     "startTime": "17:50",
     "endTime": "19:50",
     "cost": "£16 per week (£61.33 pcm)",
-    "daysOfWeek": [3]
+    "daysOfWeek": [3],
+    "backgroundColor": "#a30000",
+    "description": "These classes are suitable for participants who show natural ability in tricking, parkour or free running. Our advanced program is split up into two classes; junior and senior and is by invitation only. "
   },
   {
     "title": "FS0",
     "startTime": "16:00",
     "endTime": "17:00",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [4]
+    "daysOfWeek": [4],
+    "backgroundColor": "#2030a8",
+    "age": "Aged 4-6 years!",
+    "description": "Our general parkour classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do freerunning, classes are based on ages and groups within the session are based on ability."
   },
+
   {
     "title": "GG1",
     "startTime": "12:35",
     "endTime": "13:35",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [5]
+    "daysOfWeek": [5],
+    "backgroundColor": "#1f9b96",
+    "age": "Aged 6-7 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
   },
   {
     "title": "PAYG",
     "startTime": "16:00",
     "endTime": "17:00",
     "cost": "£7-8 per session",
-    "daysOfWeek": [0]
+    "daysOfWeek": [0],
+    "backgroundColor": "#2c930d",
+    "age": "Aged 5+ years!",
+    "description": "Our PAYG sessions are suitable for members and non members and are non structured. Please check the class type and age range before booking a class. Please note these session require British Gymnastics insurance."
   },
   {
     "title": "PAYG",
     "startTime": "13:30",
     "endTime": "14:30",
     "cost": "£7-8 per session",
-    "daysOfWeek": [5]
+    "daysOfWeek": [5],
+    "backgroundColor": "#2c930d",
+    "age": "Aged 5+ years!",
+    "description": "Our PAYG sessions are suitable for members and non members and are non structured. Please check the class type and age range before booking a class. Please note these session require British Gymnastics insurance."
   },
   {
     "title": "FS2",
     "startTime": "18:10",
     "endTime": "19:10",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [1]
+    "daysOfWeek": [1],
+    "backgroundColor": "#2030a8",
+    "age": "Aged 9-10 years!",
+    "description": "Our general parkour classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do freerunning, classes are based on ages and groups within the session are based on ability."
   },
   {
     "title": "FSGIRLS",
     "startTime": "16:00",
     "endTime": "17:00",
     "cost": "£10.99 per week (£42.13 pcm)",
-    "daysOfWeek": [2]
+    "daysOfWeek": [2],
+    "backgroundColor": "#26292b",
+    "age": "Aged 5-15 years!",
+    "description": "This class is specifically for girls who have an interest in freerunning and parkour and feel more comfortable in a all girl environment. This class is for school age girls and they are action packed and full of fun. "
   },
   {
     "title": "CS4",
     "startTime": "16:00",
     "endTime": "18:00",
     "cost": "£16 per week (£61.33 pcm)",
-    "daysOfWeek": [4]
+    "daysOfWeek": [4],
+    "backgroundColor": "#630f50",
+    "description": "Our CS4 squad train 2 hours per week and train all four pieces of apparatus. They compete at competitions across the country and perform at local displays over the course of the year. Our club squad is invitation only."
+  },
+  {
+    "title": "GG1",
+    "startTime": "16:50",
+    "endTime": "17:50",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [0, 2],
+    "backgroundColor": "#1f9b96",
+    "age": "Aged 6-7 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
+  },
+  {
+    "title": "GG3",
+    "startTime": "19:00",
+    "endTime": "20:00",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [1],
+    "backgroundColor": "#146360",
+    "age": "Aged 10+ years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
+  },
+  {
+    "title": "CS5",
+    "startTime": "16:00",
+    "endTime": "18:00",
+    "cost": "£16 per week (£61.33 pcm)",
+    "daysOfWeek": [4],
+    "backgroundColor": "#480b3a",
+    "description": "Our CS5 squad train 2 hours per week and train all four pieces of apparatus. They compete at competitions across the country and perform at local displays over the course of the year. Our club squad is invitation only. "
+  },
+  {
+    "title": "GG2",
+    "startTime": "13:40",
+    "endTime": "14:40",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [5],
+    "backgroundColor": "#197f7a",
+    "age": "Aged 8-9 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability"
+  },
+  {
+    "title": "PK SQUAD",
+    "startTime": "17:05",
+    "endTime": "19:05",
+    "cost": "£24 per week (£92.00 pcm)",
+    "daysOfWeek": [0, 2],
+    "backgroundColor": "#cc0000",
+    "description": "Our PK squad trains 4 hours per week. They compete at competitions across the country through out the year and perform displays over the course of the year. Our PK squad is invitation only. "
+  },
+  {
+    "title": "FS3",
+    "startTime": "19:15",
+    "endTime": "20:15",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [1],
+    "backgroundColor": "#34383a",
+    "age": "Aged 11+ years!",
+    "description": "Our general parkour classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do freerunning, classes are based on ages and groups within the session are based on ability."
+  },
+  {
+    "title": "GG2",
+    "startTime": "16:50",
+    "endTime": "17:50",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [4],
+    "backgroundColor": "#197f7a",
+    "age": "Aged 8-9 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
+  },
+  {
+    "title": "GG3",
+    "startTime": "13:40",
+    "endTime": "14:40",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [5],
+    "backgroundColor": "#146360",
+    "age": "Aged 10+ years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
+  },
+  {
+    "title": "GG2",
+    "startTime": "17:55",
+    "endTime": "18:55",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [0, 2],
+    "backgroundColor": "#197f7a",
+    "age": "Aged 8-9 years!",
+    "description": "Our general gymnastics classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do gymnastics, classes are based on ages and groups within the session are based on ability."
+  },
+  {
+    "title": "Adults",
+    "startTime": "20:00",
+    "endTime": "21:00",
+    "cost": "£10 per session",
+    "daysOfWeek": [1],
+    "backgroundColor": "#5a6165",
+    "age": "Aged 16+ years!",
+    "description": "Our adult sessions are suitable for members and non members and are non structured. Adult gymnastics sessions are PAYG and bookable online only, please book early to avoid disappointment as spaces are limited. Please note these session require British Gymnastics insurance."
+  },
+  {
+    "title": "FS1",
+    "startTime": "17:05",
+    "endTime": "18:05",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [4],
+    "backgroundColor": "#2030a8",
+    "age": "Aged 7-8 years!",
+    "description": "Our general parkour classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do freerunning, classes are based on ages and groups within the session are based on ability."
+  },
+  {
+    "title": "NEURODIVERSE",
+    "startTime": "15:00",
+    "endTime": "16:00",
+    "cost": "£10.00 per session",
+    "daysOfWeek": [5],
+    "backgroundColor": "#5ec500",
+    "age": "Aged 2-15 years!",
+    "description": "Our Super SEN sessions are held on the last Saturday of most months and are specifically for those with SEN, ASD and additional needs. These sessions are bookable on a PAYG basis and are semi structured. Children will have full access to the whole gym in a safe quiet environment."
+  },
+  {
+    "title": "A1",
+    "startTime": "18:00",
+    "endTime": "21:00",
+    "cost": "£30 per week (£125.00 pcm)",
+    "daysOfWeek": [0, 4],
+    "backgroundColor": "#6d21a2",
+    "description": "Our A1 aerobic squad train 10 hours per week. They compete at competitions both nationally and internationally. Our aerobic squad is invitation only. "
+  },
+  {
+    "title": "GG3+",
+    "startTime": "19:00",
+    "endTime": "20:30",
+    "cost": "£15 per week (£57.50 pcm)",
+    "daysOfWeek": [0, 2],
+    "backgroundColor": "#0e4744",
+    "age": "Aged 10+ years!",
+    "description": "Our GG+ classes are for school age children, who want to push them selves that little bit further in gymnastics, they are action packed and full of fun. They are suitable for both boys and girls, classes are based on ages and groups within the session are based on ability."
+  },
+  {
+    "title": "CS1",
+    "startTime": "18:00",
+    "endTime": "20:00",
+    "cost": "£26.04 per week (£100.00 pcm)",
+    "daysOfWeek": [4],
+    "backgroundColor": "#b1158c",
+    "description": "Our CS1 squad train 6 hours per week and train all four pieces of apparatus. They compete at competitions across the country and perform at local displays over the course of the year. Our club squad is invitation only. "
+  },
+  {
+    "title": "FS3",
+    "startTime": "19:10",
+    "endTime": "20:10",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [0],
+    "backgroundColor": "#34383a",
+    "age": "Aged 11+ years!",
+    "description": "Our general parkour classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do freerunning, classes are based on ages and groups within the session are based on ability."
+  },
+  {
+    "title": "Tumble",
+    "startTime": "18:00",
+    "endTime": "20:30",
+    "cost": "£18.75 per week (£71.88 pcm)",
+    "daysOfWeek": [4],
+    "backgroundColor": "#a86008",
+    "description": "Our tumble squad train 2.5 hours per week and compete at competitions across the country through out the year and perform displays over the course of the year. Our tumble squad is invitation only. "
+  },
+  {
+    "title": "FS2",
+    "startTime": "18:10",
+    "endTime": "19:10",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [4],
+    "backgroundColor": "#2030a8",
+    "age": "Aged 9-10 years!",
+    "description": "Our general parkour classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do freerunning, classes are based on ages and groups within the session are based on ability."
+  },
+  {
+    "title": "FS3",
+    "startTime": "19:15",
+    "endTime": "20:15",
+    "cost": "£10.99 per week (£42.13 pcm)",
+    "daysOfWeek": [4],
+    "backgroundColor": "#34383a",
+    "age": "Aged 11+ years!",
+    "description": "Our general parkour classes are for school age children, they are action packed and full of fun. They are suitable for both boys and girls who wish to do freerunning, classes are based on ages and groups within the session are based on ability."
   }
 ]

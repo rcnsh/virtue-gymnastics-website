@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import adaptivePlugin from '@fullcalendar/adaptive';
 import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
 import styles from '@/styles/Timetable.module.css';
 import dates from '@/pages/api/dates.json';
 import { useState } from 'react';
@@ -17,6 +18,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const Calendar: NextPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -28,6 +30,9 @@ const Calendar: NextPage = () => {
     endTime: event.endTime,
     cost: event.cost,
     daysOfWeek: event.daysOfWeek.map((day) => day + 1),
+    backgroundColor: event.backgroundColor,
+    age: event.age,
+    description: event.description,
   }));
 
   return (
@@ -40,13 +45,14 @@ const Calendar: NextPage = () => {
             timeGridPlugin,
             adaptivePlugin,
             interactionPlugin,
+            listPlugin,
           ]}
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek',
+            right: 'dayGridMonth,timeGridWeek,listWeek',
           }}
-          initialView="timeGridWeek"
+          initialView="dayGridMonth"
           nowIndicator={false}
           editable={false}
           selectable={true}
@@ -66,19 +72,30 @@ const Calendar: NextPage = () => {
         <Dialog open={modalIsOpen} onOpenChange={setModalIsOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{eventInfo?.event?.title}</DialogTitle>
+              <DialogTitle className={'text-center'}>
+                {eventInfo?.event?.title}
+              </DialogTitle>
               <DialogDescription>
-                {eventInfo?.event?.extendedProps?.cost}
+                <p className={'text-center'}>
+                  {eventInfo?.event?.extendedProps?.cost}
+                </p>
+                <p className={'text-center'}>
+                  {eventInfo?.event?.extendedProps?.age}
+                </p>
               </DialogDescription>
             </DialogHeader>
-            <Button
-              type={'submit'}
-              onClick={() => {
-                console.log('Booked');
-              }}
-            >
-              Book
-            </Button>
+            <p>{eventInfo?.event?.extendedProps?.description}</p>
+            <Link href={`/bookings/new?class=${eventInfo?.event?.title}`}>
+              <Button
+                className={'w-full'}
+                type={'submit'}
+                onClick={() => {
+                  console.log('Booked');
+                }}
+              >
+                Book This Class
+              </Button>
+            </Link>
           </DialogContent>
         </Dialog>
       </div>
