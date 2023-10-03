@@ -22,8 +22,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/components/ui/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import classes from '@/pages/api/classes.json';
 import { useSearchParams } from 'next/navigation';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const FormSchema = z.object({
   selectedClass: z.string({
@@ -34,10 +48,35 @@ const FormSchema = z.object({
   }),
 });
 
+interface ClassData {
+  id: string;
+  name: string;
+}
+
+function uniqueByIdAndName(
+  data: Array<{ id: string; name: string }>,
+): Array<{ id: string; name: string }> {
+  const uniqueLanguages = data.filter(
+    (currentItem, index, array) =>
+      !array
+        .slice(0, index)
+        .some(
+          (item) =>
+            item.id === currentItem.id && item.name === currentItem.name,
+        ),
+  );
+
+  uniqueLanguages.sort((a, b) => a.name.localeCompare(b.name));
+
+  return uniqueLanguages;
+}
+
 function NewBookingForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const classTitle = searchParams.get('class') || undefined;
+  const [uniqueClasses, setUniqueClasses] = useState<ClassData[]>([]);
+  const [classOpen, setClassOpen] = useState(false);
   const [userBookings, setUserBookings] = useState<any[]>([]);
   const { userId } = useAuth();
 
@@ -82,19 +121,13 @@ function NewBookingForm() {
     console.log('Form data:', data);
   };
 
-  const sortedUniqueClassNames = Array.from(
-    new Set(classes.map((item) => item.name)),
-  ).sort();
-
-  const uniqueClassOptions = sortedUniqueClassNames.map((className) => ({
-    name: className,
-  }));
-
   useEffect(() => {
+    const uniqueClasses = uniqueByIdAndName(classes);
+    setUniqueClasses(uniqueClasses);
+
     if (!classTitle) {
       return;
     }
-
     form.setValue('selectedClass', classTitle);
   }, [classTitle, form]);
 
@@ -114,31 +147,64 @@ function NewBookingForm() {
               name="selectedClass"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Selected Class:</FormLabel>
-                  <Select
-                    onValueChange={(value) => {
-                      field.onChange;
-                      router.push(`/bookings/new?class=${value}`).catch(() => {
-                        console.error('Error pushing to new booking page');
-                      });
-                    }}
-                    value={classTitle}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a class" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent className="overflow-y-auto max-h-[30rem]">
-                      {uniqueClassOptions.map((option) => (
-                        <>
-                          <SelectItem key={option.name} value={option.name}>
-                            {option.name}
-                          </SelectItem>
-                        </>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <FormLabel>Class</FormLabel>
+                  <Popover open={classOpen} onOpenChange={setClassOpen}>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            'w-[200px] justify-between',
+                            !field.value && 'text-muted-foreground',
+                          )}
+                        >
+                          {field.value
+                            ? uniqueClasses.find(
+                                (classes) => classes.id === field.value,
+                              )?.name
+                            : classTitle}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0 overflow-y-auto max-h-[30rem]">
+                      <Command>
+                        <CommandInput placeholder="Search classes..." />
+                        <CommandEmpty>No class found.</CommandEmpty>
+                        <CommandGroup>
+                          {uniqueClasses.map((classes) => (
+                            <CommandItem
+                              value={classes.name}
+                              key={classes.id}
+                              onSelect={() => {
+                                form.setValue('selectedClass', classes.id);
+                                setClassOpen(false);
+                                router
+                                  .push(`/bookings/new?class=${classes.name}`)
+                                  .catch((error) => {
+                                    console.error(
+                                      'Error navigating to new booking page:' +
+                                        error,
+                                    );
+                                  });
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  'mr-2 h-4 w-4',
+                                  classes.id === field.value
+                                    ? 'opacity-100'
+                                    : 'opacity-0',
+                                )}
+                              />
+                              {classes.name}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}
