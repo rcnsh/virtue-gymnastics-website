@@ -90,6 +90,14 @@ function NewBookingForm() {
     name: className,
   }));
 
+  useEffect(() => {
+    if (!classTitle) {
+      return;
+    }
+
+    form.setValue('selectedClass', classTitle);
+  }, [classTitle, form]);
+
   return (
     <div className="flex flex-col justify-center py-2 border border-white rounded-lg p-10">
       <h1 className="text-4xl font-bold text-white flex justify-center p-10">
