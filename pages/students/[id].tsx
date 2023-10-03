@@ -1,7 +1,15 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { db } from '@/pages/api/firebaseConfig';
-import { deleteDoc, doc, getDoc } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc,
+  getDoc,
+} from 'firebase/firestore';
 import { useAuth } from '@clerk/nextjs';
 import { Timestamp } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
@@ -52,9 +60,23 @@ const BookingDetailsPage = () => {
       try {
         const bookingRef = doc(db, bookingPath);
         await deleteDoc(bookingRef);
+
+        const studentBookingsRef = collection(
+          db,
+          `bookings/${userId}/studentBookings`,
+        );
+        const q = query(studentBookingsRef, where('selectedStudent', '==', id));
+        const querySnapshot = await getDocs(q);
+
+        const deletePromises = querySnapshot.docs.map(async (doc) => {
+          await deleteDoc(doc.ref);
+        });
+
+        await Promise.all(deletePromises);
+
         await router.push('/students');
       } catch (error) {
-        console.error('Error removing students:', error);
+        console.error('Error removing student bookings:', error);
       }
     }
   };
