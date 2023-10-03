@@ -133,7 +133,6 @@ function NewBookingForm() {
     addDoc(bookingsCollection, data)
       .then((docRef) => {
         console.log('Document written with ID: ', docRef.id);
-        form.reset();
         router.push('/bookings').catch((error) => {
           console.error('Error redirecting to booking:', error);
         });
