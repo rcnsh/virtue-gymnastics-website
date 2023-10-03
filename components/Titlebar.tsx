@@ -11,8 +11,9 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
-import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
+import { UserButton, useUser } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const listItems: { title: string; href: string; description: string }[] = [
   {
@@ -59,7 +60,7 @@ const listItems: { title: string; href: string; description: string }[] = [
 ];
 
 const Titlebar = () => {
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn } = useUser();
 
   return (
     <section className={styles.titlebar}>
@@ -100,13 +101,13 @@ const Titlebar = () => {
         <UserButton />
       ) : (
         <div>
-          <Button>
-            <SignInButton />
-          </Button>
+          <Link href={'/sign-in'}>
+            <Button>Login</Button>
+          </Link>
           &nbsp; &nbsp; &nbsp; &nbsp;
-          <Button>
-            <SignUpButton />
-          </Button>
+          <Link href={'/sign-up'}>
+            <Button>Sign Up</Button>
+          </Link>
         </div>
       )}
     </section>
