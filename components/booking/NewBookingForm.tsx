@@ -125,7 +125,6 @@ function NewBookingForm() {
       return;
     }
     setSubmittedForm(true);
-    console.log('Form data:', data);
     const bookingsCollection = collection(
       db,
       `bookings/${userId}/studentBookings`,

@@ -182,7 +182,6 @@ const NewStudentForm = () => {
     addDoc(bookingsCollection, data)
       .then((docRef) => {
         console.log('Document written with ID: ', docRef.id);
-        form.reset();
         router.push('/students').catch((error) => {
           console.error('Error redirecting to booking:', error);
         });

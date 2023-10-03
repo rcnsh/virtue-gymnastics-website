@@ -31,14 +31,13 @@ const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log('Bookings:', bookings);
         setUserBookings(bookings);
       } catch (error) {
         console.error('Error fetching user booking:', error);
       }
     };
 
-    fetchUserBookings().then((r) => console.log(r));
+    fetchUserBookings().catch((error) => console.error(error));
   }, [userId]);
 
   return (

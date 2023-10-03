@@ -34,8 +34,6 @@ export const FooterEmailForm = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
-    console.log(values);
-
     fetch('/api/footer-send', {
       method: 'POST',
       headers: {
