@@ -1,42 +1,16 @@
 import { NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import LineBreaks from '@/components/line-breaks';
-import { useAuth } from '@clerk/nextjs';
-import React, { useEffect } from 'react';
-import { app } from '@/pages/api/firebaseConfig';
-import { getAuth, signInWithCustomToken } from '@firebase/auth';
+import React from 'react';
 import Link from 'next/link';
 import AnimatedText from 'react-animated-text-content';
 import InstagramSection from '@/components/InstagramSection';
-const TestimonialsSection = dynamic(
-  () => import('@/components/TestimonialsSection'),
-  {
-    ssr: false,
-  },
-);
+import TestimonialsSection from '@/components/TestimonialsSection';
 
 const Index: NextPage = () => {
-  const { getToken, userId, isLoaded } = useAuth();
-  useEffect(() => {
-    const signInWithClerk = async () => {
-      const auth = getAuth(app);
-
-      const token = await getToken({ template: 'integration_firebase' });
-      if (!token) {
-        return;
-      }
-      await signInWithCustomToken(auth, token);
-    };
-
-    signInWithClerk().catch((error) => {
-      console.log('An error occurred:', error);
-    });
-  }, [getToken, userId, isLoaded]);
-
   return (
     <>
       <div>
