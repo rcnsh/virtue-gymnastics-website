@@ -67,7 +67,11 @@ const UserStudents: React.FC<UserBookingsProps> = ({ userId }) => {
           <Link href={`/students/${booking.id}`} key={index}>
             <Card>
               <CardHeader>
-                <CardTitle>Student {index + 1}</CardTitle>
+                <CardTitle>
+                  <p>
+                    {booking.studentFirstName} {booking.studentLastName}
+                  </p>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p>

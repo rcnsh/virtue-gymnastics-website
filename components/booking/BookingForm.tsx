@@ -38,6 +38,8 @@ import classes from '@/pages/api/classes.json';
 import { useSearchParams } from 'next/navigation';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { addDoc } from '@firebase/firestore';
+import Link from 'next/link';
 
 const FormSchema = z.object({
   selectedClass: z.string({
@@ -78,6 +80,7 @@ function NewBookingForm() {
   const [uniqueClasses, setUniqueClasses] = useState<ClassData[]>([]);
   const [classOpen, setClassOpen] = useState(false);
   const [userBookings, setUserBookings] = useState<any[]>([]);
+  const [submittedForm, setSubmittedForm] = useState(false);
   const { userId } = useAuth();
 
   useEffect(() => {
@@ -118,7 +121,26 @@ function NewBookingForm() {
   });
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    if (submittedForm) {
+      return;
+    }
+    setSubmittedForm(true);
     console.log('Form data:', data);
+    const bookingsCollection = collection(
+      db,
+      `bookings/${userId}/studentBookings`,
+    );
+    addDoc(bookingsCollection, data)
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef.id);
+        form.reset();
+        router.push('/bookings').catch((error) => {
+          console.error('Error redirecting to booking:', error);
+        });
+      })
+      .catch((error) => {
+        console.error('Error adding document: ', error);
+      });
   };
 
   useEffect(() => {
@@ -136,110 +158,124 @@ function NewBookingForm() {
       <h1 className="text-4xl font-bold text-white flex justify-center p-10">
         Booking Form
       </h1>
-      <div className={'p-8'}>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-2/3 space-y-6"
-          >
-            <FormField
-              control={form.control}
-              name="selectedClass"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Class</FormLabel>
-                  <Popover open={classOpen} onOpenChange={setClassOpen}>
-                    <PopoverTrigger asChild>
+      {studentData.length === 0 ? (
+        <>
+          <h1 className={'text-3xl flex justify-center'}>
+            No registered students found.
+          </h1>
+          <br />
+          <Link href={'/students/new'} className={'flex justify-center p-10'}>
+            <Button className={'w-[40%] text-xl'}>Register a student</Button>
+          </Link>
+        </>
+      ) : (
+        <div className={'p-8'}>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-2/3 space-y-6"
+            >
+              <FormField
+                control={form.control}
+                name="selectedClass"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Class</FormLabel>
+                    <Popover open={classOpen} onOpenChange={setClassOpen}>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
+                              'w-[200px] justify-between',
+                              !field.value && 'text-muted-foreground',
+                            )}
+                          >
+                            {field.value
+                              ? uniqueClasses.find(
+                                  (classes) => classes.id === field.value,
+                                )?.name
+                              : classTitle}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[200px] p-0 overflow-y-auto max-h-[30rem]">
+                        <Command>
+                          <CommandInput placeholder="Search classes..." />
+                          <CommandEmpty>No class found.</CommandEmpty>
+                          <CommandGroup>
+                            {uniqueClasses.map((classes) => (
+                              <CommandItem
+                                value={classes.name}
+                                key={classes.id}
+                                onSelect={() => {
+                                  form.setValue('selectedClass', classes.id);
+                                  setClassOpen(false);
+                                  router
+                                    .push(`/bookings/new?class=${classes.name}`)
+                                    .catch((error) => {
+                                      console.error(
+                                        'Error navigating to new booking page:' +
+                                          error,
+                                      );
+                                    });
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    'mr-2 h-4 w-4',
+                                    classes.id === field.value
+                                      ? 'opacity-100'
+                                      : 'opacity-0',
+                                  )}
+                                />
+                                {classes.name}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="selectedStudent"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Student</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
-                        <Button
-                          variant="outline"
-                          role="combobox"
-                          className={cn(
-                            'w-[200px] justify-between',
-                            !field.value && 'text-muted-foreground',
-                          )}
-                        >
-                          {field.value
-                            ? uniqueClasses.find(
-                                (classes) => classes.id === field.value,
-                              )?.name
-                            : classTitle}
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                        </Button>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a student for this class" />
+                        </SelectTrigger>
                       </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0 overflow-y-auto max-h-[30rem]">
-                      <Command>
-                        <CommandInput placeholder="Search classes..." />
-                        <CommandEmpty>No class found.</CommandEmpty>
-                        <CommandGroup>
-                          {uniqueClasses.map((classes) => (
-                            <CommandItem
-                              value={classes.name}
-                              key={classes.id}
-                              onSelect={() => {
-                                form.setValue('selectedClass', classes.id);
-                                setClassOpen(false);
-                                router
-                                  .push(`/bookings/new?class=${classes.name}`)
-                                  .catch((error) => {
-                                    console.error(
-                                      'Error navigating to new booking page:' +
-                                        error,
-                                    );
-                                  });
-                              }}
-                            >
-                              <Check
-                                className={cn(
-                                  'mr-2 h-4 w-4',
-                                  classes.id === field.value
-                                    ? 'opacity-100'
-                                    : 'opacity-0',
-                                )}
-                              />
-                              {classes.name}
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="selectedStudent"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Student</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a student for this class" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {studentData.map((student) => (
-                        <SelectItem key={student.id} value={student.id}>
-                          {`${student.firstName} ${student.lastName}`}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Submit</Button>
-          </form>
-        </Form>
-      </div>
+                      <SelectContent
+                        className={'overflow-y-auto max-h-[30rem]'}
+                      >
+                        {studentData.map((student) => (
+                          <SelectItem key={student.id} value={student.id}>
+                            {`${student.firstName} ${student.lastName}`}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Submit</Button>
+            </form>
+          </Form>
+        </div>
+      )}
     </div>
   );
 }

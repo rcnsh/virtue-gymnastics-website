@@ -125,7 +125,7 @@ const BookingDetailsPage = () => {
           <Button variant={'default'}>Back</Button>
         </Link>
         <Button variant={'destructive'} onClick={removeBooking}>
-          Remove
+          Deregister Student
         </Button>
       </div>
       <br />
