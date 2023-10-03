@@ -3,18 +3,18 @@
 To get started, run:
 
 ```bash
-bun run dev
+yarn run dev
 ```
 
 ## Scripts
 
 The table below provides names and descriptions of the npm scripts available in this project.
 
-Each script is run using `bun run <script-name>`. For example: `bun run dev`.
+Each script is run using `yarn run <script-name>`. For example: `yarn run dev`.
 
 | Name           | Description                                                                                                                                                                                                                                     |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `prepare`      | The [`prepare` life cycle script](https://docs.npmjs.com/cli/v7/using-npm/scripts#life-cycle-scripts) is used to set up Git pre-commit hooks when people install dependencies, eg. using `npm install`. This script should not be run manually. |
+| `prepare`      | The [`prepare` life cycle script](https://docs.npmjs.com/cli/v7/using-npm/scripts#life-cycle-scripts) is used to set up Git pre-commit hooks when people install dependencies, eg. using `yarn install`. This script should not be run manually. |
 | `test`         | Runs tests                                                                                                                                                                                                                                      |
 | `dev`          | Runs the Next.js development server.                                                                                                                                                                                                            |
 | `build`        | Generates a production build.                                                                                                                                                                                                                   |
@@ -43,5 +43,3 @@ The table below gives an overview of the technologies used in this project, as w
 | lint-staged     | [Website](https://github.com/okonet/lint-staged) - [GitHub](https://github.com/okonet/lint-staged)                                                                                                              |
 | Yarn            | [Website](https://yarnpkg.com/) - [CLI Docs](https://yarnpkg.com/cli) - [GitHub](https://github.com/yarnpkg/berry)                                                                                              |
 | GitHub Actions  | [Website](https://github.com/features/actions) - [Docs](https://docs.github.com/en/actions) - [Workflow syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)                |
-
-TODO: https://github.com/vantezzen/auto-form
