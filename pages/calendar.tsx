@@ -86,7 +86,7 @@ const Calendar: NextPage = () => {
               </DialogDescription>
             </DialogHeader>
             <p>{eventInfo?.event?.extendedProps?.description}</p>
-            <Link href={`/bookings/new?class=${eventInfo?.event?.title}`}>
+            <Link href={`/bookings/new?class=${eventInfo?.event?.id}`}>
               <Button className={'w-full'} type={'submit'}>
                 Book This Class
               </Button>

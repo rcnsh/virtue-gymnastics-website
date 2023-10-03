@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { db } from '@/pages/api/firebaseConfig';
+import { db, app } from '@/pages/api/firebaseConfig';
 import {
   collection,
   query,
@@ -15,12 +15,27 @@ import { Timestamp } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import LineBreaks from '@/components/line-breaks';
+import { getAuth, signInWithCustomToken } from '@firebase/auth';
 
 const BookingDetailsPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { userId } = useAuth();
+  const { getToken, userId, isLoaded } = useAuth();
+  useEffect(() => {
+    const signInWithClerk = async () => {
+      const auth = getAuth(app);
 
+      const token = await getToken({ template: 'integration_firebase' });
+      if (!token) {
+        return;
+      }
+      await signInWithCustomToken(auth, token);
+    };
+
+    signInWithClerk().catch((error) => {
+      console.log('An error occurred:', error);
+    });
+  }, [getToken, userId, isLoaded]);
   const [bookingData, setBookingData] = useState<any>(null);
 
   const formatDate = (timestamp: Timestamp) => {
@@ -57,7 +72,6 @@ const BookingDetailsPage = () => {
   const removeBooking = async () => {
     if (id) {
       const bookingPath = `bookings/${userId}/registeredStudents/${id}`;
-
       try {
         const bookingRef = doc(db, bookingPath);
         await deleteDoc(bookingRef);

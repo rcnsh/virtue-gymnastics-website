@@ -206,13 +206,13 @@ function NewBookingForm() {
                           <CommandGroup>
                             {uniqueClasses.map((classes) => (
                               <CommandItem
-                                value={classes.name}
+                                value={classes.id}
                                 key={classes.id}
                                 onSelect={() => {
                                   form.setValue('selectedClass', classes.id);
                                   setClassOpen(false);
                                   router
-                                    .push(`/bookings/new?class=${classes.name}`)
+                                    .push(`/bookings/new?class=${classes.id}`)
                                     .catch((error) => {
                                       console.error(
                                         'Error navigating to new booking page:' +

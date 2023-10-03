@@ -1,16 +1,16 @@
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import Head from 'next/head';
-import UserStudents from '@/components/students/userStudents';
+import UserBookings from '@/components/booking/userBookings';
 
-function Students() {
+function Bookings() {
   return (
     <>
       <Head>
-        <title>Virtue Gymnastics - Students</title>
+        <title>Virtue Gymnastics - Booking</title>
         <meta name="description" content="Virtue Gymnastics" />
       </Head>
       <SignedIn>
-        <UserStudents />
+        <UserBookings />
       </SignedIn>
       <SignedOut>
         <div className={'flex justify-center'}>
@@ -23,4 +23,4 @@ function Students() {
   );
 }
 
-export default Students;
+export default Bookings;
