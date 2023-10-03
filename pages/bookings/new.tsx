@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
 import { app } from '@/pages/api/firebaseConfig';
 import Head from 'next/head';
-import NewBookingForm from '@/components/booking/BookingForm';
+import NewBookingForm from '@/components/booking/NewBookingForm';
 import Link from 'next/link';
 
 function NewBooking() {

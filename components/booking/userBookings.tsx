@@ -6,10 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/router';
-import { useAuth } from '@clerk/nextjs';
 
-const UserStudents = () => {
-  const { userId } = useAuth();
+interface UserBookingsProps {
+  userId: string;
+}
+
+const UserBookings: React.FC<UserBookingsProps> = ({ userId }) => {
   const router = useRouter();
   const [userBookings, setUserBookings] = useState<any[]>([]);
 
@@ -107,4 +109,4 @@ const UserStudents = () => {
   );
 };
 
-export default UserStudents;
+export default UserBookings;

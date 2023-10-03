@@ -14,6 +14,7 @@ import { useAuth } from '@clerk/nextjs';
 import { Timestamp } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import LineBreaks from '@/components/line-breaks';
 
 const BookingDetailsPage = () => {
   const router = useRouter();
@@ -81,13 +82,16 @@ const BookingDetailsPage = () => {
     }
   };
   if (!bookingData) {
-    return <div>Loading...</div>;
+    return <LineBreaks />;
   }
 
   return (
     <>
       <div className="bg-gray-800 rounded-lg shadow-lg p-8 text-center">
-        <h2 className="text-lg font-semibold">Student Details {id}</h2>
+        <h2 className="text-lg font-semibold">
+          Student Details: {bookingData.studentFirstName}{' '}
+          {bookingData.studentLastName}
+        </h2>
         <br />
         <div className="grid grid-cols-2 gap-4">
           <div className="mb-4">
