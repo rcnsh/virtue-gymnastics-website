@@ -16,6 +16,14 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import LineBreaks from '@/components/line-breaks';
 import { getAuth, signInWithCustomToken } from '@firebase/auth';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 const BookingDetailsPage = () => {
   const router = useRouter();
@@ -164,9 +172,24 @@ const BookingDetailsPage = () => {
         <Link href={'/students'}>
           <Button variant={'default'}>Back</Button>
         </Link>
-        <Button variant={'destructive'} onClick={removeBooking}>
-          Deregister Student
-        </Button>
+        <Dialog>
+          <DialogTrigger>
+            <Button variant={'destructive'}>Deregister Student</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                Are you sure you want to deregister this student?
+              </DialogTitle>
+              <DialogDescription>
+                This will also remove all bookings associated with this student.
+              </DialogDescription>
+            </DialogHeader>
+            <Button variant={'destructive'} onClick={removeBooking}>
+              Deregister
+            </Button>
+          </DialogContent>
+        </Dialog>
       </div>
       <br />
       <br />

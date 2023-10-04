@@ -15,6 +15,14 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/router';
 import { useAuth } from '@clerk/nextjs';
 import LineBreaks from '@/components/line-breaks';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 const UserBookings = () => {
   const { userId } = useAuth();
@@ -163,27 +171,46 @@ const UserBookings = () => {
                   {booking.selectedClass}
                 </p>
                 <br />
-                <Button
-                  variant={'destructive'}
-                  className={'w-[100%] m-auto'}
-                  size={'lg'}
-                  onClick={() => {
-                    console.log(
-                      'studentId: ' +
-                        booking.studentId +
-                        ' className: ' +
-                        booking.selectedClass,
-                    );
-                    removeBooking(
-                      booking.studentId,
-                      booking.selectedClass,
-                    ).catch((error) => {
-                      console.error('Error removing booking:', error);
-                    });
-                  }}
-                >
-                  Remove Class Booking
-                </Button>
+                <Dialog>
+                  <DialogTrigger>
+                    <Button
+                      variant={'destructive'}
+                      className={'w-[100%] m-auto'}
+                    >
+                      Remove Class Booking
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>
+                        Are you sure you want to delete this booking?
+                      </DialogTitle>
+                      <DialogDescription>
+                        This will remove the student from the class.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <Button
+                      variant={'destructive'}
+                      size={'lg'}
+                      onClick={() => {
+                        console.log(
+                          'studentId: ' +
+                            booking.studentId +
+                            ' className: ' +
+                            booking.selectedClass,
+                        );
+                        removeBooking(
+                          booking.studentId,
+                          booking.selectedClass,
+                        ).catch((error) => {
+                          console.error('Error removing booking:', error);
+                        });
+                      }}
+                    >
+                      Remove Class Booking
+                    </Button>
+                  </DialogContent>
+                </Dialog>
               </CardContent>
             </Card>
           ))

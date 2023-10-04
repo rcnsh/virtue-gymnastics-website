@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '@/pages/api/firebaseConfig';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, Timestamp } from 'firebase/firestore';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -12,6 +12,10 @@ const UserStudents = () => {
   const { userId } = useAuth();
   const router = useRouter();
   const [userBookings, setUserBookings] = useState<any[]>([]);
+  const formatDate = (timestamp: Timestamp) => {
+    const date = timestamp.toDate();
+    return date.toLocaleDateString('en-GB');
+  };
 
   useEffect(() => {
     if (!userId) {
@@ -80,15 +84,13 @@ const UserStudents = () => {
                   {booking.studentLastName}
                 </p>
                 <p>
-                  <span className="font-semibold">City:</span> {booking.city}
+                  <span className="font-semibold">Student Date Of Birth:</span>{' '}
+                  {formatDate(booking.studentDOB)}
                 </p>
                 <p>
-                  <span className="font-semibold">Address 1:</span>{' '}
-                  {booking.address1}
-                </p>
-                <p>
-                  <span className="font-semibold">Address 2:</span>{' '}
-                  {booking.address2}
+                  <span className="font-semibold">Address:</span>{' '}
+                  {booking.address1} {booking.address2}, {booking.city},{' '}
+                  {booking.county}, {booking.postcode}
                 </p>
               </CardContent>
             </Card>
