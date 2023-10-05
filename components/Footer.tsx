@@ -40,7 +40,11 @@ const Footer = () => {
         <section>
           <h5>
             <b>Email:</b>
-            <Link href={'mailto:office@virtuegymnastics.co.uk'}>
+            <Link
+              href={'mailto:office@virtuegymnastics.co.uk'}
+              className={'underline'}
+            >
+              {' '}
               office@virtuegymnastics.co.uk
             </Link>
           </h5>
