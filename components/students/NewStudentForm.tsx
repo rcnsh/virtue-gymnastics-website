@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { Check, ChevronsUpDown } from 'lucide-react';
-import conditions from '@/pages/api/conditions.json';
-import howHearAboutUs from '@/pages/api/howHearAboutUs.json';
-import days from '@/pages/api/daysOfTheWeek.json';
+import conditions from '@/pages/api/json/conditions.json';
+import howHearAboutUs from '@/pages/api/json/howHearAboutUs.json';
+import days from '@/pages/api/json/daysOfTheWeek.json';
 import {
   Form,
   FormField,

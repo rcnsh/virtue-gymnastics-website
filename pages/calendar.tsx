@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import styles from '@/styles/Timetable.module.css';
-import dates from '@/pages/api/classes.json';
+import dates from '@/pages/api/json/classes.json';
 import { useState } from 'react';
 import LineBreaks from '@/components/line-breaks';
 import { EventClickArg } from '@fullcalendar/core';
