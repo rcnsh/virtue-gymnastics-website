@@ -17,7 +17,6 @@ const Index: NextPage = () => {
 
   useEffect(() => {
     if (user) {
-      console.log('user found');
       fetch('/api/storeUser', {
         method: 'POST',
         headers: {
@@ -28,9 +27,7 @@ const Index: NextPage = () => {
           username: user?.username,
           email: user?.primaryEmailAddress?.emailAddress,
         }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
+      }).then((res) => res.json());
     }
   }, [user, user?.primaryEmailAddress, user?.username, userId]);
 

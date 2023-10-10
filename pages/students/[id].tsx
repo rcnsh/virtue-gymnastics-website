@@ -41,7 +41,7 @@ const BookingDetailsPage = () => {
     };
 
     signInWithClerk().catch((error) => {
-      console.log('An error occurred:', error);
+      console.error('An error occurred:', error);
     });
   }, [getToken, userId, isLoaded]);
   const [bookingData, setBookingData] = useState<any>(null);

@@ -193,12 +193,6 @@ const UserBookings = () => {
                       variant={'destructive'}
                       size={'lg'}
                       onClick={() => {
-                        console.log(
-                          'studentId: ' +
-                            booking.studentId +
-                            ' className: ' +
-                            booking.selectedClass,
-                        );
                         removeBooking(
                           booking.studentId,
                           booking.selectedClass,
