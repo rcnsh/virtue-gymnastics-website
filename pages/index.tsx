@@ -4,13 +4,36 @@ import styles from '@/styles/Home.module.css';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import LineBreaks from '@/components/line-breaks';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import AnimatedText from 'react-animated-text-content';
 import InstagramSection from '@/components/InstagramSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
+import { useAuth, useUser } from '@clerk/nextjs';
 
 const Index: NextPage = () => {
+  const { userId } = useAuth();
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      console.log('user found');
+      fetch('/api/storeUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          clerkUserID: userId,
+          username: user?.username,
+          email: user?.primaryEmailAddress?.emailAddress,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    }
+  }, [user, user?.primaryEmailAddress, user?.username, userId]);
+
   return (
     <>
       <div>
