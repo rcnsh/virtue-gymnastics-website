@@ -134,11 +134,10 @@ const NewStudentForm = () => {
     if (typeof userId === 'string') {
       form.setValue('user_id', userId);
     }
+    console.log('userId', userId);
   }, [form, userId]);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log('submitted');
-
     if (typeof data.address2 === 'undefined') {
       data.address2 = '';
     }
@@ -181,7 +180,7 @@ const NewStudentForm = () => {
       return;
     }
 
-    fetch('/api/storeStudent', {
+    fetch('/api/store/storeStudent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

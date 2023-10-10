@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../../lib/prisma';
+import prisma from '../../../lib/prisma';
 import { students } from '@prisma/client';
 
 export default async function handler(
@@ -7,7 +7,6 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === 'POST') {
-    console.log('req.body', req.body);
     try {
       const result = await prisma.students.create({
         data: {

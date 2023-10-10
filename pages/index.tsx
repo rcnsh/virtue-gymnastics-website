@@ -17,7 +17,7 @@ const Index: NextPage = () => {
 
   useEffect(() => {
     if (user) {
-      fetch('/api/storeUser', {
+      fetch('/api/store/storeUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

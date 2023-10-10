@@ -1,7 +1,6 @@
 import { useAuth } from '@clerk/nextjs';
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '@/pages/api/firebaseConfig';
+import { students } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -38,7 +37,6 @@ import classes from '@/pages/api/json/classes.json';
 import { useSearchParams } from 'next/navigation';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { addDoc } from '@firebase/firestore';
 import Link from 'next/link';
 
 const FormSchema = z.object({
@@ -79,7 +77,7 @@ function NewBookingForm() {
   const classTitle = searchParams.get('class') || undefined;
   const [uniqueClasses, setUniqueClasses] = useState<ClassData[]>([]);
   const [classOpen, setClassOpen] = useState(false);
-  const [userBookings, setUserBookings] = useState<any[]>([]);
+  const [usersStudents, setUsersStudents] = useState<students[]>();
   const [submittedForm, setSubmittedForm] = useState(false);
   const { userId } = useAuth();
 
@@ -87,34 +85,23 @@ function NewBookingForm() {
     if (!userId) {
       return;
     }
-
-    const fetchUserBookings = async () => {
-      try {
-        const bookingsRef = collection(
-          db,
-          `bookings/${userId}/registeredStudents`,
-        );
-        const querySnapshot = await getDocs(bookingsRef);
-        const bookings = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setUserBookings(bookings);
-      } catch (error) {
-        console.error('Error fetching user booking:', error);
+    fetch(
+      `/api/get/getAllUsersStudents?user_id=${encodeURIComponent(userId)}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    ).then(async (response) => {
+      if (response.ok) {
+        const data = await response.json();
+        setUsersStudents(data);
+      } else {
+        console.error('Error getting students:', response);
       }
-    };
-
-    fetchUserBookings().catch((error) => {
-      console.error('Error fetching user bookings:', error);
     });
   }, [userId]);
-
-  const studentData = userBookings.map((booking) => ({
-    id: booking.id,
-    firstName: booking.studentFirstName,
-    lastName: booking.studentLastName,
-  }));
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -125,19 +112,22 @@ function NewBookingForm() {
       return;
     }
     setSubmittedForm(true);
-    const bookingsCollection = collection(
-      db,
-      `bookings/${userId}/studentBookings`,
-    );
-    addDoc(bookingsCollection, data)
-      .then(() => {
+
+    fetch('/api/store/storeBooking', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((response) => {
+      if (response.ok) {
         router.push('/bookings').catch((error) => {
-          console.error('Error redirecting to booking:', error);
+          console.error('Error navigating to bookings page:' + error);
         });
-      })
-      .catch((error) => {
-        console.error('Error adding document: ', error);
-      });
+      } else {
+        console.error('Error storing booking:', response);
+      }
+    });
   };
 
   useEffect(() => {
@@ -150,20 +140,33 @@ function NewBookingForm() {
     form.setValue('selectedClass', classTitle);
   }, [classTitle, form]);
 
+  if (usersStudents === undefined) {
+    return (
+      <div className="flex flex-col justify-center py-2 border border-white rounded-lg p-10">
+        <h1 className="text-4xl font-bold text-white flex justify-center p-10">
+          Booking Form
+        </h1>
+        <h1 className={'text-3xl flex justify-center'}>Loading students...</h1>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col justify-center py-2 border border-white rounded-lg p-10">
       <h1 className="text-4xl font-bold text-white flex justify-center p-10">
         Booking Form
       </h1>
-      {studentData.length === 0 ? (
+      {usersStudents.length === 0 ? (
         <>
           <h1 className={'text-3xl flex justify-center'}>
             No registered students found.
           </h1>
           <br />
-          <Link href={'/students/new'} className={'flex justify-center p-10'}>
-            <Button className={'w-[40%] text-xl'}>Register a student</Button>
-          </Link>
+          <div className={'p-10'}>
+            <Link href={'/students/new'} className={'flex justify-center'}>
+              <Button className={'w-[40%] text-xl'}>Register a student</Button>
+            </Link>
+          </div>
         </>
       ) : (
         <div className={'p-8'}>
@@ -257,9 +260,12 @@ function NewBookingForm() {
                       <SelectContent
                         className={'overflow-y-auto max-h-[30rem]'}
                       >
-                        {studentData.map((student) => (
-                          <SelectItem key={student.id} value={student.id}>
-                            {`${student.firstName} ${student.lastName}`}
+                        {usersStudents.map((student) => (
+                          <SelectItem
+                            key={student.student_id}
+                            value={student.student_id.toString()}
+                          >
+                            {`${student.student_first_name} ${student.student_last_name}`}
                           </SelectItem>
                         ))}
                       </SelectContent>
