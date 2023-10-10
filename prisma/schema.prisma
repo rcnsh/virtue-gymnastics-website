@@ -8,34 +8,35 @@ datasource db {
 }
 
 model students {
-  parent_first_name            String    @db.VarChar
-  parent_last_name             String    @db.VarChar
-  address1                     String    @db.VarChar
-  address2                     String?   @db.VarChar
-  city                         String    @db.VarChar
-  county                       String    @db.VarChar
-  postcode                     String    @db.VarChar
-  home_phone                   String?   @db.VarChar
-  work_phone                   String?   @db.VarChar
-  mobile_phone1                String    @db.VarChar
-  mobile_phone2                String?   @db.VarChar
-  hear_about_us                String    @db.VarChar
-  student_first_name           String    @db.VarChar
-  student_last_name            String    @db.VarChar
-  student_dob                  DateTime? @db.Date
-  student_gender               String    @db.VarChar
+  parent_first_name            String     @db.VarChar
+  parent_last_name             String     @db.VarChar
+  address1                     String     @db.VarChar
+  address2                     String?    @db.VarChar
+  city                         String     @db.VarChar
+  county                       String     @db.VarChar
+  postcode                     String     @db.VarChar
+  home_phone                   String?    @db.VarChar
+  work_phone                   String?    @db.VarChar
+  mobile_phone1                String     @db.VarChar
+  mobile_phone2                String?    @db.VarChar
+  hear_about_us                String     @db.VarChar
+  student_first_name           String     @db.VarChar
+  student_last_name            String     @db.VarChar
+  student_dob                  DateTime?  @db.Date
+  student_gender               String     @db.VarChar
   student_medical_conditions   String[]
-  student_additional_info      String?   @db.VarChar(500)
+  student_additional_info      String?    @db.VarChar(500)
   student_preferred_days       String[]
-  student_photo_consent        Boolean?  @default(false)
-  student_video_consent        Boolean?  @default(false)
-  student_walking_home_consent Boolean?  @default(false)
-  terms_and_conditions         Boolean?  @default(false)
-  privacy_policy               Boolean?  @default(false)
-  marketing_consent            Boolean?  @default(false)
-  user_id                      String?   @db.VarChar(255)
-  student_id                   Int       @id @default(autoincrement())
-  users                        users?    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  student_photo_consent        Boolean?   @default(false)
+  student_video_consent        Boolean?   @default(false)
+  student_walking_home_consent Boolean?   @default(false)
+  terms_and_conditions         Boolean?   @default(false)
+  privacy_policy               Boolean?   @default(false)
+  marketing_consent            Boolean?   @default(false)
+  user_id                      String?    @db.VarChar(255)
+  student_id                   Int        @id @default(autoincrement())
+  user                         users?     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  bookings                     bookings[]
 }
 
 model users {
@@ -43,4 +44,13 @@ model users {
   username String     @db.VarChar(255)
   email    String     @db.VarChar(255)
   students students[]
+}
+
+model bookings {
+  booking_id       Int       @id @default(autoincrement())
+  student_id       Int       @db.Integer
+  selected_class   String    @db.VarChar
+  selected_student String    @db.VarChar
+  created_at       DateTime  @default(now()) @db.Timestamp(6)
+  student          students? @relation(fields: [student_id], references: [student_id], onDelete: NoAction, onUpdate: NoAction)
 }
