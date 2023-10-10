@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { Check, ChevronsUpDown } from 'lucide-react';
@@ -54,9 +54,7 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 
 import 'firebase/firestore';
-import { db } from '@/pages/api/firebaseConfig';
 import { useAuth } from '@clerk/nextjs';
-import { collection, addDoc } from '@firebase/firestore';
 import {
   Select,
   SelectContent,
@@ -122,6 +120,7 @@ const FormSchema = z.object({
   termsAndConditions: z.boolean().default(false),
   privacyPolicy: z.boolean().default(false),
   marketingConsent: z.boolean().default(false),
+  user_id: z.string(),
 });
 
 const NewStudentForm = () => {
@@ -131,11 +130,14 @@ const NewStudentForm = () => {
     resolver: zodResolver(FormSchema),
   });
 
+  useEffect(() => {
+    if (typeof userId === 'string') {
+      form.setValue('user_id', userId);
+    }
+  }, [form, userId]);
+
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    const bookingsCollection = collection(
-      db,
-      `bookings/${userId}/registeredStudents`,
-    );
+    console.log('submitted');
 
     if (typeof data.address2 === 'undefined') {
       data.address2 = '';
@@ -179,16 +181,19 @@ const NewStudentForm = () => {
       return;
     }
 
-    addDoc(bookingsCollection, data)
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef.id);
-        router.push('/students').catch((error) => {
-          console.error('Error redirecting to booking:', error);
-        });
-      })
-      .catch((error) => {
-        console.error('Error adding document: ', error);
-      });
+    fetch('/api/storeStudent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((response) => {
+      if (response.ok) {
+        router.push('/students').catch((err) => console.error(err));
+      } else {
+        throw new Error('Something went wrong');
+      }
+    });
   }
 
   const [date, setDate] = React.useState<Date>();

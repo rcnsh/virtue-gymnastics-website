@@ -90,12 +90,14 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.1.0",
+    "@prisma/client": "^5.4.2",
     "autoprefixer": "^10.4.16",
     "eslint-config-prettier": "^9.0.0",
     "husky": ">=8",
     "lint-staged": ">=14",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
+    "prisma": "^5.4.2",
     "react-icons": "^4.11.0",
     "tailwindcss": "^3.3.3"
   }
