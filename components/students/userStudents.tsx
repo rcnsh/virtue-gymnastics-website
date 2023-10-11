@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { db } from '@/pages/api/firebaseConfig';
-import { collection, getDocs, Timestamp } from 'firebase/firestore';
+import { students } from '@prisma/client';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -11,35 +10,28 @@ import { useAuth } from '@clerk/nextjs';
 const UserStudents = () => {
   const { userId } = useAuth();
   const router = useRouter();
-  const [userBookings, setUserBookings] = useState<any[]>([]);
-  const formatDate = (timestamp: Timestamp) => {
-    const date = timestamp.toDate();
-    return date.toLocaleDateString('en-GB');
-  };
+  const [userStudents, setUserStudents] = useState<students[]>([]);
 
   useEffect(() => {
     if (!userId) {
       return;
     }
 
-    const fetchUserBookings = async () => {
+    const fetchStudents = async () => {
       try {
-        const bookingsRef = collection(
-          db,
-          `bookings/${userId}/registeredStudents`,
+        const data = await fetch(
+          `/api/fetch/getAllUsersStudents?user_id=${userId}`,
         );
-        const querySnapshot = await getDocs(bookingsRef);
-        const bookings = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setUserBookings(bookings);
+        const students = await data.json();
+        setUserStudents(students);
       } catch (error) {
-        console.error('Error fetching user booking:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchUserBookings().catch((error) => console.error(error));
+    fetchStudents().catch((error) => {
+      console.error('Error fetching students:', error);
+    });
   }, [userId]);
 
   return (
@@ -64,33 +56,35 @@ const UserStudents = () => {
       </Button>
       <br />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-8">
-        {userBookings.map((booking, index) => (
-          <Link href={`/students/${booking.id}`} key={index}>
+        {userStudents.map((student, index) => (
+          <Link href={`/students/${student.student_id}`} key={index}>
             <Card>
               <CardHeader>
                 <CardTitle>
                   <p>
-                    {booking.studentFirstName} {booking.studentLastName}
+                    {student.student_first_name} {student.student_last_name}
                   </p>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p>
                   <span className="font-semibold">Student First Name:</span>{' '}
-                  {booking.studentFirstName}
+                  {student.student_first_name}
                 </p>
                 <p>
                   <span className="font-semibold">Student Last Name:</span>{' '}
-                  {booking.studentLastName}
+                  {student.student_last_name}
                 </p>
                 <p>
                   <span className="font-semibold">Student Date Of Birth:</span>{' '}
-                  {formatDate(booking.studentDOB)}
+                  {student.student_dob
+                    ? new Date(student.student_dob).toLocaleDateString('en-GB')
+                    : 'N/A'}
                 </p>
                 <p>
                   <span className="font-semibold">Address:</span>{' '}
-                  {booking.address1} {booking.address2}, {booking.city},{' '}
-                  {booking.county}, {booking.postcode}
+                  {student.address1} {student.address2}, {student.city},{' '}
+                  {student.county}, {student.postcode}
                 </p>
               </CardContent>
             </Card>

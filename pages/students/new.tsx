@@ -1,27 +1,8 @@
-import React, { useEffect } from 'react';
-import { getAuth, signInWithCustomToken } from '@firebase/auth';
-import { app } from '@/pages/api/firebaseConfig';
 import Head from 'next/head';
 import NewStudentForm from '@/components/students/NewStudentForm';
-import { useAuth, SignedIn, SignedOut } from '@clerk/nextjs';
+import { SignedIn, SignedOut } from '@clerk/nextjs';
 
 function NewStudentPage() {
-  const { getToken, userId } = useAuth();
-  useEffect(() => {
-    const signInWithClerk = async () => {
-      const auth = getAuth(app);
-      const token = await getToken({ template: 'integration_firebase' });
-      if (!token) {
-        return;
-      }
-      await signInWithCustomToken(auth, token);
-    };
-
-    signInWithClerk().catch((error) => {
-      console.error('An error occurred:', error);
-    });
-  }, [getToken, userId]);
-
   return (
     <>
       <Head>

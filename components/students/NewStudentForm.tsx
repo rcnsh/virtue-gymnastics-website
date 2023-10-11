@@ -53,7 +53,6 @@ import * as z from 'zod';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 
-import 'firebase/firestore';
 import { useAuth } from '@clerk/nextjs';
 import {
   Select,

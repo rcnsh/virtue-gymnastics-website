@@ -4,8 +4,10 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const { name, email, message } = req.body;
 
   try {
@@ -25,4 +27,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (error) {
     res.status(400).json(error);
   }
-};
+}
