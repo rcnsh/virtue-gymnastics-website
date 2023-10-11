@@ -18,7 +18,7 @@ const UserBookings = () => {
   const router = useRouter();
 
   const [bookings, setBookings] = useState<any[]>([]);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean[]>([]); // Array to track dialog visibility
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean[]>([]);
 
   useEffect(() => {
     fetchBookings().catch((error) => {
@@ -47,7 +47,6 @@ const UserBookings = () => {
     }).then(async (response) => {
       if (response.ok) {
         await fetchBookings();
-        // Close the dialog for this specific booking
         const newDeleteDialogOpen = [...deleteDialogOpen];
         newDeleteDialogOpen[index] = false;
         setDeleteDialogOpen(newDeleteDialogOpen);
