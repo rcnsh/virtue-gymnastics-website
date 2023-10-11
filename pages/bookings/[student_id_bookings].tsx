@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import LineBreaks from '@/components/line-breaks';
+import { students } from '@prisma/client';
 
 function Bookings() {
   const { userId } = useAuth();
@@ -21,9 +21,11 @@ function Bookings() {
   const { student_id_bookings } = router.query;
 
   const [bookings, setBookings] = useState<any[]>([]);
+  const [studentInfo, setStudentInfo] = useState<students>();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchBookings = async () => {
+  async function fetchBookings() {
     try {
       console.log('userId', userId);
       console.log('student_id_bookings', student_id_bookings);
@@ -36,9 +38,20 @@ function Bookings() {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  };
+  }
 
-  function removeBooking(booking_id: string, index: number) {
+  async function lookupStudent() {
+    try {
+      const data = await fetch(
+        `/api/fetch/getStudentFromStudentID?student_id=${student_id_bookings}&user_id=${userId}`,
+      );
+      return await data.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  async function removeBooking(booking_id: string, index: number) {
     fetch(`/api/delete/deleteBooking?booking_id=${booking_id}`, {
       method: 'DELETE',
       headers: {
@@ -58,19 +71,19 @@ function Bookings() {
 
   useEffect(() => {
     if (student_id_bookings) {
-      fetchBookings().catch((error) => {
-        console.error('Error fetching bookings:', error);
-      });
+      fetchBookings()
+        .then(() => {
+          lookupStudent().then((student) => {
+            setStudentInfo(student);
+          });
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching bookings:', error);
+          setIsLoading(false);
+        });
     }
   }, [userId, student_id_bookings]);
-
-  if (!student_id_bookings || !bookings) {
-    return (
-      <>
-        <LineBreaks />
-      </>
-    );
-  }
 
   return (
     <>
@@ -80,9 +93,26 @@ function Bookings() {
       </Head>
       <SignedIn>
         <br />
-        <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-50 flex justify-center">
-          Current Bookings
-        </h1>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            {bookings && bookings.length > 0 ? (
+              <>
+                <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-50 flex justify-center">
+                  {bookings[0].student.student_first_name}{' '}
+                  {bookings[0].student.student_last_name}&apos;s Bookings
+                </h1>
+              </>
+            ) : (
+              <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-50 flex justify-center">
+                {studentInfo
+                  ? `No bookings found for ${studentInfo.student_first_name} ${studentInfo.student_last_name}`
+                  : 'Student not found'}
+              </h1>
+            )}
+          </>
+        )}
         <br />
         <Separator />
         <Button

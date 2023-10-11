@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === 'GET') {
-    const { student_id } = req.query;
+    const { student_id, user_id } = req.query;
 
     const id = parseInt(student_id as string, 10);
 
@@ -14,6 +14,7 @@ export default async function handler(
       const students = await prisma.students.findUnique({
         where: {
           student_id: id,
+          user_id: user_id as string,
         },
       });
       res.status(200).json(students);

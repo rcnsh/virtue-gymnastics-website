@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === 'GET') {
     const { user_id } = req.query;
-
+    console.log('user_id', user_id);
     try {
       const bookings = await prisma.bookings.findMany({
         where: {
@@ -17,6 +17,7 @@ export default async function handler(
           student: true,
         },
       });
+      console.log('bookings', bookings);
       res.status(200).json(bookings);
     } catch (error) {
       console.error('Error fetching bookings:', error);
