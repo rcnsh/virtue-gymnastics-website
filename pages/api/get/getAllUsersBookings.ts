@@ -15,6 +15,9 @@ export default async function handler(
             user_id: user_id as string,
           },
         },
+        include: {
+          student: true,
+        },
       });
       res.status(200).json(bookings);
     } catch (error) {
