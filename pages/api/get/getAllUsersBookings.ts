@@ -11,15 +11,12 @@ export default async function handler(
     try {
       const bookings = await prisma.bookings.findMany({
         where: {
-          student: {
-            user_id: user_id as string,
-          },
+          user_id: user_id as string,
         },
         include: {
           student: true,
         },
       });
-      console.log('bookings:', bookings);
       res.status(200).json(bookings);
     } catch (error) {
       console.error('Error fetching bookings:', error);

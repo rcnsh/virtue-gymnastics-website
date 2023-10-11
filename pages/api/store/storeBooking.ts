@@ -13,6 +13,7 @@ export default async function handler(
         data: {
           selected_class: req.body.selected_class,
           student_id: studentId,
+          user_id: req.body.user_id,
         } as bookings,
       });
 
