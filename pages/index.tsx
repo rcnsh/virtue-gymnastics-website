@@ -6,7 +6,6 @@ import Image from 'next/image';
 import LineBreaks from '@/components/line-breaks';
 import React, { useEffect } from 'react';
 import Link from 'next/link';
-import AnimatedText from 'react-animated-text-content';
 import InstagramSection from '@/components/InstagramSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import { useAuth, useUser } from '@clerk/nextjs';
@@ -39,26 +38,8 @@ const Index: NextPage = () => {
           <meta name="description" content="Virtue Gymnastics" />
         </Head>
         <div className={styles.child}>
-          <AnimatedText
-            type={'chars'}
-            animationType="throw"
-            interval={0.06}
-            duration={1}
-            includeWhiteSpaces={true}
-            className={styles.title}
-          >
-            Virtue
-          </AnimatedText>
-          <AnimatedText
-            type={'chars'}
-            animationType="throw"
-            interval={0.06}
-            duration={1}
-            includeWhiteSpaces={true}
-            className={styles.title}
-          >
-            Movement Co.
-          </AnimatedText>
+          <h1 className={styles.title}>Virtue</h1>
+          <h1 className={styles.title}>Movement Co.</h1>
           <div className={styles.glow} />
         </div>
       </div>
