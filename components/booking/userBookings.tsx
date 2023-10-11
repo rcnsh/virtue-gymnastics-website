@@ -28,7 +28,9 @@ const UserBookings = () => {
 
   const fetchBookings = async () => {
     try {
-      const data = await fetch(`/api/get/getAllUsersBookings?userId=${userId}`);
+      const data = await fetch(
+        `/api/fetch/getAllUsersBookings?userId=${userId}`,
+      );
       const bookings = await data.json();
       setBookings(bookings);
 

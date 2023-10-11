@@ -100,7 +100,7 @@ function NewBookingForm() {
     form.setValue('user_id', userId);
 
     fetch(
-      `/api/get/getAllUsersStudents?user_id=${encodeURIComponent(userId)}`,
+      `/api/fetch/getAllUsersStudents?user_id=${encodeURIComponent(userId)}`,
       {
         method: 'GET',
         headers: {
