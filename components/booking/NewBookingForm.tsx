@@ -38,6 +38,12 @@ import { useSearchParams } from 'next/navigation';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 const FormSchema = z.object({
   selected_class: z.string({
@@ -57,7 +63,7 @@ interface ClassData {
 function uniqueByIdAndName(
   data: Array<{ id: string; name: string }>,
 ): Array<{ id: string; name: string }> {
-  const uniqueLanguages = data.filter(
+  const uniqueBookings = data.filter(
     (currentItem, index, array) =>
       !array
         .slice(0, index)
@@ -67,9 +73,9 @@ function uniqueByIdAndName(
         ),
   );
 
-  uniqueLanguages.sort((a, b) => a.name.localeCompare(b.name));
+  uniqueBookings.sort((a, b) => a.name.localeCompare(b.name));
 
-  return uniqueLanguages;
+  return uniqueBookings;
 }
 
 function NewBookingForm() {
@@ -80,6 +86,7 @@ function NewBookingForm() {
   const [classOpen, setClassOpen] = useState(false);
   const [usersStudents, setUsersStudents] = useState<students[]>();
   const [submittedForm, setSubmittedForm] = useState(false);
+  const [alreadyBooked, setAlreadyBooked] = useState(false);
   const { userId } = useAuth();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -114,22 +121,45 @@ function NewBookingForm() {
     if (submittedForm) {
       return;
     }
-    setSubmittedForm(true);
-    fetch('/api/store/storeBooking', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `/api/check/checkDuplicateBooking?student_id=${encodeURIComponent(
+        data.selected_student,
+      )}&selected_class=${encodeURIComponent(data.selected_class)}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-      body: JSON.stringify(data),
-    }).then((response) => {
-      if (response.ok) {
-        router.push('/bookings').catch((error) => {
-          console.error('Error navigating to bookings page:' + error);
-        });
+    );
+
+    if (response.ok) {
+      const { hasBooking } = await response.json();
+
+      if (hasBooking) {
+        setAlreadyBooked(true);
+        console.error('Student already has a booking for this class.');
       } else {
-        console.error('Error storing booking:', response);
+        setSubmittedForm(true);
+        fetch('/api/store/storeBooking', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }).then((response) => {
+          if (response.ok) {
+            router.push('/bookings').catch((error) => {
+              console.error('Error navigating to bookings page:' + error);
+            });
+          } else {
+            console.error('Error storing booking:', response);
+          }
+        });
       }
-    });
+    } else {
+      console.error('Error checking for existing booking:', response);
+    }
   };
 
   useEffect(() => {
@@ -281,6 +311,25 @@ function NewBookingForm() {
           </Form>
         </div>
       )}
+      <Dialog open={alreadyBooked} onOpenChange={setAlreadyBooked}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className={'flex justify-center'}>
+              Booking already exists
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className={'p-8'}>
+            <p className={'flex justify-center'}>
+              This student is already booked for this class.
+            </p>
+            <br />
+            <div className={'flex justify-center'}>
+              <Button onClick={() => setAlreadyBooked(false)}>Close</Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

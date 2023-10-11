@@ -18,6 +18,7 @@ const UserBookings = () => {
   const router = useRouter();
 
   const [bookings, setBookings] = useState<any[]>([]);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean[]>([]); // Array to track dialog visibility
 
   useEffect(() => {
     fetchBookings().catch((error) => {
@@ -30,12 +31,14 @@ const UserBookings = () => {
       const data = await fetch(`/api/get/getAllUsersBookings?userId=${userId}`);
       const bookings = await data.json();
       setBookings(bookings);
+
+      setDeleteDialogOpen(new Array(bookings.length).fill(false));
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-  function removeBooking(booking_id: string) {
+  function removeBooking(booking_id: string, index: number) {
     fetch(`/api/delete/deleteBooking?booking_id=${booking_id}`, {
       method: 'DELETE',
       headers: {
@@ -44,6 +47,10 @@ const UserBookings = () => {
     }).then(async (response) => {
       if (response.ok) {
         await fetchBookings();
+        // Close the dialog for this specific booking
+        const newDeleteDialogOpen = [...deleteDialogOpen];
+        newDeleteDialogOpen[index] = false;
+        setDeleteDialogOpen(newDeleteDialogOpen);
       } else {
         console.error('Error removing booking:', response);
       }
@@ -71,14 +78,14 @@ const UserBookings = () => {
         Add New Booking
       </Button>
       <br />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-8">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 p-8">
         {bookings ? (
           bookings.map((booking, index) => (
             <Card key={index}>
               <CardHeader>
                 <CardTitle>
                   <p>
-                    Student: {booking.student.student_first_name}{' '}
+                    {booking.student.student_first_name}{' '}
                     {booking.student.student_last_name}
                   </p>
                 </CardTitle>
@@ -89,7 +96,14 @@ const UserBookings = () => {
                   {booking.selected_class}
                 </p>
                 <br />
-                <Dialog>
+                <Dialog
+                  open={deleteDialogOpen[index]}
+                  onOpenChange={(isOpen) => {
+                    const newDeleteDialogOpen = [...deleteDialogOpen];
+                    newDeleteDialogOpen[index] = isOpen;
+                    setDeleteDialogOpen(newDeleteDialogOpen);
+                  }}
+                >
                   <DialogTrigger>
                     <Button
                       variant={'destructive'}
@@ -111,7 +125,7 @@ const UserBookings = () => {
                       variant={'destructive'}
                       size={'lg'}
                       onClick={() => {
-                        removeBooking(booking.booking_id);
+                        removeBooking(booking.booking_id, index);
                       }}
                     >
                       Remove Class Booking
