@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { bookings } from '@prisma/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/router';
 import { useAuth } from '@clerk/nextjs';
-import LineBreaks from '@/components/line-breaks';
 import {
   Dialog,
   DialogContent,
@@ -22,32 +20,35 @@ const UserBookings = () => {
   const [bookings, setBookings] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const data = await fetch(
-          `/api/get/getAllUsersBookings?userId=${userId}`,
-        );
-        const bookings = await data.json();
-
-        const updatedBookings = await Promise.all(
-          bookings.map(async (booking: bookings) => {
-            const studentData = await fetch(
-              `/api/get/getStudentFromBookingID?booking_id=${booking.booking_id}`,
-            );
-            const student = await studentData.json();
-            return { ...booking, students: student };
-          }),
-        );
-        setBookings(updatedBookings);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
     fetchBookings().catch((error) => {
       console.error('Error fetching bookings:', error);
     });
   }, [userId]);
+
+  const fetchBookings = async () => {
+    try {
+      const data = await fetch(`/api/get/getAllUsersBookings?userId=${userId}`);
+      const bookings = await data.json();
+      setBookings(bookings);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  function removeBooking(booking_id: string) {
+    fetch(`/api/delete/deleteBooking?booking_id=${booking_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(async (response) => {
+      if (response.ok) {
+        await fetchBookings();
+      } else {
+        console.error('Error removing booking:', response);
+      }
+    });
+  }
 
   return (
     <>
@@ -88,6 +89,35 @@ const UserBookings = () => {
                   {booking.selected_class}
                 </p>
                 <br />
+                <Dialog>
+                  <DialogTrigger>
+                    <Button
+                      variant={'destructive'}
+                      className={'w-[100%] m-auto'}
+                    >
+                      Remove Class Booking
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>
+                        Are you sure you want to delete this booking?
+                      </DialogTitle>
+                      <DialogDescription>
+                        This will remove the student from the class.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <Button
+                      variant={'destructive'}
+                      size={'lg'}
+                      onClick={() => {
+                        removeBooking(booking.booking_id);
+                      }}
+                    >
+                      Remove Class Booking
+                    </Button>
+                  </DialogContent>
+                </Dialog>
               </CardContent>
             </Card>
           ))

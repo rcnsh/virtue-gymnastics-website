@@ -19,6 +19,7 @@ export default async function handler(
           student: true,
         },
       });
+      console.log('bookings:', bookings);
       res.status(200).json(bookings);
     } catch (error) {
       console.error('Error fetching bookings:', error);

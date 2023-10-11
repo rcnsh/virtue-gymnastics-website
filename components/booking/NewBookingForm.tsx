@@ -46,6 +46,7 @@ const FormSchema = z.object({
   selected_student: z.string({
     required_error: 'Please select a student for this class.',
   }),
+  user_id: z.string(),
 });
 
 interface ClassData {
@@ -81,10 +82,16 @@ function NewBookingForm() {
   const [submittedForm, setSubmittedForm] = useState(false);
   const { userId } = useAuth();
 
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
+
   useEffect(() => {
     if (!userId) {
       return;
     }
+    form.setValue('user_id', userId);
+
     fetch(
       `/api/get/getAllUsersStudents?user_id=${encodeURIComponent(userId)}`,
       {
@@ -101,11 +108,7 @@ function NewBookingForm() {
         console.error('Error getting students:', response);
       }
     });
-  }, [userId]);
-
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-  });
+  }, [form, userId]);
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     if (submittedForm) {
