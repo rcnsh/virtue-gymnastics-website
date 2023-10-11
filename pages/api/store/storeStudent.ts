@@ -35,7 +35,7 @@ export default async function handler(
           terms_and_conditions: req.body.termsAndConditions,
           privacy_policy: req.body.privacyPolicy,
           marketing_consent: req.body.marketingConsent,
-          user_id: req.body.userID,
+          user_id: req.body.user_id,
         } as students,
       });
 

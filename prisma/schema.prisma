@@ -33,15 +33,15 @@ model students {
   terms_and_conditions         Boolean?   @default(false)
   privacy_policy               Boolean?   @default(false)
   marketing_consent            Boolean?   @default(false)
-  user_id                      String?    @db.VarChar(255)
-  student_id                   Int        @id @default(autoincrement())
+  user_id                      String    @db.VarChar(255)
+  student_id                  Int        @id @default(autoincrement())
   user                         users?     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
   bookings                     bookings[]
 }
 
 model users {
   user_id  String     @id @db.VarChar(255)
-  username String     @db.VarChar(255)
+  username String?     @db.VarChar(255)
   email    String     @db.VarChar(255)
   students students[]
 }
@@ -50,7 +50,6 @@ model bookings {
   booking_id       Int       @id @default(autoincrement())
   student_id       Int       @db.Integer
   selected_class   String    @db.VarChar
-  selected_student String    @db.VarChar
   created_at       DateTime  @default(now()) @db.Timestamp(6)
   student          students? @relation(fields: [student_id], references: [student_id], onDelete: NoAction, onUpdate: NoAction)
 }

@@ -7,12 +7,12 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === 'POST') {
-    console.log('req.body', req.body);
+    const studentId = parseInt(req.body.selected_student, 10);
     try {
       const result = await prisma.bookings.create({
         data: {
           selected_class: req.body.selected_class,
-          selected_student: req.body.selected_student,
+          student_id: studentId,
         } as bookings,
       });
 

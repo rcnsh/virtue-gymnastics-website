@@ -8,6 +8,7 @@
     "dev": "next dev",
     "format": "prettier --write --ignore-path=.gitignore .",
     "format:check": "prettier --check --ignore-path=.gitignore .",
+    "postinstall": "npx prisma generate",
     "lint": "next lint",
     "prepare": "husky install",
     "start": "next start",

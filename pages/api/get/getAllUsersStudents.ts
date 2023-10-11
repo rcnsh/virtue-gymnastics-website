@@ -9,14 +9,12 @@ export default async function handler(
     const { user_id } = req.query;
 
     try {
-      const bookings = await prisma.students.findMany({
+      const students = await prisma.students.findMany({
         where: {
-          user: {
-            user_id: user_id as string,
-          }, // TODO: Figure out why this is not working
+          user_id: user_id as string,
         },
       });
-      res.status(200).json(bookings);
+      res.status(200).json(students);
     } catch (error) {
       console.error('Error fetching bookings:', error);
       res.status(500).json({ error: 'Error fetching bookings' });

@@ -40,10 +40,10 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 const FormSchema = z.object({
-  selectedClass: z.string({
+  selected_class: z.string({
     required_error: 'Please select a class to book.',
   }),
-  selectedStudent: z.string({
+  selected_student: z.string({
     required_error: 'Please select a student for this class.',
   }),
 });
@@ -112,7 +112,6 @@ function NewBookingForm() {
       return;
     }
     setSubmittedForm(true);
-
     fetch('/api/store/storeBooking', {
       method: 'POST',
       headers: {
@@ -137,7 +136,7 @@ function NewBookingForm() {
     if (!classTitle) {
       return;
     }
-    form.setValue('selectedClass', classTitle);
+    form.setValue('selected_class', classTitle);
   }, [classTitle, form]);
 
   if (usersStudents === undefined) {
@@ -177,7 +176,7 @@ function NewBookingForm() {
             >
               <FormField
                 control={form.control}
-                name="selectedClass"
+                name="selected_class"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Class</FormLabel>
@@ -211,7 +210,7 @@ function NewBookingForm() {
                                 value={classes.id}
                                 key={classes.id}
                                 onSelect={() => {
-                                  form.setValue('selectedClass', classes.id);
+                                  form.setValue('selected_class', classes.id);
                                   setClassOpen(false);
                                   router
                                     .push(`/bookings/new?class=${classes.id}`)
@@ -244,7 +243,7 @@ function NewBookingForm() {
               />
               <FormField
                 control={form.control}
-                name="selectedStudent"
+                name="selected_student"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Student</FormLabel>

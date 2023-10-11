@@ -134,7 +134,6 @@ const NewStudentForm = () => {
     if (typeof userId === 'string') {
       form.setValue('user_id', userId);
     }
-    console.log('userId', userId);
   }, [form, userId]);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
