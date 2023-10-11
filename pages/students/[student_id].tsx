@@ -138,9 +138,13 @@ const BookingDetailsPage = () => {
           <p>Hear About Us: {studentData.hear_about_us}</p>
         </div>
       </div>
+      <br />
       <div className={'flex justify-evenly'}>
         <Link href={'/students'}>
           <Button variant={'default'}>Back</Button>
+        </Link>
+        <Link href={`/bookings/${student_id}`}>
+          <Button variant={'default'}>View Student&apos;s Bookings</Button>
         </Link>
         <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
           <DialogTrigger>

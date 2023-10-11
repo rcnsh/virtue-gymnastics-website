@@ -13,28 +13,25 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import LineBreaks from '@/components/line-breaks';
 
 function Bookings() {
   const { userId } = useAuth();
   const router = useRouter();
+  const { student_id_bookings } = router.query;
 
   const [bookings, setBookings] = useState<any[]>([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean[]>([]);
 
-  useEffect(() => {
-    fetchBookings().catch((error) => {
-      console.error('Error fetching bookings:', error);
-    });
-  }, [userId]);
-
   const fetchBookings = async () => {
     try {
+      console.log('userId', userId);
+      console.log('student_id_bookings', student_id_bookings);
       const data = await fetch(
-        `/api/fetch/getAllUsersBookings?userId=${userId}`,
+        `/api/fetch/getBookingsFromIds?user_id=${userId}&student_id=${student_id_bookings}`,
       );
       const bookings = await data.json();
       setBookings(bookings);
-
       setDeleteDialogOpen(new Array(bookings.length).fill(false));
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -59,10 +56,26 @@ function Bookings() {
     });
   }
 
+  useEffect(() => {
+    if (student_id_bookings) {
+      fetchBookings().catch((error) => {
+        console.error('Error fetching bookings:', error);
+      });
+    }
+  }, [userId, student_id_bookings]);
+
+  if (!student_id_bookings || !bookings) {
+    return (
+      <>
+        <LineBreaks />
+      </>
+    );
+  }
+
   return (
     <>
       <Head>
-        <title>Virtue Gymnastics - Booking</title>
+        <title>Virtue Gymnastics - Students</title>
         <meta name="description" content="Virtue Gymnastics" />
       </Head>
       <SignedIn>
