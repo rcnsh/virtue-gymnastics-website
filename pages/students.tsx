@@ -39,7 +39,7 @@ function Students() {
   return (
     <>
       <Head>
-        <title>Virtue Movement - Students</title>
+        <title>Virtue Movement - Your Students</title>
         <meta name="description" content="Virtue Movement" />
       </Head>
       <SignedIn>
