@@ -62,7 +62,7 @@ function Students() {
           Add New Student
         </Button>
         <br />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-8">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-8 h-[25vh]">
           {userStudents.map((student, index) => (
             <Link href={`/students/${student.student_id}`} key={index}>
               <Card>
@@ -102,13 +102,6 @@ function Students() {
             </Link>
           ))}
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
       </SignedIn>
       <SignedOut>
         <div className={'flex justify-center'}>
@@ -117,6 +110,12 @@ function Students() {
           </h1>
         </div>
       </SignedOut>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   );
 }

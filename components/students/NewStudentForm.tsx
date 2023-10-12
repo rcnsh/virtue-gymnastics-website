@@ -103,7 +103,7 @@ const FormSchema = z.object({
   hearAboutUs: z.string(),
   studentFirstName: z.string(),
   studentLastName: z.string(),
-  studentDOB: z.date().optional(),
+  studentDOB: z.date(),
   studentGender: z.enum(['male', 'female', 'na', 'other']),
   studentMedicalConditions: z.array(z.string()).optional(),
   studentAdditionalInfo: z
@@ -136,39 +136,6 @@ const NewStudentForm = () => {
   }, [form, userId]);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    if (typeof data.address2 === 'undefined') {
-      data.address2 = '';
-    }
-    if (typeof data.homePhone === 'undefined') {
-      data.homePhone = '';
-    }
-    if (typeof data.workPhone === 'undefined') {
-      data.workPhone = '';
-    }
-    if (typeof data.mobilePhone2 === 'undefined') {
-      data.mobilePhone2 = '';
-    }
-    if (typeof data.studentDOB === 'undefined') {
-      data.studentDOB = new Date();
-    }
-    if (typeof data.studentMedicalConditions === 'undefined') {
-      data.studentMedicalConditions = [];
-    }
-    if (typeof data.studentAdditionalInfo === 'undefined') {
-      data.studentAdditionalInfo = '';
-    }
-    if (typeof data.studentPhotoConsent === 'undefined') {
-      data.studentPhotoConsent = false;
-    }
-    if (typeof data.studentVideoConsent === 'undefined') {
-      data.studentVideoConsent = false;
-    }
-    if (typeof data.studentWalkingHomeConsent === 'undefined') {
-      data.studentWalkingHomeConsent = false;
-    }
-    if (typeof data.studentPreferredDays === 'undefined') {
-      data.studentPreferredDays = [];
-    }
     if (!data.termsAndConditions) {
       alert('You must accept the terms and conditions');
       return;
@@ -524,8 +491,10 @@ const NewStudentForm = () => {
                               captionLayout="dropdown-buttons"
                               selected={date}
                               onSelect={(selectedDate) => {
-                                setDate(selectedDate);
-                                form.setValue('studentDOB', selectedDate);
+                                if (typeof selectedDate !== 'undefined') {
+                                  setDate(selectedDate);
+                                  form.setValue('studentDOB', selectedDate);
+                                }
                                 setOpenDatePicker(false);
                               }}
                               fromYear={1920}
