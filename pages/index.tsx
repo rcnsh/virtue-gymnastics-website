@@ -34,8 +34,8 @@ const Index: NextPage = () => {
     <>
       <div>
         <Head>
-          <title>Virtue Gymnastics - We believe in movement for all</title>
-          <meta name="description" content="Virtue Gymnastics" />
+          <title>Virtue Movement - We believe in movement for all</title>
+          <meta name="description" content="Virtue Movement" />
         </Head>
         <div className={styles.child}>
           <h1 className={styles.title}>Virtue</h1>

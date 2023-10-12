@@ -6,8 +6,8 @@ function NewStudentPage() {
   return (
     <>
       <Head>
-        <title>Virtue Gymnastics - Booking</title>
-        <meta name="description" content="Virtue Gymnastics" />
+        <title>Virtue Movement - Booking</title>
+        <meta name="description" content="Virtue Movement" />
       </Head>
       <div className={'m-auto w-max'}>
         <h1

@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { UserButton, useUser } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { Separator } from '@/components/ui/separator';
 
 const listItems: { title: string; href: string; description: string }[] = [
   {
@@ -59,6 +60,19 @@ const listItems: { title: string; href: string; description: string }[] = [
   },
 ];
 
+const listUserItems: { title: string; href: string; description: string }[] = [
+  {
+    title: 'Students',
+    href: '/students',
+    description: 'View all your registered students.',
+  },
+  {
+    title: 'Bookings',
+    href: '/bookings',
+    description: 'View all your bookings.',
+  },
+];
+
 const Titlebar = () => {
   const { isSignedIn } = useUser();
 
@@ -84,6 +98,21 @@ const Titlebar = () => {
                     </ListItem>
                   ))}
                 </ul>
+                <Separator />
+                {isSignedIn && (
+                  <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[400px] ">
+                    {listUserItems.map((listItem) => (
+                      <ListItem
+                        key={listItem.title}
+                        title={listItem.title}
+                        href={listItem.href}
+                        className={styles.items}
+                      >
+                        {listItem.description}
+                      </ListItem>
+                    ))}
+                  </ul>
+                )}
               </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>

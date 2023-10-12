@@ -88,8 +88,8 @@ function Bookings() {
   return (
     <>
       <Head>
-        <title>Virtue Gymnastics - Students</title>
-        <meta name="description" content="Virtue Gymnastics" />
+        <title>Virtue Movement - Students</title>
+        <meta name="description" content="Virtue Movement" />
       </Head>
       <SignedIn>
         <br />
