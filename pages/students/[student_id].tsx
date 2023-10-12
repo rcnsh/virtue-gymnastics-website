@@ -23,7 +23,14 @@ const BookingDetailsPage = () => {
     try {
       const result = await fetch(
         `/api/delete/deleteStudent?student_id=${student_id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
       );
+
       if (result.ok) {
         fetchStudentData().catch((error) => {
           console.error('Error fetching students data:', error);
