@@ -12,7 +12,7 @@ export default async function handler(
     throw new Error('DATABASE_URL environment variable is not defined.');
   }
 
-  if (req.method === 'POST') {
+  if (req.method === 'PUT') {
     const { clerkUserID, username, email } = req.body;
     const userExists = await sql`
       SELECT EXISTS(SELECT 1 FROM users WHERE user_id = ${clerkUserID});
