@@ -1,45 +1,102 @@
-# virtue-gymnastics
+<p align="center">
+<a href=https://github.com/RCNOverwatcher/virtue-gymnastics-website target="_blank">
+<img src='/placeholder.jpg' width="100%" alt="Banner" />
+</a>
+</p>
 
-To get started, run:
 
+
+<p align="center">
+<img src="https://img.shields.io/github/contributors/RCNOverwatcher/virtue-gymnastics-website" alt="GitHub contributors" />
+<img src="https://img.shields.io/github/discussions/RCNOverwatcher/virtue-gymnastics-website" alt="GitHub discussions" />
+<img src="https://img.shields.io/github/issues/RCNOverwatcher/virtue-gymnastics-website" alt="GitHub issues" />
+<img src="https://img.shields.io/github/issues-pr/RCNOverwatcher/virtue-gymnastics-website" alt="GitHub pull request" />
+</p>
+
+<p></p>
+<p></p>
+
+## 🔍 Table of Contents
+
+* [💻 Stack](#stack)
+
+* [📝 Project Summary](#project-summary)
+
+* [⚙️ Setting Up](#setting-up)
+
+* [🚀 Run Locally](#run-locally)
+
+* [🙌 Contributors](#contributors)
+
+* [📄 License](#license)
+
+## 💻 Stack
+
+- [clerk/nextjs](https://github.com/clerkinc/clerk-sdk-node): Authentication and user management.
+- [fullcalendar/react](https://github.com/fullcalendar/fullcalendar): Calendar component for displaying events.
+- [hookform/resolvers](https://github.com/react-hook-form/resolvers): Resolvers for form validation.
+- [radix-ui/react-icons](https://github.com/radix-ui/react-icons): Collection of icons for UI components.
+- [tanstack/react-table](https://github.com/tannerlinsley/react-table): Data table component for displaying and managing tabular data.
+- [next](https://github.com/vercel/next.js): Framework for building server-side rendered React applications.
+- [react](https://github.com/facebook/react): JavaScript library for building user interfaces.
+- [tailwindcss](https://github.com/tailwindlabs/tailwindcss): Utility-first CSS framework for styling components.
+
+## 📝 Project Summary
+
+- [.github](.github): GitHub workflows for CI/CD automation.
+- [components](components): Reusable UI components for building the application.
+- [lib](lib): Utility libraries or modules used throughout the project.
+- [pages](pages): Main pages of the application, including admin and student pages.
+- [pages/admin](pages/admin): Admin Related Pages such as data tables
+- [pages/booking](pages/booking): Booking-related pages for adding and managing bookings.
+- [pages/students](pages/students): Student-related pages for adding managing student data.
+- [prisma](prisma): Database ORM migrations and models for data manipulation.
+- [public](public): Publicly accessible assets and static files.
+- [styles](styles): Global stylesheets and CSS modules for styling the application.
+
+Note: The directories are listed in alphabetical order.
+
+## ⚙️Environment Variable
+
+##### DATABASE_URL: url for the postgres database
+##### CLERK_SECRET_KEY: Clerk private api key
+##### RESEND_API_KEY: Resend api key for sending emails
+
+## 🚀 Run Locally
+1.Clone the virtue-gymnastics-website repository:
+```sh
+git clone https://github.com/RCNOverwatcher/virtue-gymnastics-website
+```
+2.Install the dependencies with one of the package managers listed below:
 ```bash
-yarn run dev
+pnpm install
+bun install
+npm install
+yarn install
+```
+3.Start the development mode:
+```bash
+pnpm dev
+bun dev
+npm run dev
+yarn dev
 ```
 
-## Scripts
+## 🙌 Contributors
 
-The table below provides names and descriptions of the npm scripts available in this project.
+<table style="border:1px solid #404040;text-align:center;width:100%">
+<tr><td style="width:14.29%;border:1px solid #404040;">
+        <a href="https://github.com/RCNOverwatcher" spellcheck="false">
+          <img src="https://avatars.githubusercontent.com/u/49075095?v=4?s=100" width="100px;" alt="RCNOverwatcher"/>
+          <br />
+          <b>RCNOverwatcher</b>
+        </a>
+        <br />
+        <a href="https://github.com/RCNOverwatcher/virtue-gymnastics-website/commits?author=RCNOverwatcher" title="Contributions" spellcheck="false">
+          155 contributions
+        </a>
+      </td></table>
 
-Each script is run using `yarn run <script-name>`. For example: `yarn run dev`.
+## 📄 License
 
-| Name           | Description                                                                                                                                                                                                                                      |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `prepare`      | The [`prepare` life cycle script](https://docs.npmjs.com/cli/v7/using-npm/scripts#life-cycle-scripts) is used to set up Git pre-commit hooks when people install dependencies, eg. using `yarn install`. This script should not be run manually. |
-| `test`         | Runs tests                                                                                                                                                                                                                                       |
-| `dev`          | Runs the Next.js development server.                                                                                                                                                                                                             |
-| `build`        | Generates a production build.                                                                                                                                                                                                                    |
-| `start`        | Runs the Next.js production server built using `build` script.                                                                                                                                                                                   |
-| `lint`         | Runs [ESLint](https://eslint.org/) to catch linting errors in the source code.                                                                                                                                                                   |
-| `format`       | Formats all source code in the project.                                                                                                                                                                                                          |
-| `format:check` | Checks the formatting of all code in the project.                                                                                                                                                                                                |
-
-## Technologies
-
-The table below gives an overview of the technologies used in this project, as well as places to learn more about them.
-
-| Name            | Links                                                                                                                                                                                                           |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Next.js         | [Website](https://nextjs.org/) - [Docs](https://nextjs.org/docs) - [Learn Next.js](https://nextjs.org/learn) - [GitHub](https://github.com/vercel/next.js) - [Wikipedia](https://en.wikipedia.org/wiki/Next.js) |
-| React           | [Website](https://reactjs.org/) - [Docs](https://reactjs.org/docs/getting-started.html) - [GitHub](https://github.com/facebook/react) - [Wikipedia](<https://en.wikipedia.org/wiki/React_(JavaScript_library)>) |
-| TypeScript      | [Website](https://www.typescriptlang.org/) - [Docs](https://www.typescriptlang.org/docs/) - [GitHub](https://github.com/microsoft/TypeScript) - [Wikipedia](https://en.wikipedia.org/wiki/TypeScript)           |
-| Tailwind CSS    | [Website](https://tailwindcss.com/) - [Docs](https://tailwindcss.com/docs) - [GitHub](https://github.com/tailwindlabs/tailwindcss)                                                                              |
-| Framer Motion   | [Website](https://www.framer.com/motion/) - [Docs](https://www.framer.com/docs/) - [GitHub](https://github.com/framer/motion)                                                                                   |
-| React Hook Form | [Website](https://react-hook-form.com/) - [Docs](https://react-hook-form.com/get-started) - [GitHub](https://github.com/react-hook-form/react-hook-form)                                                        |
-| React Query     | [Website](https://tanstack.com/query/latest) - [Docs](https://tanstack.com/query/latest/docs/react/overview) - [GitHub](https://github.com/tanstack/query)                                                      |
-| React Icons     | [Website](https://react-icons.github.io/react-icons/) - [GitHub](https://github.com/react-icons/react-icons)                                                                                                    |
-| ESLint          | [Website](https://eslint.org/) - [Configuration](https://eslint.org/docs/user-guide/configuring/) - [Rules](https://eslint.org/docs/rules/) - [GitHub](https://github.com/eslint/eslint)                        |
-| Prettier        | [Website](https://prettier.io/) - [Docs](https://prettier.io/docs/en/index.html) - [Options](https://prettier.io/docs/en/options.html) - [GitHub](https://github.com/prettier/prettier)                         |
-| Husky           | [Website](https://typicode.github.io/husky/) - [Docs](https://typicode.github.io/husky/) - [GitHub](https://github.com/typicode/husky)                                                                          |
-| lint-staged     | [Website](https://github.com/okonet/lint-staged) - [GitHub](https://github.com/okonet/lint-staged)                                                                                                              |
-| Yarn            | [Website](https://yarnpkg.com/) - [CLI Docs](https://yarnpkg.com/cli) - [GitHub](https://github.com/yarnpkg/berry)                                                                                              |
-| GitHub Actions  | [Website](https://github.com/features/actions) - [Docs](https://docs.github.com/en/actions) - [Workflow syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)                |
+This project is licensed under the **MIT License** - see the [**MIT License**](https://github.com/RCNOverwatcher/virtue-gymnastics-website/blob/main/LICENSE) file for details.
