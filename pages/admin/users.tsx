@@ -30,6 +30,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import LineBreaks from '@/components/line-breaks';
+import Head from 'next/head';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -309,16 +310,21 @@ export default function Users() {
     );
   } else {
     return (
-      <div className="flex flex-col items-center justify-center space-y-4">
-        <br />
-        <br />
-        <h1 className="text-4xl font-bold">Users</h1>
-        <UsersTable columns={columns} data={data} />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
+      <>
+        <Head>
+          <title>Users | Admin</title>
+        </Head>
+        <div className="flex flex-col items-center justify-center space-y-4">
+          <br />
+          <br />
+          <h1 className="text-4xl font-bold">Users</h1>
+          <UsersTable columns={columns} data={data} />
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+      </>
     );
   }
 }
