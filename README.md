@@ -32,6 +32,7 @@
 
 ## 💻 Stack
 
+- [shadcn/ui](https://ui.shadcn.com): Beautifully designed components built with Radix UI and Tailwind CSS.
 - [clerk/nextjs](https://github.com/clerkinc/clerk-sdk-node): Authentication and user management.
 - [fullcalendar/react](https://github.com/fullcalendar/fullcalendar): Calendar component for displaying events.
 - [hookform/resolvers](https://github.com/react-hook-form/resolvers): Resolvers for form validation.
