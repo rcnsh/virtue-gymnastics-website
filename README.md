@@ -1,6 +1,6 @@
 <p align="center">
 <a href=https://github.com/RCNOverwatcher/virtue-gymnastics-website target="_blank">
-<img src='/placeholder.jpg' width="100%" alt="Banner" />
+<img src='/public/virtue-icon.png' width="100%" alt="Banner" />
 </a>
 </p>
 
