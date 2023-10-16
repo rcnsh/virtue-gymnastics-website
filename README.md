@@ -47,7 +47,7 @@
 - [components](components): Reusable UI components for building the application.
 - [lib](lib): Utility libraries or modules used throughout the project.
 - [pages](pages): Main pages of the application, including admin and student pages.
-- [pages/admin](pages/admin): Admin Related Pages such as data tables
+- [pages/admin](pages/admin): Admin-related pages such as data tables.
 - [pages/booking](pages/booking): Booking-related pages for adding and managing bookings.
 - [pages/students](pages/students): Student-related pages for adding managing student data.
 - [prisma](prisma): Database ORM migrations and models for data manipulation.
