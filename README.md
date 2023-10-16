@@ -58,9 +58,9 @@ Note: The directories are listed in alphabetical order.
 
 ## ⚙️Environment Variable
 
-##### DATABASE_URL: url for the postgres database
-##### CLERK_SECRET_KEY: Clerk private api key
-##### RESEND_API_KEY: Resend api key for sending emails
+- DATABASE_URL: url for the postgres database
+- CLERK_SECRET_KEY: Clerk private api key
+- RESEND_API_KEY: Resend api key for sending emails
 
 ## 🚀 Run Locally
 1.Clone the virtue-gymnastics-website repository:
