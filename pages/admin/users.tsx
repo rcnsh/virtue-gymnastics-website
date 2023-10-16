@@ -304,7 +304,7 @@ export default function Users() {
 
   if (loading) {
     return <div>Loading...</div>;
-  } else if (!isAdmin && !loading) {
+  } else if (!isAdmin) {
     return (
       <div>
         <LineBreaks />
