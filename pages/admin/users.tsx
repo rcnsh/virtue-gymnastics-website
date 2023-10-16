@@ -298,7 +298,6 @@ export default function Users() {
       })
       .catch((err) => {
         console.error(err);
-        setData([]);
         setLoading(false);
       });
   }, [userId]);
