@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === 'PUT') {
-    const { clerkUserID, username, email } = req.body;
+    const { clerkUserID, username, email, admin } = req.body;
 
     const userExists = await prisma.users.findUnique({
       where: { user_id: clerkUserID },
@@ -23,6 +23,7 @@ export default async function handler(
           user_id: clerkUserID,
           username: username,
           email: email,
+          admin: admin,
         },
       });
 

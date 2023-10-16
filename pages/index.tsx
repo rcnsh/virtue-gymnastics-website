@@ -26,6 +26,9 @@ const Index: NextPage = () => {
           clerkUserID: userId,
           username: user?.username,
           email: user?.primaryEmailAddress?.emailAddress,
+          admin: user?.primaryEmailAddress?.emailAddress.endsWith(
+            '@virtuemovement.co.uk',
+          ),
         }),
       }).then((res) => res.json());
     }
