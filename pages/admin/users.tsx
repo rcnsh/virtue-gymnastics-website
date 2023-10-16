@@ -9,22 +9,6 @@ import {
   ColumnFiltersState,
   getFilteredRowModel,
 } from '@tanstack/react-table';
-
-import { useAuth } from '@clerk/nextjs';
-
-import { ArrowUpDown } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-
-import { Input } from '@/components/ui/input';
-
 import {
   Table,
   TableBody,
@@ -33,6 +17,17 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+
+import { useAuth } from '@clerk/nextjs';
+import { ArrowUpDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import LineBreaks from '@/components/line-breaks';
 
