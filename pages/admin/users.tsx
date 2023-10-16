@@ -34,6 +34,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useEffect, useState } from 'react';
+import LineBreaks from '@/components/line-breaks';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -164,7 +165,7 @@ async function getData(): Promise<User[]> {
   return await response.json();
 }
 
-function DataTable<TData, TValue>({
+function UsersTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -292,29 +293,38 @@ export default function Users() {
 
     getData()
       .then((data) => {
-        setLoading(false);
         setData(data);
+        setLoading(false);
       })
       .catch((err) => {
-        setLoading(false);
         console.error(err);
         setData([]);
+        setLoading(false);
       });
   }, [userId]);
 
-  return (
-    (loading && <div>Loading...</div>) ||
-    (isAdmin && (
+  if (loading) {
+    return <div>Loading...</div>;
+  } else if (!isAdmin && !loading) {
+    return (
+      <div>
+        <LineBreaks />
+        <h1 className={'text-4xl flex justify-center'}>Unauthorized</h1>
+        <LineBreaks />
+      </div>
+    );
+  } else {
+    return (
       <div className="flex flex-col items-center justify-center space-y-4">
         <br />
         <br />
         <h1 className="text-4xl font-bold">Users</h1>
-        <DataTable columns={columns} data={data} />
+        <UsersTable columns={columns} data={data} />
         <br />
         <br />
         <br />
         <br />
       </div>
-    ))
-  );
+    );
+  }
 }
