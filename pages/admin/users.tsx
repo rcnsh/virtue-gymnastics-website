@@ -93,6 +93,38 @@ const DeletionDropdownMenu = (user: User) => {
   );
 };
 
+const AdminToggleDropdownMenu = (user: User) => {
+  const router = useRouter();
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost">{user.admin ? 'Yes' : 'No'}</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem
+          onClick={() => {
+            fetch('/api/admin/toggleAdmin', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                user_id: user.user_id,
+                admin: !user.admin,
+              }),
+            })
+              .then((res) => res.json())
+              .then(router.reload);
+          }}
+        >
+          Toggle Admin
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'user_id',
@@ -182,7 +214,7 @@ const columns: ColumnDef<User>[] = [
     accessorKey: 'admin',
     cell: ({ row }) => {
       const user = row.original;
-      return <span>{user.admin ? 'Yes' : 'No'}</span>;
+      return AdminToggleDropdownMenu(user);
     },
   },
 ];
