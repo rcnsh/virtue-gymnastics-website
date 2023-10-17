@@ -241,7 +241,7 @@ const columns: ColumnDef<Student>[] = [
 ];
 
 async function getData(): Promise<Student[]> {
-  const response = await fetch('/api/students', {
+  const response = await fetch('/api/admin/students', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

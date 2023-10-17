@@ -236,7 +236,7 @@ const columns: ColumnDef<Bookings>[] = [
 ];
 
 async function getData(): Promise<Bookings[]> {
-  const response = await fetch('/api/bookings', {
+  const response = await fetch('/api/admin/bookings', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

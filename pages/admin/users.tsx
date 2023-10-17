@@ -172,7 +172,7 @@ const columns: ColumnDef<User>[] = [
 ];
 
 async function getData(): Promise<User[]> {
-  const response = await fetch('/api/users', {
+  const response = await fetch('/api/admin/users', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
