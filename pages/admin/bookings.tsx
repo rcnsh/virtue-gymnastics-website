@@ -32,6 +32,7 @@ import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import LineBreaks from '@/components/line-breaks';
 import Head from 'next/head';
+import Router from 'next/router';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -138,7 +139,9 @@ const columns: ColumnDef<Bookings>[] = [
                   body: JSON.stringify({
                     booking_id: booking.booking_id,
                   }),
-                }).then((res) => res.json())
+                })
+                  .then((res) => res.json())
+                  .then(Router.reload)
               }
             >
               Delete Booking

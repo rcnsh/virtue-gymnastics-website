@@ -35,9 +35,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useEffect, useState } from 'react';
-import { bookings } from '@prisma/client';
 import LineBreaks from '@/components/line-breaks';
 import Head from 'next/head';
+import Router from 'next/router';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -51,7 +51,6 @@ type Student = {
   student_last_name: string;
   mobile_phone_1: string;
   student_dob: Date;
-  bookings: bookings[];
 };
 
 const columns: ColumnDef<Student>[] = [
@@ -114,7 +113,9 @@ const columns: ColumnDef<Student>[] = [
                   body: JSON.stringify({
                     student_id: student.student_id,
                   }),
-                }).then((res) => res.json())
+                })
+                  .then((res) => res.json())
+                  .then(Router.reload)
               }
             >
               Delete Student
