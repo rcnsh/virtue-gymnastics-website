@@ -37,7 +37,7 @@ import {
 import { useEffect, useState } from 'react';
 import LineBreaks from '@/components/line-breaks';
 import Head from 'next/head';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -51,6 +51,54 @@ type Student = {
   student_last_name: string;
   mobile_phone_1: string;
   student_dob: Date;
+};
+
+const DeletionDropdownMenu = (student: Student) => {
+  const router = useRouter();
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost">{student.student_id}</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem
+          onClick={() => navigator.clipboard.writeText(student.student_id)}
+        >
+          Copy Student ID
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            router
+              .push(`/admin/bookings/${student.student_id}`)
+              .catch((err) => {
+                console.error(err);
+              });
+          }}
+        >
+          View Student&apos;s Bookings
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() =>
+            fetch('/api/delete/deleteStudent', {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                student_id: student.student_id,
+              }),
+            })
+              .then((res) => res.json())
+              .then(router.reload)
+          }
+        >
+          Delete Student
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 };
 
 const columns: ColumnDef<Student>[] = [
@@ -91,38 +139,7 @@ const columns: ColumnDef<Student>[] = [
     cell: ({ row }) => {
       const student = row.original;
 
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost">{student.student_id}</Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(student.student_id)}
-            >
-              Copy Student ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() =>
-                fetch('/api/delete/deleteStudent', {
-                  method: 'DELETE',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    student_id: student.student_id,
-                  }),
-                })
-                  .then((res) => res.json())
-                  .then(Router.reload)
-              }
-            >
-              Delete Student
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return DeletionDropdownMenu(student);
     },
     header: ({ column }) => {
       return (
