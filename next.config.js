@@ -5,6 +5,9 @@ const nextConfig = {
   },
   reactStrictMode: true,
   compiler: {},
+  experimental: {
+    scrollRestoration: true,
+  },
 };
 
 module.exports = nextConfig;
