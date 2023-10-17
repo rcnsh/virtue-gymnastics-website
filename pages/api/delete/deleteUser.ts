@@ -6,21 +6,19 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === 'DELETE') {
-    const { booking_id } = req.body;
-
-    const id = parseInt(booking_id as string, 10);
+    const { user_id } = req.body;
 
     try {
-      const deletedBooking = await prisma.bookings.delete({
+      const deletedUser = await prisma.users.delete({
         where: {
-          booking_id: id,
+          user_id: user_id as string,
         },
       });
 
-      res.status(200).json(deletedBooking);
+      res.status(200).json(deletedUser);
     } catch (error) {
-      console.error('Error deleting booking:', error);
-      res.status(500).json({ error: 'Error deleting booking' });
+      console.error('Error deleting user:', error);
+      res.status(500).json({ error: 'Error deleting user' });
     }
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });

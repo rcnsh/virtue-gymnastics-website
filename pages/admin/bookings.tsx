@@ -38,45 +38,30 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-type User = {
+type Bookings = {
   user_id: string;
-  username: string;
-  email: string;
-  admin: boolean;
+  booking_id: string;
+  student_id: string;
+  selected_class: string;
+  created_at: Date;
 };
 
-const columns: ColumnDef<User>[] = [
+const columns: ColumnDef<Bookings>[] = [
   {
     accessorKey: 'user_id',
     cell: ({ row }) => {
-      const user = row.original;
+      const booking = row.original;
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">{user.user_id}</Button>
+            <Button variant="ghost">{booking.user_id}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.user_id)}
+              onClick={() => navigator.clipboard.writeText(booking.user_id)}
             >
               Copy User ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                fetch('/api/delete/deleteUser', {
-                  method: 'DELETE',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    user_id: user.user_id,
-                  }),
-                }).then((res) => res.json());
-              }}
-            >
-              Delete User
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -95,20 +80,20 @@ const columns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: 'username',
+    accessorKey: 'student_id',
     cell: ({ row }) => {
-      const user = row.original;
+      const booking = row.original;
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">{user.username}</Button>
+            <Button variant="ghost">{booking.student_id}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.username)}
+              onClick={() => navigator.clipboard.writeText(booking.student_id)}
             >
-              Copy Username
+              Copy Student ID
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -120,27 +105,43 @@ const columns: ColumnDef<User>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Username
+          Student ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'booking_id',
     cell: ({ row }) => {
-      const user = row.original;
+      const booking = row.original;
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">{user.email}</Button>
+            <Button variant="ghost">{booking.booking_id}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.email)}
+              onClick={() => navigator.clipboard.writeText(booking.booking_id)}
             >
-              Copy Email
+              Copy Booking ID
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() =>
+                fetch('/api/delete/deleteBooking', {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    booking_id: booking.booking_id,
+                  }),
+                }).then((res) => res.json())
+              }
+            >
+              Delete Booking
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -152,24 +153,87 @@ const columns: ColumnDef<User>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Email
+          Booking ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    header: 'Admin',
-    accessorKey: 'admin',
+    accessorKey: 'selected_class',
     cell: ({ row }) => {
-      const user = row.original;
-      return <span>{user.admin ? 'Yes' : 'No'}</span>;
+      const booking = row.original;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">{booking.selected_class}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onClick={() =>
+                navigator.clipboard.writeText(booking.selected_class)
+              }
+            >
+              Copy Selected Class
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Selected Class
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'created_at',
+    cell: ({ row }) => {
+      const booking = row.original;
+      const date = new Date(booking.created_at);
+      const dateFormatted =
+        date.toLocaleTimeString('en-GB') +
+        ' ' +
+        date.toLocaleDateString('en-GB');
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">{dateFormatted}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(dateFormatted)}
+            >
+              Copy Created At
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Created At
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
     },
   },
 ];
 
-async function getData(): Promise<User[]> {
-  const response = await fetch('/api/users', {
+async function getData(): Promise<Bookings[]> {
+  const response = await fetch('/api/bookings', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -178,7 +242,7 @@ async function getData(): Promise<User[]> {
   return await response.json();
 }
 
-function UsersTable<TData, TValue>({
+function BookingsTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -203,10 +267,15 @@ function UsersTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
+          placeholder="Filter selected class..."
+          value={
+            (table.getColumn('selected_class')?.getFilterValue() as string) ??
+            ''
+          }
           onChange={(event) =>
-            table.getColumn('email')?.setFilterValue(event.target.value)
+            table
+              .getColumn('selected_class')
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -285,7 +354,7 @@ export default function Users() {
   const { userId } = useAuth();
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [data, setData] = useState<User[]>([]);
+  const [data, setData] = useState<Bookings[]>([]);
 
   useEffect(() => {
     const isUserAdmin = fetch(
@@ -329,13 +398,13 @@ export default function Users() {
     return (
       <>
         <Head>
-          <title>Users | Admin</title>
+          <title>Bookings | Admin</title>
         </Head>
         <div className="flex flex-col items-center justify-center space-y-4">
           <br />
           <br />
-          <h1 className="text-4xl font-bold">Users</h1>
-          <UsersTable columns={columns} data={data} />
+          <h1 className="text-4xl font-bold">Bookings</h1>
+          <BookingsTable columns={columns} data={data} />
           <br />
           <br />
           <br />

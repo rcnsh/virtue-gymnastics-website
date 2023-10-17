@@ -9,14 +9,13 @@ import {
   ColumnFiltersState,
   getFilteredRowModel,
 } from '@tanstack/react-table';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+
+import { useAuth } from '@clerk/nextjs';
+
+import { ArrowUpDown } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,11 +24,18 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { useAuth } from '@clerk/nextjs';
-import { ArrowUpDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { useEffect, useState } from 'react';
+import { bookings } from '@prisma/client';
 import LineBreaks from '@/components/line-breaks';
 import Head from 'next/head';
 
@@ -38,45 +44,32 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-type User = {
+type Student = {
   user_id: string;
-  username: string;
-  email: string;
-  admin: boolean;
+  student_id: string;
+  student_first_name: string;
+  student_last_name: string;
+  mobile_phone_1: string;
+  student_dob: Date;
+  bookings: bookings[];
 };
 
-const columns: ColumnDef<User>[] = [
+const columns: ColumnDef<Student>[] = [
   {
     accessorKey: 'user_id',
     cell: ({ row }) => {
-      const user = row.original;
+      const student = row.original;
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">{user.user_id}</Button>
+            <Button variant="ghost">{student.user_id}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.user_id)}
+              onClick={() => navigator.clipboard.writeText(student.user_id)}
             >
               Copy User ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                fetch('/api/delete/deleteUser', {
-                  method: 'DELETE',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    user_id: user.user_id,
-                  }),
-                }).then((res) => res.json());
-              }}
-            >
-              Delete User
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -95,20 +88,36 @@ const columns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: 'username',
+    accessorKey: 'student_id',
     cell: ({ row }) => {
-      const user = row.original;
+      const student = row.original;
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">{user.username}</Button>
+            <Button variant="ghost">{student.student_id}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.username)}
+              onClick={() => navigator.clipboard.writeText(student.student_id)}
             >
-              Copy Username
+              Copy Student ID
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() =>
+                fetch('/api/delete/deleteStudent', {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    student_id: student.student_id,
+                  }),
+                }).then((res) => res.json())
+              }
+            >
+              Delete Student
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -120,27 +129,29 @@ const columns: ColumnDef<User>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Username
+          Student ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'student_first_name',
     cell: ({ row }) => {
-      const user = row.original;
+      const student = row.original;
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">{user.email}</Button>
+            <Button variant="ghost">{student.student_first_name}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.email)}
+              onClick={() =>
+                navigator.clipboard.writeText(student.student_first_name)
+              }
             >
-              Copy Email
+              Copy Student First Name
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -152,24 +163,84 @@ const columns: ColumnDef<User>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Email
+          Student First Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    header: 'Admin',
-    accessorKey: 'admin',
+    accessorKey: 'student_last_name',
     cell: ({ row }) => {
-      const user = row.original;
-      return <span>{user.admin ? 'Yes' : 'No'}</span>;
+      const student = row.original;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">{student.student_last_name}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onClick={() =>
+                navigator.clipboard.writeText(student.student_last_name)
+              }
+            >
+              Copy Student Last Name
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Student Last Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'student_dob',
+    cell: ({ row }) => {
+      const student = row.original;
+      const studentDOB = new Date(student.student_dob);
+      const formattedDOB = studentDOB.toLocaleDateString('en-GB');
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">{formattedDOB}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(formattedDOB)}
+            >
+              Copy Student DOB
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Student Date Of Birth
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
     },
   },
 ];
 
-async function getData(): Promise<User[]> {
-  const response = await fetch('/api/users', {
+async function getData(): Promise<Student[]> {
+  const response = await fetch('/api/students', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -178,7 +249,7 @@ async function getData(): Promise<User[]> {
   return await response.json();
 }
 
-function UsersTable<TData, TValue>({
+function StudentsTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -201,12 +272,32 @@ function UsersTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex py-4 justify-evenly justify-items-center">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
+          placeholder="Filter Student First Name..."
+          value={
+            (table
+              .getColumn('student_first_name')
+              ?.getFilterValue() as string) ?? ''
+          }
           onChange={(event) =>
-            table.getColumn('email')?.setFilterValue(event.target.value)
+            table
+              .getColumn('student_first_name')
+              ?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        <Input
+          placeholder="Filter Student Last Name..."
+          value={
+            (table
+              .getColumn('student_last_name')
+              ?.getFilterValue() as string) ?? ''
+          }
+          onChange={(event) =>
+            table
+              .getColumn('student_last_name')
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -285,7 +376,7 @@ export default function Users() {
   const { userId } = useAuth();
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [data, setData] = useState<User[]>([]);
+  const [data, setData] = useState<Student[]>([]);
 
   useEffect(() => {
     const isUserAdmin = fetch(
@@ -306,12 +397,12 @@ export default function Users() {
 
     getData()
       .then((data) => {
-        setData(data);
         setLoading(false);
+        setData(data);
       })
       .catch((err) => {
-        console.error(err);
         setLoading(false);
+        console.error(err);
       });
   }, [userId]);
 
@@ -329,13 +420,13 @@ export default function Users() {
     return (
       <>
         <Head>
-          <title>Users | Admin</title>
+          <title>Students | Admin</title>
         </Head>
         <div className="flex flex-col items-center justify-center space-y-4">
           <br />
           <br />
-          <h1 className="text-4xl font-bold">Users</h1>
-          <UsersTable columns={columns} data={data} />
+          <h1 className="text-4xl font-bold">Students</h1>
+          <StudentsTable columns={columns} data={data} />
           <br />
           <br />
           <br />
