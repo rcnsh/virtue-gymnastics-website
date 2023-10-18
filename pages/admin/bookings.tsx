@@ -131,15 +131,15 @@ const columns: ColumnDef<Bookings>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() =>
-                fetch('/api/delete/deleteBooking', {
-                  method: 'DELETE',
-                  headers: {
-                    'Content-Type': 'application/json',
+                fetch(
+                  `/api/delete/deleteBooking?booking_id=${booking.booking_id}`,
+                  {
+                    method: 'DELETE',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
                   },
-                  body: JSON.stringify({
-                    booking_id: booking.booking_id,
-                  }),
-                })
+                )
                   .then((res) => res.json())
                   .then(Router.reload)
               }

@@ -427,7 +427,6 @@ export default function Users() {
       .then((data) => {
         setLoading(false);
         setData(data);
-        console.log(data);
       })
       .catch((err) => {
         setLoading(false);

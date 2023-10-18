@@ -27,8 +27,6 @@ function Bookings() {
 
   async function fetchBookings() {
     try {
-      console.log('userId', userId);
-      console.log('student_id_bookings', student_id_bookings);
       const data = await fetch(
         `/api/fetch/getBookingsFromIds?user_id=${userId}&student_id=${student_id_bookings}`,
       );
