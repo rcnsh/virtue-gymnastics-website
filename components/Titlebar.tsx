@@ -11,7 +11,7 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
-import { UserButton, useUser } from '@clerk/nextjs';
+import { useAuth, UserButton, useUser } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
@@ -73,8 +73,46 @@ const listUserItems: { title: string; href: string; description: string }[] = [
   },
 ];
 
+const listAdminItems: { title: string; href: string; description: string }[] = [
+  {
+    title: 'Admin: Users',
+    href: '/admin/users',
+    description: 'View All Users on the Site.',
+  },
+  {
+    title: 'Admin: Students',
+    href: '/admin/students',
+    description: 'View all students on the site.',
+  },
+  {
+    title: 'Admin: Bookings',
+    href: '/admin/bookings',
+    description: 'View all bookings on the site.',
+  },
+];
+
 const Titlebar = () => {
   const { isSignedIn } = useUser();
+  const { userId } = useAuth();
+  const [isAdmin, setIsAdmin] = React.useState(false);
+
+  React.useEffect(() => {
+    const isUserAdmin = fetch(
+      `/api/check/checkIfUserIsAdmin?user_id=${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    ).then((res) => res.json());
+
+    isUserAdmin.then((res) => {
+      if (res.isAdmin) {
+        setIsAdmin(true);
+      }
+    });
+  }, [isSignedIn, userId]);
 
   return (
     <section className={styles.titlebar}>
@@ -86,7 +124,7 @@ const Titlebar = () => {
                 Menu
               </NavigationMenuTrigger>
               <NavigationMenuContent className={styles.navMenu}>
-                <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[400px] ">
+                <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[400px]">
                   {listItems.map((listItem) => (
                     <ListItem
                       key={listItem.title}
@@ -98,20 +136,40 @@ const Titlebar = () => {
                     </ListItem>
                   ))}
                 </ul>
-                <Separator />
+
                 {isSignedIn && (
-                  <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[400px] ">
-                    {listUserItems.map((listItem) => (
-                      <ListItem
-                        key={listItem.title}
-                        title={listItem.title}
-                        href={listItem.href}
-                        className={styles.items}
-                      >
-                        {listItem.description}
-                      </ListItem>
-                    ))}
-                  </ul>
+                  <>
+                    <Separator />
+                    <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[400px]">
+                      {listUserItems.map((listItem) => (
+                        <ListItem
+                          key={listItem.title}
+                          title={listItem.title}
+                          href={listItem.href}
+                          className={styles.items}
+                        >
+                          {listItem.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                {isAdmin && (
+                  <>
+                    <Separator />
+                    <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[400px]">
+                      {listAdminItems.map((listItem) => (
+                        <ListItem
+                          key={listItem.title}
+                          title={listItem.title}
+                          href={listItem.href}
+                          className={styles.items}
+                        >
+                          {listItem.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </>
                 )}
               </NavigationMenuContent>
             </NavigationMenuItem>
