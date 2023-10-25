@@ -19,8 +19,8 @@
   },
   "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
-    "@clerk/nextjs": "^4.25.6",
-    "@clerk/themes": "^1.7.8",
+    "@clerk/nextjs": "^4.25.7",
+    "@clerk/themes": "^1.7.9",
     "@fullcalendar/adaptive": "^6.1.9",
     "@fullcalendar/core": "^6.1.9",
     "@fullcalendar/daygrid": "^6.1.9",
@@ -97,6 +97,6 @@
     "prettier": "^3.0.3",
     "prisma": "^5.5.0",
     "react-icons": "^4.11.0",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.4"
   }
 }
