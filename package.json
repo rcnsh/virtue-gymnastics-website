@@ -59,8 +59,8 @@
     "@radix-ui/react-toggle": "^1.0.3",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tanstack/react-table": "^8.10.7",
-    "@types/node": "20.8.8",
-    "@types/react": "18.2.31",
+    "@types/node": "20.8.9",
+    "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
     "@vercel/postgres": "^0.5.0",
     "@vercel/style-guide": "^5.0.1",
@@ -70,10 +70,10 @@
     "date-fns": "^2.30.0",
     "embla-carousel-react": "^8.0.0-rc14",
     "eslint": "8.52.0",
-    "eslint-config-next": "13.5.6",
+    "eslint-config-next": "14.0.0",
     "framer-motion": "^10.16.4",
-    "lucide-react": "^0.288.0",
-    "next": "13.5.6",
+    "lucide-react": "^0.289.0",
+    "next": "14.0.0",
     "next-themes": "^0.2.1",
     "popmotion": "^11.0.5",
     "react": "18.2.0",
@@ -88,15 +88,15 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.2.0",
-    "@prisma/client": "^5.5.0",
+    "@prisma/client": "^5.5.2",
     "autoprefixer": "^10.4.16",
     "eslint-config-prettier": "^9.0.0",
     "husky": ">=8",
     "lint-staged": ">=15",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
-    "prisma": "^5.5.0",
+    "prisma": "^5.5.2",
     "react-icons": "^4.11.0",
-    "tailwindcss": "^3.3.4"
+    "tailwindcss": "^3.3.5"
   }
 }
