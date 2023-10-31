@@ -10,8 +10,6 @@ export default async function handler(
     try {
       const result = await prisma.students.create({
         data: {
-          parent_first_name: req.body.parentFirstName,
-          parent_last_name: req.body.parentLastName,
           address1: req.body.address1,
           address2: req.body.address2,
           city: req.body.city,

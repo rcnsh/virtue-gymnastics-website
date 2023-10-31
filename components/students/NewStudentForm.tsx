@@ -64,8 +64,6 @@ import {
 import { useRouter } from 'next/router';
 
 const FormSchema = z.object({
-  parentFirstName: z.string(),
-  parentLastName: z.string(),
   address1: z.string(),
   address2: z.string().optional(),
   city: z.string(),
@@ -184,38 +182,10 @@ const NewStudentForm = () => {
               <AccordionItem value="parent-details">
                 <AccordionTrigger>
                   <h2 className="text-2xl font-bold text-white flex justify-center">
-                    Parent Details
+                    Personal Details
                   </h2>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <FormField
-                    control={form.control}
-                    name="parentFirstName"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>First Name:</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter first name" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <br />
-                  <FormField
-                    control={form.control}
-                    name="parentLastName"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Last Name:</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter last name" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <br />
                   <FormField
                     control={form.control}
                     name="address1"

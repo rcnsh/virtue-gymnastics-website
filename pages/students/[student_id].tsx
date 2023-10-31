@@ -11,13 +11,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { students } from '@prisma/client';
+import { students, users } from '@prisma/client';
+import { useAuth } from '@clerk/nextjs';
 
 const BookingDetailsPage = () => {
   const router = useRouter();
   const { student_id } = router.query;
   const [studentData, setStudentData] = useState<students | null>(null);
+  const [userData, setUserData] = useState<users | null>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const { userId } = useAuth();
 
   const deleteStudent = async () => {
     try {
@@ -55,6 +58,17 @@ const BookingDetailsPage = () => {
       console.error('Error fetching data:', error);
     }
   };
+  const fetchUserData = async () => {
+    try {
+      const data = await fetch(
+        `/api/fetch/getUserFromUserID?user_id=${userId}`,
+      );
+      const data_json = await data.json();
+      setUserData(data_json);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   useEffect(() => {
     if (student_id) {
@@ -62,7 +76,12 @@ const BookingDetailsPage = () => {
         console.error('Error fetching students data:', error);
       });
     }
-  }, [student_id]);
+    if (userId) {
+      fetchUserData().catch((error) => {
+        console.error('Error fetching user data:', error);
+      });
+    }
+  }, [student_id, userId]);
 
   if (!studentData) {
     return (
@@ -88,8 +107,7 @@ const BookingDetailsPage = () => {
           <div className="mb-4">
             <p className="font-semibold">Parent Information:</p>
             <p>
-              Name: {studentData.parent_first_name}{' '}
-              {studentData.parent_last_name}
+              Name: {userData?.first_name} {userData?.last_name}
             </p>
             <p>Home Phone: {studentData.home_phone || 'N/A'}</p>
             <p>Work Phone: {studentData.work_phone || 'N/A'}</p>
