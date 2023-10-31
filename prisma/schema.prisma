@@ -42,8 +42,8 @@ model students {
 
 model users {
   user_id  String     @id @db.VarChar(255)
-  first_name String?    @db.VarChar(255)
-  last_name String?    @db.VarChar(255)
+  first_name String    @db.VarChar(255)
+  last_name String    @db.VarChar(255)
   email    String     @db.VarChar(255)
   admin    Boolean?   @default(false)
   students students[]

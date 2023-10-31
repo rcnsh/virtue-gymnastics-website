@@ -24,8 +24,8 @@ const Index: NextPage = () => {
         },
         body: JSON.stringify({
           clerkUserID: userId,
-          first_name: user.firstName,
-          last_name: user.lastName,
+          first_name: user?.firstName,
+          last_name: user?.lastName,
           email: user?.primaryEmailAddress?.emailAddress,
           admin: user?.primaryEmailAddress?.emailAddress.endsWith(
             '@virtuemovement.co.uk',
@@ -33,7 +33,13 @@ const Index: NextPage = () => {
         }),
       }).then((res) => res.json());
     }
-  }, [user, user?.primaryEmailAddress, user?.username, userId]);
+  }, [
+    user,
+    user?.primaryEmailAddress,
+    user?.firstName,
+    user?.lastName,
+    userId,
+  ]);
 
   return (
     <>
