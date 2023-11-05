@@ -5,7 +5,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  if (req.method === 'PUT') {
+  if (req.method === 'POST') {
     const { data } = req.body;
 
     let admin = false;
