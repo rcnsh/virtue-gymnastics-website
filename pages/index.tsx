@@ -4,43 +4,12 @@ import styles from '@/styles/Home.module.css';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import LineBreaks from '@/components/line-breaks';
-import React, { useEffect } from 'react';
 import Link from 'next/link';
 import InstagramSection from '@/components/InstagramSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
-import { useAuth, useUser } from '@clerk/nextjs';
 import { FooterEmailForm } from '@/components/footer/footer-email-form';
 
 const Index: NextPage = () => {
-  const { userId } = useAuth();
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (user) {
-      fetch('/api/store/storeUser', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          clerkUserID: userId,
-          first_name: user?.firstName,
-          last_name: user?.lastName,
-          email: user?.primaryEmailAddress?.emailAddress,
-          admin: user?.primaryEmailAddress?.emailAddress.endsWith(
-            '@virtuemovement.co.uk',
-          ),
-        }),
-      }).then((res) => res.json());
-    }
-  }, [
-    user,
-    user?.primaryEmailAddress,
-    user?.firstName,
-    user?.lastName,
-    userId,
-  ]);
-
   return (
     <>
       <div>
