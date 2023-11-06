@@ -3,17 +3,15 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
 model students {
   user_id                      String     @db.VarChar(255)
   student_id                   Int        @id @default(autoincrement())
-  parent_first_name            String     @db.VarChar
-  parent_last_name             String     @db.VarChar
-  address1                     String     @db.VarChar
+  address1                     String?    @db.VarChar
   address2                     String?    @db.VarChar
   city                         String     @db.VarChar
   county                       String     @db.VarChar
@@ -41,13 +39,13 @@ model students {
 }
 
 model users {
-  user_id  String     @id @db.VarChar(255)
-  first_name String    @db.VarChar(255)
-  last_name String    @db.VarChar(255)
-  email    String     @db.VarChar(255)
-  admin    Boolean?   @default(false)
-  students students[]
-  bookings bookings[]
+  user_id    String     @id @db.VarChar(255)
+  first_name String     @db.VarChar(255)
+  last_name  String     @db.VarChar(255)
+  email      String     @db.VarChar(255)
+  admin      Boolean?   @default(false)
+  students   students[]
+  bookings   bookings[]
 }
 
 model bookings {

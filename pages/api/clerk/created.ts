@@ -5,25 +5,24 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  if (req.method === 'PUT') {
-    const { clerkUserID, first_name, last_name, email, admin } = req.body;
+  if (req.method === 'POST') {
+    const { data } = req.body;
 
-    const userExists = await prisma.users.findUnique({
-      where: { user_id: clerkUserID },
-    });
+    let admin = false;
 
-    if (userExists) {
-      res.status(409).json({ error: 'User already exists' });
-      return;
+    if (
+      data.email_addresses[0].email_address.endsWith('@virtuemovement.co.uk')
+    ) {
+      admin = true;
     }
 
     try {
       const newUser = await prisma.users.create({
         data: {
-          user_id: clerkUserID,
-          first_name: first_name,
-          last_name: last_name,
-          email: email,
+          user_id: data.id,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          email: data.email_addresses[0].email_address,
           admin: admin,
         },
       });
