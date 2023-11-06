@@ -107,14 +107,14 @@ const Index: NextPage = () => {
           animate={{ x: [0, 50, 0], offset: 0.5 }}
           transition={{ repeat: Infinity, duration: 10 }}
         />
-        <motion.img
+        <Image
           src={'/home/wave 1.webp'}
           alt={''}
           width={100}
           height={100}
           className={styles.wave1}
         />
-        <motion.img
+        <Image
           src={'/home/wave 2.webp'}
           alt={''}
           width={200}
@@ -149,18 +149,20 @@ const Index: NextPage = () => {
       <LineBreaks />
       <div>
         <div className={'overflow-hidden'}>
-          <motion.img
+          <Image
             src={'/home/dots.webp'}
             className={styles.dots1}
             alt={''}
             width={200}
+            height={200}
           />
           <h2 className={styles.getToKnowUs}>GET TO KNOW US</h2>
-          <motion.img
+          <Image
             src={'/home/dots.webp'}
             className={styles.dots2}
             alt={''}
             width={200}
+            height={200}
           />
         </div>
         <h5 className={styles.textGetToKnowUs}>
@@ -172,10 +174,11 @@ const Index: NextPage = () => {
           confidence, self-discipline and motivation. We believe in movement for
           all!
         </h5>
-        <motion.img
+        <Image
           src={'/home/double arrow bold.webp'}
           alt={''}
           width={50}
+          height={200}
           className={styles.doubleArrowBold}
         />
         <div className={styles.glow2}></div>
