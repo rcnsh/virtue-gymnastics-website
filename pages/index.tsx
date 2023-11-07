@@ -33,7 +33,7 @@ const Index: NextPage = () => {
             JOIN THE FAMILY
           </motion.button>
         </Link>
-        <Link href={'/calendar'}>
+        <Link href={'/timetable'}>
           <motion.button
             className={styles.buttonTimetable}
             whileHover={{ scale: 1.05 }}

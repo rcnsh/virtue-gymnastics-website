@@ -20,7 +20,7 @@ import {
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-const Calendar: NextPage = () => {
+const Timetable: NextPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [eventInfo, setEventInfo] = useState<EventClickArg | null>(null);
 
@@ -99,4 +99,4 @@ const Calendar: NextPage = () => {
   );
 };
 
-export default Calendar;
+export default Timetable;

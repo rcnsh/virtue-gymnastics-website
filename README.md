@@ -4,8 +4,6 @@
 </a>
 </p>
 
-
-
 <p align="center">
 <img src="https://img.shields.io/github/contributors/RCNOverwatcher/virtue-gymnastics-website" alt="GitHub contributors" />
 <img src="https://img.shields.io/github/discussions/RCNOverwatcher/virtue-gymnastics-website" alt="GitHub discussions" />
@@ -18,23 +16,23 @@
 
 ## 🔍 Table of Contents
 
-* [💻 Stack](#stack)
+- [💻 Stack](#stack)
 
-* [📝 Project Summary](#project-summary)
+- [📝 Project Summary](#project-summary)
 
-* [⚙️ Setting Up](#setting-up)
+- [⚙️ Setting Up](#setting-up)
 
-* [🚀 Run Locally](#run-locally)
+- [🚀 Run Locally](#run-locally)
 
-* [🙌 Contributors](#contributors)
+- [🙌 Contributors](#contributors)
 
-* [📄 License](#license)
+- [📄 License](#license)
 
 ## 💻 Stack
 
 - [shadcn/ui](https://ui.shadcn.com): Beautifully designed components built with Radix UI and Tailwind CSS.
 - [clerk/nextjs](https://github.com/clerkinc/clerk-sdk-node): Authentication and user management.
-- [fullcalendar/react](https://github.com/fullcalendar/fullcalendar): Calendar component for displaying events.
+- [fullcalendar/react](https://github.com/fullcalendar/fullcalendar): Timetable component for displaying events.
 - [hookform/resolvers](https://github.com/react-hook-form/resolvers): Resolvers for form validation.
 - [radix-ui/react-icons](https://github.com/radix-ui/react-icons): Collection of icons for UI components.
 - [tanstack/react-table](https://github.com/tannerlinsley/react-table): Data table component for displaying and managing tabular data.
@@ -64,18 +62,24 @@ Note: The directories are listed in alphabetical order.
 - RESEND_API_KEY: Resend api key for sending emails
 
 ## 🚀 Run Locally
+
 1.Clone the virtue-gymnastics-website repository:
+
 ```sh
 git clone https://github.com/RCNOverwatcher/virtue-gymnastics-website
 ```
+
 2.Install the dependencies with one of the package managers listed below:
+
 ```bash
 pnpm install
 bun install
 npm install
 yarn install
 ```
+
 3.Start the development mode:
+
 ```bash
 pnpm dev
 bun dev
