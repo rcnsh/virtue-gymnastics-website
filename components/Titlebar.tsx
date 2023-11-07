@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import styles from '../styles/Titlebar.module.css';
@@ -93,9 +93,9 @@ const listAdminItems: { title: string; href: string; description: string }[] = [
 const Titlebar = () => {
   const { isSignedIn } = useUser();
   const { userId } = useAuth();
-  const [isAdmin, setIsAdmin] = React.useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const isUserAdmin = fetch(
       `/api/check/checkIfUserIsAdmin?user_id=${userId}`,
       {
