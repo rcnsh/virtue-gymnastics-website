@@ -41,7 +41,8 @@ interface DataTableProps<TData, TValue> {
 
 type User = {
   user_id: string;
-  username: string;
+  first_name: string;
+  last_name: string;
   email: string;
   admin: boolean;
 };
@@ -146,20 +147,20 @@ const columns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: 'username',
+    accessorKey: 'first_name',
     cell: ({ row }) => {
       const user = row.original;
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">{user.username}</Button>
+            <Button variant="ghost">{user.first_name}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.username)}
+              onClick={() => navigator.clipboard.writeText(user.first_name)}
             >
-              Copy Username
+              Copy First Name
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -171,7 +172,39 @@ const columns: ColumnDef<User>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Username
+          First Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'last_name',
+    cell: ({ row }) => {
+      const user = row.original;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">{user.last_name}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(user.last_name)}
+            >
+              Copy Last Name
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Last Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
