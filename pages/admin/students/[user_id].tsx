@@ -12,6 +12,8 @@ import {
 
 import { useAuth } from '@clerk/nextjs';
 
+import { users } from '@prisma/client';
+
 import { ArrowUpDown } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -406,6 +408,7 @@ export default function Users() {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [data, setData] = useState<Student[]>([]);
+  const [userInfo, setUserInfo] = useState<users>();
 
   useEffect(() => {
     const isUserAdmin = fetch(
@@ -432,6 +435,17 @@ export default function Users() {
         setLoading(false);
         console.error(err);
       });
+
+    fetch(`/api/fetch/getUserFromUserID?user_id=${user_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setUserInfo(res);
+      });
   }, [user_id, userId]);
 
   if (loading) {
@@ -453,7 +467,9 @@ export default function Users() {
         <div className="flex flex-col items-center justify-center space-y-4">
           <br />
           <br />
-          <h1 className="text-4xl font-bold">Students</h1>
+          <h1 className="text-4xl font-bold">
+            {userInfo?.first_name} {userInfo?.last_name}&apos;s Students
+          </h1>
           <StudentsTable columns={columns} data={data} />
           <br />
           <br />
