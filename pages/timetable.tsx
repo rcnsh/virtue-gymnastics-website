@@ -6,8 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import styles from '@/styles/Timetable.module.css';
-import dates from '@/pages/api/json/classes.json';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LineBreaks from '@/components/line-breaks';
 import { EventClickArg } from '@fullcalendar/core';
 import {
@@ -20,21 +19,21 @@ import {
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-const Timetable: NextPage = () => {
+type FlattenedClass = {
+  id: string;
+  name: string;
+  startTime: string;
+  endTime: string;
+  cost: string;
+  daysOfWeek: number[];
+  backgroundColor: string;
+  age: string | null;
+  description: string;
+};
+
+function Timetable({ classes }: { classes: FlattenedClass[] }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [eventInfo, setEventInfo] = useState<EventClickArg | null>(null);
-
-  const events = dates.map((event) => ({
-    id: event.id,
-    title: event.name,
-    startTime: event.startTime,
-    endTime: event.endTime,
-    cost: event.cost,
-    daysOfWeek: event.daysOfWeek.map((day) => day + 1),
-    backgroundColor: event.backgroundColor,
-    age: event.age,
-    description: event.description,
-  }));
 
   return (
     <>
@@ -62,7 +61,7 @@ const Timetable: NextPage = () => {
             setModalIsOpen(true);
             setEventInfo(info);
           }}
-          events={events}
+          events={classes}
           eventTimeFormat={{
             hour: 'numeric',
             minute: '2-digit',
@@ -97,6 +96,16 @@ const Timetable: NextPage = () => {
       <LineBreaks />
     </>
   );
-};
+}
+
+export async function getStaticProps() {
+  const response = await fetch(`${process.env.API_URL}/api/fetchTimetable`);
+  const classes = await response.json();
+  return {
+    props: {
+      classes,
+    },
+  };
+}
 
 export default Timetable;

@@ -1,7 +1,12 @@
 import { authMiddleware } from '@clerk/nextjs';
 
 export default authMiddleware({
-  publicRoutes: ['/', '/timetable', '/api/check/checkIfUserIsAdmin'],
+  publicRoutes: [
+    '/',
+    '/timetable',
+    '/api/check/checkIfUserIsAdmin',
+    '/api/fetchTimetable',
+  ],
 });
 
 export const config = {
