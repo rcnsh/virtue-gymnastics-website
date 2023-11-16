@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Head from 'next/head';
 
 type FlattenedClass = {
   id: string;
@@ -36,6 +37,10 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 
   return (
     <>
+      <Head>
+        <title>Virtue Movement - Timetable</title>
+        <meta name="description" content="Virtue Movement" />
+      </Head>
       <div className={styles.calendar}>
         <FullCalendar
           schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
