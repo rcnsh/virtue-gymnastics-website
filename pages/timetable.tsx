@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import adaptivePlugin from '@fullcalendar/adaptive';
@@ -6,7 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import styles from '@/styles/Timetable.module.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import LineBreaks from '@/components/line-breaks';
 import { EventClickArg } from '@fullcalendar/core';
 import {
