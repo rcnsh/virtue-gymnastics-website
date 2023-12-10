@@ -18,9 +18,11 @@ function Bookings() {
 	const { userId } = useAuth();
 	const router = useRouter();
 
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const [bookings, setBookings] = useState<any[]>([]);
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean[]>([]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		fetchBookings().catch((error) => {
 			console.error("Error fetching bookings:", error);
@@ -88,6 +90,7 @@ function Bookings() {
 				<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 p-8">
 					{bookings ? (
 						bookings.map((booking, index) => (
+							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 							<Card key={index}>
 								<CardHeader>
 									<CardTitle>

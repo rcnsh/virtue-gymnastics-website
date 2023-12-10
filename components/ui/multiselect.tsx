@@ -63,6 +63,7 @@ function MultiSelect({
 								onClick={() => handleUnselect(item)}
 							>
 								{item}
+								{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 								<button
 									className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
 									onKeyDown={(e) => {

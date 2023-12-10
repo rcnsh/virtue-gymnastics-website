@@ -70,6 +70,7 @@ const BookingDetailsPage = () => {
 		}
 	};
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (student_id) {
 			fetchStudentData().catch((error) => {

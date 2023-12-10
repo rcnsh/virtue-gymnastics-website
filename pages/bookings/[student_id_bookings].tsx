@@ -20,6 +20,7 @@ function Bookings() {
 	const router = useRouter();
 	const { student_id_bookings } = router.query;
 
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const [bookings, setBookings] = useState<any[]>([]);
 	const [studentInfo, setStudentInfo] = useState<students>();
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean[]>([]);
@@ -67,6 +68,7 @@ function Bookings() {
 		});
 	}
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (student_id_bookings) {
 			fetchBookings()
@@ -129,6 +131,7 @@ function Bookings() {
 				<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 p-8">
 					{bookings ? (
 						bookings.map((booking, index) => (
+							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 							<Card key={index}>
 								<CardHeader>
 									<CardTitle>

@@ -95,6 +95,7 @@ const Titlebar = () => {
 	const { userId } = useAuth();
 	const [isAdmin, setIsAdmin] = useState(false);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const isUserAdmin = fetch(
 			`/api/check/checkIfUserIsAdmin?user_id=${userId}`,

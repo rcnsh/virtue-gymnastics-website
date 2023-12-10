@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import styles from "@/styles/TestimonialsSection.module.css";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
@@ -29,24 +30,24 @@ const TestimonialsSection = () => {
 						"https://www.google.com/maps/place/Virtue+School+of+Gymnastics/@51.4620734,-1.0170497,17z/data=!4m8!3m7!1s0x48769bbc0776c789:0x26f3bea60b3487ff!8m2!3d51.4620734!4d-1.0144748!9m1!1b1!16s%2Fg%2F11bxfyzhx5?entry=ttu"
 					}
 				>
-					<button
+					<Button
 						className={
 							"bg-gray-900 hover:bg-gray-800 text-white font-bold py-5 px-5 rounded bottom-60 relative border-white border-2 hover:border-gray-800 overflow-hidden"
 						}
 					>
 						Leave a review
-					</button>
+					</Button>
 				</Link>
 			</div>
 			<div className={styles.viewAllReviews}>
 				<Link href={"https://www.google.com/search?q=virtue+gymnastics"}>
-					<button
+					<Button
 						className={
 							"bg-gray-900 hover:bg-gray-800 text-white font-bold py-5 px-5 rounded bottom-60 relative border-white border-2 hover:border-gray-800 overflow-hidden"
 						}
 					>
 						View All Reviews
-					</button>
+					</Button>
 				</Link>
 			</div>
 			<section className={"relative bottom-64 overflow-hidden"}>
