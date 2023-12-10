@@ -1,110 +1,110 @@
 [
-  {
-    "id": "add",
-    "name": "ADD"
-  },
-  {
-    "id": "adhd",
-    "name": "ADHD"
-  },
-  {
-    "id": "adpkd",
-    "name": "ADPKD"
-  },
-  {
-    "id": "anxiety",
-    "name": "Anxiety"
-  },
-  {
-    "id": "asd",
-    "name": "ASD"
-  },
-  {
-    "id": "asthma",
-    "name": "Asthma"
-  },
-  {
-    "id": "autism",
-    "name": "Autism"
-  },
-  {
-    "id": "coeliacDisease",
-    "name": "Coeliac Disease"
-  },
-  {
-    "id": "congenitalMyotonicDystrophy",
-    "name": "Congenital Myotonic Dystrophy"
-  },
-  {
-    "id": "dyspraxia",
-    "name": "Dyspraxia"
-  },
-  {
-    "id": "downsSyndrome",
-    "name": "Downs Syndrome"
-  },
-  {
-    "id": "eczema",
-    "name": "Eczema"
-  },
-  {
-    "id": "epilepsy",
-    "name": "Epilepsy"
-  },
-  {
-    "id": "hayfever",
-    "name": "Hayfever"
-  },
-  {
-    "id": "hearingLoss",
-    "name": "Hearing Loss"
-  },
-  {
-    "id": "hypermobility",
-    "name": "Hypermobility"
-  },
-  {
-    "id": "ironDeficiency",
-    "name": "Iron Deficiency"
-  },
-  {
-    "id": "learningDifficulties",
-    "name": "Learning Difficulties"
-  },
-  {
-    "id": "nutAllergy",
-    "name": "Nut Allergy"
-  },
-  {
-    "id": "ocd",
-    "name": "OCD"
-  },
-  {
-    "id": "other",
-    "name": "Other (please state in notes)"
-  },
-  {
-    "id": "odgoodSchlatter",
-    "name": "Osgood-Schlatter"
-  },
-  {
-    "id": "polycysticKidneyDisease",
-    "name": "Polycystic Kidney Disease"
-  },
-  {
-    "id": "refluxAnoxicSeizures",
-    "name": "Reflux Anoxic Seizures"
-  },
-  {
-    "id": "spd",
-    "name": "SPD"
-  },
-  {
-    "id": "type1Diabetic",
-    "name": "Type 1 Diabetic"
-  },
-  {
-    "id": "visuallyImpaired",
-    "name": "Visually Impaired"
-  }
+	{
+		"id": "add",
+		"name": "ADD"
+	},
+	{
+		"id": "adhd",
+		"name": "ADHD"
+	},
+	{
+		"id": "adpkd",
+		"name": "ADPKD"
+	},
+	{
+		"id": "anxiety",
+		"name": "Anxiety"
+	},
+	{
+		"id": "asd",
+		"name": "ASD"
+	},
+	{
+		"id": "asthma",
+		"name": "Asthma"
+	},
+	{
+		"id": "autism",
+		"name": "Autism"
+	},
+	{
+		"id": "coeliacDisease",
+		"name": "Coeliac Disease"
+	},
+	{
+		"id": "congenitalMyotonicDystrophy",
+		"name": "Congenital Myotonic Dystrophy"
+	},
+	{
+		"id": "dyspraxia",
+		"name": "Dyspraxia"
+	},
+	{
+		"id": "downsSyndrome",
+		"name": "Downs Syndrome"
+	},
+	{
+		"id": "eczema",
+		"name": "Eczema"
+	},
+	{
+		"id": "epilepsy",
+		"name": "Epilepsy"
+	},
+	{
+		"id": "hayfever",
+		"name": "Hayfever"
+	},
+	{
+		"id": "hearingLoss",
+		"name": "Hearing Loss"
+	},
+	{
+		"id": "hypermobility",
+		"name": "Hypermobility"
+	},
+	{
+		"id": "ironDeficiency",
+		"name": "Iron Deficiency"
+	},
+	{
+		"id": "learningDifficulties",
+		"name": "Learning Difficulties"
+	},
+	{
+		"id": "nutAllergy",
+		"name": "Nut Allergy"
+	},
+	{
+		"id": "ocd",
+		"name": "OCD"
+	},
+	{
+		"id": "other",
+		"name": "Other (please state in notes)"
+	},
+	{
+		"id": "odgoodSchlatter",
+		"name": "Osgood-Schlatter"
+	},
+	{
+		"id": "polycysticKidneyDisease",
+		"name": "Polycystic Kidney Disease"
+	},
+	{
+		"id": "refluxAnoxicSeizures",
+		"name": "Reflux Anoxic Seizures"
+	},
+	{
+		"id": "spd",
+		"name": "SPD"
+	},
+	{
+		"id": "type1Diabetic",
+		"name": "Type 1 Diabetic"
+	},
+	{
+		"id": "visuallyImpaired",
+		"name": "Visually Impaired"
+	}
 ]
