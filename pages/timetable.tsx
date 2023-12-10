@@ -103,7 +103,7 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 }
 
 export async function getStaticProps() {
-	const response = await fetch(`${process.env.API_URL}/api/fetchTimetable`);
+	const response = await fetch("https://virtue.rcn.sh/api/fetchTimetable");
 	const classes = await response.json();
 	return {
 		props: {
