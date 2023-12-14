@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/themeProvider";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 interface LayoutProps {
 	children: ReactNode;
@@ -12,6 +13,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
 	return (
 		<>
+			<SpeedInsights />
 			<motion.main
 				className={"w-[100vw]"}
 				initial={{
