@@ -15,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
 		<>
 			<SpeedInsights />
 			<motion.main
-				className={"w-[100vw]"}
+				className={"w-[100vw] min-h-[100dvh]"}
 				initial={{
 					opacity: 0,
 				}}

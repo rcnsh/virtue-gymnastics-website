@@ -63,13 +63,13 @@
   resolved "https://registry.yarnpkg.com/@biomejs/cli-win32-x64/-/cli-win32-x64-1.4.1.tgz#dd8ee6e14a5d74cbeb2eb9824a43c61bb5c460e4"
   integrity sha512-88fR2CQxQ4YLs2BUDuywWYQpUKgU3A3sTezANFc/4LGKQFFLV2yX+F7QAdZVkMHfA+RD9Xg178HomM/6mnTNPA==
 
-"@clerk/backend@0.35.0":
-  version "0.35.0"
-  resolved "https://registry.yarnpkg.com/@clerk/backend/-/backend-0.35.0.tgz#6554e0d9a908a0b10608c682fc5c3b47c6ec216b"
-  integrity sha512-42dwC7N5nnEZXsdmSh5vjIrij/vkuVMNkA+IPQ7DUGFORMLxyjjwuwAOLDpv1lmOm8ZkXYQqe5px174Wgt6/VA==
+"@clerk/backend@0.36.0":
+  version "0.36.0"
+  resolved "https://registry.yarnpkg.com/@clerk/backend/-/backend-0.36.0.tgz#143e3fbcbf94fa1cbd00baaafc748b0df172ebe8"
+  integrity sha512-iJTASBSitQqdgIUANzifwsRURmS+zaXJ2vtD/j3r/Ir/nmJWm1PwY9eGKWyE6rlk8iAnh+OoUmBJB1tz1SpXkw==
   dependencies:
     "@clerk/shared" "1.1.1"
-    "@clerk/types" "3.58.1"
+    "@clerk/types" "3.60.0"
     "@peculiar/webcrypto" "1.4.1"
     "@types/node" "16.18.6"
     cookie "0.5.0"
@@ -78,23 +78,23 @@
     snakecase-keys "5.4.4"
     tslib "2.4.1"
 
-"@clerk/clerk-react@4.28.3":
-  version "4.28.3"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-react/-/clerk-react-4.28.3.tgz#2eeaa2de91eb84aec38d8465e1176c3b4a29d872"
-  integrity sha512-keiQSpl9EVP7XNKOLXRs+zxkrGG8FRueMdn0+GcOUlmfIUcE9HFhCX/2wCt7OiLuuZLJpMOVEg9weDepW5APEg==
+"@clerk/clerk-react@4.30.0":
+  version "4.30.0"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-react/-/clerk-react-4.30.0.tgz#4cb10872bd3b140843c3ea63d8eb65d6f9f435bd"
+  integrity sha512-MArib2io8DNNc1SEocujOZPPApGIekmxHiSKgJ/lO8uo0w5EPwKqLZWan7bfUBYaPUAqwDcsnfRB/YmFB3eS9g==
   dependencies:
     "@clerk/shared" "1.1.1"
-    "@clerk/types" "3.58.1"
+    "@clerk/types" "3.60.0"
     tslib "2.4.1"
 
-"@clerk/clerk-sdk-node@4.13.0":
-  version "4.13.0"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-4.13.0.tgz#ef5d2c28d7a3cce470e068240a0bc5b0b6384336"
-  integrity sha512-3Kjl0v9APRw+eqIadvkeTWhdzNep2kEZXNxwPNsje5phYLQPadp9DFTukftH7c31Q+coi7VGCXq54eDZR2ERwQ==
+"@clerk/clerk-sdk-node@4.13.2":
+  version "4.13.2"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-4.13.2.tgz#94453e6eaca816b77ad5ed5f5094df0186361f1d"
+  integrity sha512-lnPxZFNxTZmRQYl3GUdvBxE/nNMertULTN9JZycNeeCeH97hdtbhF4GVcSoTB2M1HVwTgP21tkQigX8yu2Gqqw==
   dependencies:
-    "@clerk/backend" "0.35.0"
+    "@clerk/backend" "0.36.0"
     "@clerk/shared" "1.1.1"
-    "@clerk/types" "3.58.1"
+    "@clerk/types" "3.60.0"
     "@types/cookies" "0.7.7"
     "@types/express" "4.17.14"
     "@types/node-fetch" "2.6.2"
@@ -102,16 +102,16 @@
     snakecase-keys "3.2.1"
     tslib "2.4.1"
 
-"@clerk/nextjs@^4.27.5":
-  version "4.27.5"
-  resolved "https://registry.yarnpkg.com/@clerk/nextjs/-/nextjs-4.27.5.tgz#7961e4546439b984ade610560dfa4383b4a9b4ee"
-  integrity sha512-E6WCYc3RIfd+5XfNlM/bozVzg2FSSOkp1zvaRFTuYmqkcT0FCDSZH4fl36nfy+8cXHm6TX6J8edEvLm7jfdDLA==
+"@clerk/nextjs@^4.28.1":
+  version "4.28.1"
+  resolved "https://registry.yarnpkg.com/@clerk/nextjs/-/nextjs-4.28.1.tgz#bd98beda0111d6a5e6e47e43fe30b2381c9008c0"
+  integrity sha512-gWNQBZc3nLPtPPTLbR7i69wV1tKQOQvbizvJcLysmVtEG2o/XQ3j7kn1c3ekrjoMcP1cmpUM1mleTDupmuWZOA==
   dependencies:
-    "@clerk/backend" "0.35.0"
-    "@clerk/clerk-react" "4.28.3"
-    "@clerk/clerk-sdk-node" "4.13.0"
+    "@clerk/backend" "0.36.0"
+    "@clerk/clerk-react" "4.30.0"
+    "@clerk/clerk-sdk-node" "4.13.2"
     "@clerk/shared" "1.1.1"
-    "@clerk/types" "3.58.1"
+    "@clerk/types" "3.60.0"
     path-to-regexp "6.2.1"
     tslib "2.4.1"
 
@@ -129,10 +129,10 @@
   resolved "https://registry.yarnpkg.com/@clerk/themes/-/themes-1.7.9.tgz#b2650a6b3c36109e077ff12891425192e8f5a801"
   integrity sha512-9hXxgoPuUSlZ7sH9diJEK1rTWEnk0zGKBYw4Tqaqp0RA1dtB+OHE02DK5pnTypZTnreBJYac3VmxFVTxVV35xg==
 
-"@clerk/types@3.58.1":
-  version "3.58.1"
-  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-3.58.1.tgz#29a2b0a26b99cef0ab7908ada4c8d275b22fda3a"
-  integrity sha512-cumryWXAYNCApsc3pmuHiJQnhUcNuQPCMI8w/bVU9VuGm9Ry0zhCWawD7F3/VWAOnAPu4ghKrwEaLkGsiSsY2Q==
+"@clerk/types@3.60.0":
+  version "3.60.0"
+  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-3.60.0.tgz#d0d369f5cb4558127e279f994057a616a6b4dab0"
+  integrity sha512-f1A16wFh5MtikxEo7o6vAVX7FxpqC1YmzA6c4ugwq5MH8J2mvIM/LwNVIHgNpZkn/s/G+BUhBcJJmUXqajDK2Q==
   dependencies:
     csstype "3.1.1"
 
@@ -1404,10 +1404,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@18.2.43":
-  version "18.2.43"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.43.tgz#c58e5abe241e6f71f60ce30e2a9aceb9d3a2a374"
-  integrity sha512-nvOV01ZdBdd/KW6FahSbcNplt2jCJfyWdTos61RYHV+FVv5L/g9AOX1bmbVcWcLFL8+KHQfh1zVIQrud6ihyQA==
+"@types/react@18.2.45":
+  version "18.2.45"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.45.tgz#253f4fac288e7e751ab3dc542000fb687422c15c"
+  integrity sha512-TtAxCNrlrBp8GoeEp1npd5g+d/OejJHFxS3OWmrPBMFaVQMSN0OFySozJio5BHxTuTeug00AVXVAjfDSfk+lUg==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -2271,10 +2271,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lucide-react@^0.294.0:
-  version "0.294.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.294.0.tgz#dc406e1e7e2f722cf93218fe5b31cf3c95778817"
-  integrity sha512-V7o0/VECSGbLHn3/1O67FUgBwWB+hmzshrgDVRJQhMh8uj5D3HBuIvhuAmQTtlupILSplwIZg5FTc4tTKMA2SA==
+lucide-react@^0.295.0:
+  version "0.295.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.295.0.tgz#4c03695a3ecac8009cea51a0a895cf99ba4b56ed"
+  integrity sha512-5tQQ8V4Qn9DZscW55OOk9i5z4R0TfJiMjLEwM1P1jqtY5aPD3AnY049Zfb+fyXAa1JcUS5o26Wsl/3dfvTue6w==
 
 map-obj@^4.0.0, map-obj@^4.1.0:
   version "4.3.0"
@@ -2712,10 +2712,10 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-hook-form@^7.49.0:
-  version "7.49.0"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.49.0.tgz#9a91edfba6b6983d4b443653a9b225a780a42b3e"
-  integrity sha512-gf4qyY4WiqK2hP/E45UUT6wt3Khl49pleEVcIzxhLBrD6m+GMWtLRk0vMrRv45D1ZH8PnpXFwRPv0Pewske2jw==
+react-hook-form@^7.49.2:
+  version "7.49.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.49.2.tgz#6fb2742e1308020f26cb1915c7012b6c07b11ade"
+  integrity sha512-TZcnSc17+LPPVpMRIDNVITY6w20deMdNi6iehTFLV1x8SqThXGwu93HjlUVU09pzFgZH7qZOvLMM7UYf2ShAHA==
 
 react-icons@^4.12.0:
   version "4.12.0"
