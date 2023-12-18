@@ -2,8 +2,8 @@ import { AppProps } from 'next/app';
 import '../styles/globals.css';
 import Layout from '../components/Layout';
 import React from 'react';
-import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
