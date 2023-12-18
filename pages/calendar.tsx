@@ -6,7 +6,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import styles from '@/styles/Timetable.module.css';
-import dates from '@/pages/api/classes.json';
 import { useState } from 'react';
 import LineBreaks from '@/components/line-breaks';
 import { EventClickArg } from '@fullcalendar/core';
@@ -23,18 +22,6 @@ import Link from 'next/link';
 const Calendar: NextPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [eventInfo, setEventInfo] = useState<EventClickArg | null>(null);
-
-  const events = dates.map((event) => ({
-    id: event.id,
-    title: event.name,
-    startTime: event.startTime,
-    endTime: event.endTime,
-    cost: event.cost,
-    daysOfWeek: event.daysOfWeek.map((day) => day + 1),
-    backgroundColor: event.backgroundColor,
-    age: event.age,
-    description: event.description,
-  }));
 
   return (
     <>
@@ -62,7 +49,6 @@ const Calendar: NextPage = () => {
             setModalIsOpen(true);
             setEventInfo(info);
           }}
-          events={events}
           eventTimeFormat={{
             hour: 'numeric',
             minute: '2-digit',

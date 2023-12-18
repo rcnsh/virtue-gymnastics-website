@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const data = await resend.emails.send({
-      from: 'Virtue Website Enquiry <onboarding@resend.dev>',
+      from: 'Virtue Website Enquiry <enquires@virtue.rcn.sh>',
       text: 'Virtue Email',
       to: ['jacobjameswiltshire@protonmail.com'],
       subject: 'New Enquiry from Virtue Website',
