@@ -4,20 +4,32 @@
     "name": "Class 1",
     "startTime": "09:30",
     "endTime": "10:30",
-    "daysOfWeek": [0]
+    "daysOfWeek": [0],
+    "cost": "£9.99",
+    "backgroundColor": "#FF0000",
+    "age": "7-8 Years old",
+    "description": "Description of class 1"
   },
   {
     "id": "Class 2",
     "name": "Class 2",
     "startTime": "11:30",
     "endTime": "13:30",
-    "daysOfWeek": [3]
+    "daysOfWeek": [3],
+    "cost": "£9.99",
+    "backgroundColor": "#00FF00",
+    "age": "9-10 Years old",
+    "description": "Description of class 2"
   },
   {
     "id": "Class 3",
     "name": "Class 3",
     "startTime": "15:30",
     "endTime": "16:30",
-    "daysOfWeek": [5]
+    "daysOfWeek": [5],
+    "cost": "£9.99",
+    "backgroundColor": "#0000FF",
+    "age": "11-13 Years old",
+    "description": "Description of class 3"
   }
 ]
