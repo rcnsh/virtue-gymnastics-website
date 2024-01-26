@@ -8,6 +8,16 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model users {
+  user_id    String     @id @db.VarChar(255)
+  first_name String     @db.VarChar(255)
+  last_name  String     @db.VarChar(255)
+  email      String     @db.VarChar(255)
+  admin      Boolean?   @default(false)
+  students   students[]
+  bookings   bookings[]
+}
+
 model students {
   user_id                      String     @db.VarChar(255)
   student_id                   Int        @id @default(autoincrement())
@@ -36,16 +46,6 @@ model students {
   marketing_consent            Boolean?   @default(false)
   user                         users?     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
   bookings                     bookings[]
-}
-
-model users {
-  user_id    String     @id @db.VarChar(255)
-  first_name String     @db.VarChar(255)
-  last_name  String     @db.VarChar(255)
-  email      String     @db.VarChar(255)
-  admin      Boolean?   @default(false)
-  students   students[]
-  bookings   bookings[]
 }
 
 model bookings {

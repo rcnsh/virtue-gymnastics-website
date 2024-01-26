@@ -6,6 +6,8 @@ export default authMiddleware({
 		"/timetable",
 		"/api/check/checkIfUserIsAdmin",
 		"/api/fetchTimetable",
+		"/api/clerk/created",
+		"/api/clerk",
 	],
 });
 
