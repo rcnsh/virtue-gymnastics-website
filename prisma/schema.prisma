@@ -21,20 +21,20 @@ model users {
 model students {
   user_id                      String     @db.VarChar(255)
   student_id                   Int        @id @default(autoincrement())
-  address1                     String?    @db.VarChar
-  address2                     String?    @db.VarChar
-  city                         String     @db.VarChar
-  county                       String     @db.VarChar
-  postcode                     String     @db.VarChar
-  home_phone                   String?    @db.VarChar
-  work_phone                   String?    @db.VarChar
-  mobile_phone1                String     @db.VarChar
-  mobile_phone2                String?    @db.VarChar
-  hear_about_us                String     @db.VarChar
-  student_first_name           String     @db.VarChar
-  student_last_name            String     @db.VarChar
+  address1                     String?    @db.VarChar(255)
+  address2                     String?    @db.VarChar(255)
+  city                         String     @db.VarChar(255)
+  county                       String     @db.VarChar(255)
+  postcode                     String     @db.VarChar(8)
+  home_phone                   String?    @db.VarChar(15)
+  work_phone                   String?    @db.VarChar(15)
+  mobile_phone1                String     @db.VarChar(15)
+  mobile_phone2                String?    @db.VarChar(15)
+  hear_about_us                String     @db.VarChar(255)
+  student_first_name           String     @db.VarChar(255)
+  student_last_name            String     @db.VarChar(255)
   student_dob                  DateTime   @db.Date
-  student_gender               String     @db.VarChar
+  student_gender               String     @db.VarChar(10)
   student_medical_conditions   String[]
   student_additional_info      String?    @db.VarChar(500)
   student_preferred_days       String[]
@@ -52,14 +52,14 @@ model bookings {
   booking_id     Int       @id @default(autoincrement())
   student_id     Int       @db.Integer
   user_id        String    @db.VarChar(255)
-  selected_class String    @db.VarChar
+  selected_class String    @db.VarChar(100)
   created_at     DateTime  @default(now()) @db.Timestamp(6)
   user           users?    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
   student        students? @relation(fields: [student_id], references: [student_id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model Class {
-  id              String     @id
+  id              String     @id @db.VarChar(20)
   name            String
   cost            String
   backgroundColor String
@@ -70,9 +70,9 @@ model Class {
 
 model Schedule {
   id         Int    @id @default(autoincrement())
-  classId    String
-  startTime  String
-  endTime    String
+  classId    String @db.VarChar(20)
+  startTime  String @db.VarChar(5)
+  endTime    String @db.VarChar(5)
   daysOfWeek Int[]
   class      Class  @relation(fields: [classId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
