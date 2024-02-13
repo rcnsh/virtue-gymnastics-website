@@ -17,7 +17,6 @@
   "lint-staged": {
     "*": "biome format . --write"
   },
-  "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
     "@clerk/nextjs": "^4.29.7",
     "@clerk/themes": "^1.7.9",
