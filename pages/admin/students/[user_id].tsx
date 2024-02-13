@@ -10,8 +10,6 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 
-import { useAuth } from "@clerk/nextjs";
-
 import { users } from "@prisma/client";
 
 import { ArrowUpDown } from "lucide-react";
@@ -28,7 +26,6 @@ import {
 
 import { Input } from "@/components/ui/input";
 
-import LineBreaks from "@/components/line-breaks";
 import {
 	Table,
 	TableBody,
@@ -39,7 +36,10 @@ import {
 } from "@/components/ui/table";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { GetServerSideProps } from "next";
+import prisma from "@/lib/prisma";
+import { getAuth } from "@clerk/nextjs/server";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -259,25 +259,6 @@ const columns: ColumnDef<Student>[] = [
 	},
 ];
 
-async function getData(userid: string): Promise<Student[]> {
-	if (!userid) {
-		return [];
-	}
-	const response = await fetch(
-		`/api/admin/studentsFromSpecificUser?user_id=${userid}`,
-		{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		},
-	);
-	if (response.status === 404) {
-		return [];
-	}
-	return await response.json();
-}
-
 function StudentsTable<TData, TValue>({
 	columns,
 	data,
@@ -401,65 +382,10 @@ function StudentsTable<TData, TValue>({
 	);
 }
 
-export default function Users() {
-	const { userId } = useAuth();
-	const router = useRouter();
-	const { user_id } = router.query;
-	const [loading, setLoading] = useState(true);
-	const [isAdmin, setIsAdmin] = useState(false);
-	const [data, setData] = useState<Student[]>([]);
-	const [userInfo, setUserInfo] = useState<users>();
-
-	useEffect(() => {
-		const isUserAdmin = fetch(
-			`/api/check/checkIfUserIsAdmin?user_id=${userId}`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			},
-		).then((res) => res.json());
-
-		isUserAdmin.then((res) => {
-			if (res.isAdmin) {
-				setIsAdmin(true);
-			}
-		});
-		getData(user_id as string)
-			.then((data) => {
-				setLoading(false);
-				setData(data);
-			})
-			.catch((err) => {
-				setLoading(false);
-				console.error(err);
-			});
-
-		fetch(`/api/fetch/getUserFromUserID?user_id=${user_id}`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((res) => res.json())
-			.then((res) => {
-				setUserInfo(res);
-			});
-	}, [user_id, userId]);
-
-	if (loading) {
-		return <div>Loading...</div>;
-	}
-	if (!isAdmin) {
-		return (
-			<div>
-				<LineBreaks />
-				<h1 className={"text-4xl flex justify-center"}>Unauthorized</h1>
-				<LineBreaks />
-			</div>
-		);
-	}
+export default function Users({
+	students,
+	user,
+}: { students: Student[]; user: users }) {
 	return (
 		<>
 			<Head>
@@ -469,9 +395,9 @@ export default function Users() {
 				<br />
 				<br />
 				<h1 className="text-4xl font-bold">
-					{userInfo?.first_name} {userInfo?.last_name}&apos;s Students
+					{user.first_name} {user.last_name}&apos;s Students
 				</h1>
-				<StudentsTable columns={columns} data={data} />
+				<StudentsTable columns={columns} data={students} />
 				<br />
 				<br />
 				<br />
@@ -480,3 +406,56 @@ export default function Users() {
 		</>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { userId } = getAuth(context.req);
+	const user_id_query = context.params?.user_id;
+
+	if (!userId) {
+		return {
+			redirect: {
+				destination: "/sign-in",
+				permanent: false,
+			},
+		};
+	}
+
+	const currentUserInfo = await prisma.users.findUnique({
+		where: {
+			user_id: userId as string,
+		},
+	});
+
+	if (currentUserInfo?.admin) {
+		const students = await prisma.students.findMany({
+			where: {
+				user_id: user_id_query as string,
+			},
+		});
+
+		const requestedUserInfo = await prisma.users.findUnique({
+			where: {
+				user_id: user_id_query as string,
+			},
+		});
+
+		const studentsWithDateString = students.map((student) => ({
+			...student,
+			student_dob: student.student_dob.toISOString(),
+		}));
+
+		return {
+			props: {
+				students: studentsWithDateString,
+				user: requestedUserInfo,
+			},
+		};
+	}
+
+	return {
+		redirect: {
+			destination: "/",
+			permanent: false,
+		},
+	};
+};
