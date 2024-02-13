@@ -13,15 +13,8 @@ export default async function handler(
 
 	const flattenedData = classes.flatMap((classItem) =>
 		classItem.schedules.map((schedule) => ({
-			id: classItem.id,
-			title: classItem.name,
-			startTime: schedule.startTime,
-			endTime: schedule.endTime,
-			cost: classItem.cost,
+			...schedule,
 			daysOfWeek: schedule.daysOfWeek.map((day) => day + 1),
-			backgroundColor: classItem.backgroundColor,
-			age: classItem.ageGroup,
-			description: classItem.description,
 		})),
 	);
 
