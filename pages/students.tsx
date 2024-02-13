@@ -2,40 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { useAuth } from "@clerk/nextjs";
 import { students } from "@prisma/client";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { getAuth } from "@clerk/nextjs/server";
+import { GetServerSideProps } from "next";
+import prisma from "@/lib/prisma";
 
-function Students() {
-	const { userId } = useAuth();
+function Students({ students: userStudents }: { students: students[] }) {
 	const router = useRouter();
-	const [userStudents, setUserStudents] = useState<students[]>([]);
-
-	useEffect(() => {
-		if (!userId) {
-			return;
-		}
-
-		const fetchStudents = async () => {
-			try {
-				const data = await fetch(
-					`/api/fetch/getAllUsersStudents?user_id=${userId}`,
-				);
-				const students = await data.json();
-				setUserStudents(students);
-			} catch (error) {
-				console.error("Error fetching data:", error);
-			}
-		};
-
-		fetchStudents().catch((error) => {
-			console.error("Error fetching students:", error);
-		});
-	}, [userId]);
-
 	return (
 		<>
 			<Head>
@@ -64,11 +40,7 @@ function Students() {
 				<br />
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-8 h-[25vh]">
 					{userStudents.map((student, index) => (
-						<Link
-							href={`/students/${student.student_id}`}
-							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-							key={index}
-						>
+						<Link href={`/students/${student.student_id}`} key={index}>
 							<Card>
 								<CardHeader>
 									<CardTitle>
@@ -123,5 +95,36 @@ function Students() {
 		</>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const auth = getAuth(context.req);
+
+	const userId = auth.userId;
+	if (!userId) {
+		return {
+			redirect: {
+				destination: "/sign-in",
+				permanent: false,
+			},
+		};
+	}
+
+	const students = await prisma.students.findMany({
+		where: {
+			user_id: userId,
+		},
+	});
+
+	const studentsWithDateString = students.map((student) => ({
+		...student,
+		student_dob: student.student_dob.toISOString(),
+	}));
+
+	return {
+		props: {
+			students: studentsWithDateString,
+		},
+	};
+};
 
 export default Students;
