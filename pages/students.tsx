@@ -39,8 +39,11 @@ function Students({ students: userStudents }: { students: students[] }) {
 				</Button>
 				<br />
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-8 h-[25vh]">
-					{userStudents.map((student, index) => (
-						<Link href={`/students/${student.student_id}`} key={index}>
+					{userStudents.map((student) => (
+						<Link
+							href={`/students/${student.student_id}`}
+							key={student.student_id}
+						>
 							<Card>
 								<CardHeader>
 									<CardTitle>

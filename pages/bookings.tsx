@@ -84,7 +84,7 @@ function Bookings({ bookings }: { bookings: BookingData[] }) {
 				<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 p-8">
 					{bookings ? (
 						bookings.map((booking, index) => (
-							<Card key={index}>
+							<Card key={booking.booking_id}>
 								<CardHeader>
 									<CardTitle>
 										<p>

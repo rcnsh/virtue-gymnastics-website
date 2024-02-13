@@ -9,7 +9,7 @@
     "format": "biome format . --write",
     "format:check": "biome check --apply .",
     "postinstall": "npx prisma generate",
-    "lint": "next lint",
+    "lint": "biome lint .",
     "prepare": "husky install",
     "start": "next start",
     "test": "echo No tests found."
