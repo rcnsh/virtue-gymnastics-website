@@ -2,9 +2,9 @@ import Footer from "@/components/Footer";
 import Titlebar from "@/components/Titlebar";
 import { ThemeProvider } from "@/components/themeProvider";
 import { Separator } from "@/components/ui/separator";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 interface LayoutProps {
 	children: ReactNode;

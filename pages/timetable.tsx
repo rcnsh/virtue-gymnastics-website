@@ -7,6 +7,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import prisma from "@/lib/prisma";
 import styles from "@/styles/Timetable.module.css";
 import adaptivePlugin from "@fullcalendar/adaptive";
 import { EventClickArg } from "@fullcalendar/core";
@@ -18,7 +19,6 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
-import prisma from "@/lib/prisma";
 
 type FlattenedClass = {
 	id: string;
