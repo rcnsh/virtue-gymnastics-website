@@ -9,41 +9,35 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
-import { SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
+import { GetServerSideProps } from "next";
+import prisma from "@/lib/prisma";
+import { getAuth } from "@clerk/nextjs/server";
+import type { students } from "@prisma/client";
 
-function Bookings() {
-	const { userId } = useAuth();
+interface BookingData {
+	booking_id: number;
+	student_id: number;
+	user_id: string;
+	selected_class: string;
+	created_at: string;
+	student: students;
+}
+
+function Bookings({ bookings }: { bookings: BookingData[] }) {
 	const router = useRouter();
-
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	const [bookings, setBookings] = useState<any[]>([]);
-	const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean[]>([]);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		fetchBookings().catch((error) => {
-			console.error("Error fetching bookings:", error);
-		});
-	}, [userId]);
-
-	const fetchBookings = async () => {
-		try {
-			const data = await fetch(
-				`/api/fetch/getAllUsersBookings?user_id=${userId}`,
-			);
-			const bookings = await data.json();
-			setBookings(bookings);
-
-			setDeleteDialogOpen(new Array(bookings.length).fill(false));
-		} catch (error) {
-			console.error("Error fetching data:", error);
-		}
+	const refreshData = () => {
+		void router.replace(router.asPath);
 	};
 
-	function removeBooking(booking_id: string, index: number) {
+	const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean[]>(
+		new Array(bookings.length).fill(false),
+	);
+
+	function removeBooking(booking_id: number, index: number) {
 		fetch(`/api/delete/deleteBooking?booking_id=${booking_id}`, {
 			method: "DELETE",
 			headers: {
@@ -51,7 +45,7 @@ function Bookings() {
 			},
 		}).then(async (response) => {
 			if (response.ok) {
-				await fetchBookings();
+				refreshData();
 				const newDeleteDialogOpen = [...deleteDialogOpen];
 				newDeleteDialogOpen[index] = false;
 				setDeleteDialogOpen(newDeleteDialogOpen);
@@ -90,7 +84,6 @@ function Bookings() {
 				<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 p-8">
 					{bookings ? (
 						bookings.map((booking, index) => (
-							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 							<Card key={index}>
 								<CardHeader>
 									<CardTitle>
@@ -167,5 +160,43 @@ function Bookings() {
 		</>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const auth = getAuth(context.req);
+
+	const userId = auth.userId;
+	if (!userId) {
+		return {
+			redirect: {
+				destination: "/sign-in",
+				permanent: false,
+			},
+		};
+	}
+
+	const bookings = await prisma.bookings.findMany({
+		where: {
+			user_id: userId,
+		},
+		include: {
+			student: true,
+		},
+	});
+
+	const bookingsFormattedDate = bookings.map((booking) => ({
+		...booking,
+		created_at: booking.created_at.toISOString(),
+		student: {
+			...booking.student,
+			student_dob: booking.student.student_dob.toISOString(),
+		},
+	}));
+
+	return {
+		props: {
+			bookings: bookingsFormattedDate,
+		},
+	};
+};
 
 export default Bookings;
