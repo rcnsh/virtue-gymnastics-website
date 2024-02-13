@@ -18,6 +18,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
+import prisma from "@/lib/prisma";
 
 type FlattenedClass = {
 	id: string;
@@ -103,8 +104,25 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 }
 
 export async function getStaticProps() {
-	const response = await fetch("https://virtue.rcn.sh/api/fetchTimetable");
-	const classes = await response.json();
+	const classesprop = await prisma.class.findMany({
+		include: {
+			schedules: true,
+		},
+	});
+
+	const classes = classesprop.flatMap((classItem) =>
+		classItem.schedules.map((schedule) => ({
+			id: classItem.id,
+			title: classItem.name,
+			startTime: schedule.startTime,
+			endTime: schedule.endTime,
+			cost: classItem.cost,
+			daysOfWeek: schedule.daysOfWeek.map((day) => day + 1),
+			backgroundColor: classItem.backgroundColor,
+			age: classItem.ageGroup,
+			description: classItem.description,
+		})),
+	);
 	return {
 		props: {
 			classes,
