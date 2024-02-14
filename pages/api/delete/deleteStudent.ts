@@ -6,7 +6,7 @@ export default async function handler(
 	res: NextApiResponse,
 ) {
 	if (req.method === "DELETE") {
-		const { student_id } = req.body;
+		const { student_id } = req.query;
 
 		const id = parseInt(student_id as string, 10);
 

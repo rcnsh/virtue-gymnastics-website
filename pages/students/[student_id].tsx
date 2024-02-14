@@ -1,4 +1,3 @@
-import LineBreaks from "@/components/line-breaks";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -8,24 +7,32 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { useAuth } from "@clerk/nextjs";
 import { students, users } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { GetServerSideProps } from "next";
+import { getAuth } from "@clerk/nextjs/server";
+import prisma from "@/lib/prisma";
 
-const BookingDetailsPage = () => {
+interface modifiedStudentData extends Omit<students, "student_dob"> {
+	student_dob: string;
+}
+
+function BookingDetailsPage({
+	student_data,
+	user_data,
+}: { student_data: modifiedStudentData; user_data: users }) {
 	const router = useRouter();
-	const { student_id } = router.query;
-	const [studentData, setStudentData] = useState<students | null>(null);
-	const [userData, setUserData] = useState<users | null>(null);
+
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-	const { userId } = useAuth();
+	const [loading, setLoading] = useState(false);
 
 	const deleteStudent = async () => {
 		try {
+			setLoading(true);
 			const result = await fetch(
-				`/api/delete/deleteStudent?student_id=${student_id}`,
+				`/api/delete/deleteStudent?student_id=${student_data.student_id}`,
 				{
 					method: "DELETE",
 					headers: {
@@ -35,9 +42,6 @@ const BookingDetailsPage = () => {
 			);
 
 			if (result.ok) {
-				fetchStudentData().catch((error) => {
-					console.error("Error fetching students data:", error);
-				});
 				router.push("/students").catch((error) => {
 					console.error("Error navigating to students page:", error);
 				});
@@ -47,121 +51,67 @@ const BookingDetailsPage = () => {
 		}
 	};
 
-	const fetchStudentData = async () => {
-		try {
-			const data = await fetch(
-				`/api/fetch/getStudentFromStudentID?student_id=${student_id}`,
-			);
-			const data_json = await data.json();
-			setStudentData(data_json);
-		} catch (error) {
-			console.error("Error fetching data:", error);
-		}
-	};
-	const fetchUserData = async () => {
-		try {
-			const data = await fetch(
-				`/api/fetch/getUserFromUserID?user_id=${userId}`,
-			);
-			const data_json = await data.json();
-			setUserData(data_json);
-		} catch (error) {
-			console.error("Error fetching data:", error);
-		}
-	};
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		if (student_id) {
-			fetchStudentData().catch((error) => {
-				console.error("Error fetching students data:", error);
-			});
-		}
-		if (userId) {
-			fetchUserData().catch((error) => {
-				console.error("Error fetching user data:", error);
-			});
-		}
-	}, [student_id, userId]);
-
-	if (!studentData) {
-		return (
-			<>
-				<LineBreaks />
-				<h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-50 flex justify-center">
-					Loading...
-				</h1>
-				<LineBreaks />
-			</>
-		);
-	}
-
 	return (
 		<>
 			<div className="bg-gray-800 rounded-lg shadow-lg p-8 text-center">
 				<h2 className="text-lg font-semibold">
-					Student Details: {studentData.student_first_name}{" "}
-					{studentData.student_last_name}
+					Student Details: {student_data.student_first_name}{" "}
+					{student_data.student_last_name}
 				</h2>
 				<br />
 				<div className="grid grid-cols-2 gap-4">
 					<div className="mb-4">
 						<p className="font-semibold">Parent Information:</p>
 						<p>
-							Name: {userData?.first_name} {userData?.last_name}
+							Name: {user_data?.first_name} {user_data?.last_name}
 						</p>
-						<p>Home Phone: {studentData.home_phone || "N/A"}</p>
-						<p>Work Phone: {studentData.work_phone || "N/A"}</p>
-						<p>Mobile Phone 1: {studentData.mobile_phone1}</p>
-						<p>Mobile Phone 2: {studentData.mobile_phone2 || "N/A"}</p>
+						<p>Home Phone: {student_data.home_phone || "N/A"}</p>
+						<p>Work Phone: {student_data.work_phone || "N/A"}</p>
+						<p>Mobile Phone 1: {student_data.mobile_phone1}</p>
+						<p>Mobile Phone 2: {student_data.mobile_phone2 || "N/A"}</p>
 					</div>
 					<div className="mb-4">
 						<p className="font-semibold">Student Information:</p>
 						<p>
-							Name: {studentData.student_first_name}{" "}
-							{studentData.student_last_name}
+							Name: {student_data.student_first_name}{" "}
+							{student_data.student_last_name}
 						</p>
-						<p>
-							Date of Birth:{" "}
-							{studentData.student_dob
-								? new Date(studentData.student_dob).toLocaleDateString("en-GB")
-								: "N/A"}
-						</p>
-						<p>Gender: {studentData.student_gender}</p>
+						<p>Date of Birth: {student_data.student_dob}</p>
+						<p>Gender: {student_data.student_gender}</p>
 						<p>
 							Medical Conditions:{" "}
-							{studentData.student_medical_conditions.join(", ") || "N/A"}
+							{student_data.student_medical_conditions.join(", ") || "N/A"}
 						</p>
 						<p>
-							Additional Info: {studentData.student_additional_info || "N/A"}
+							Additional Info: {student_data.student_additional_info || "N/A"}
 						</p>
 						<p>
 							Preferred Days:{" "}
-							{studentData.student_preferred_days.join(", ") || "N/A"}
+							{student_data.student_preferred_days.join(", ") || "N/A"}
 						</p>
 					</div>
 				</div>
 				<div>
 					<p className="font-semibold">Consents:</p>
 					<p>
-						Photo Consent: {studentData.student_photo_consent ? "Yes" : "No"}
+						Photo Consent: {student_data.student_photo_consent ? "Yes" : "No"}
 					</p>
 					<p>
-						Video Consent: {studentData.student_video_consent ? "Yes" : "No"}
+						Video Consent: {student_data.student_video_consent ? "Yes" : "No"}
 					</p>
 					<p>
 						Walking Home Consent:{" "}
-						{studentData.student_walking_home_consent ? "Yes" : "No"}
+						{student_data.student_walking_home_consent ? "Yes" : "No"}
 					</p>
 				</div>
 				<div>
 					<p className="font-semibold">Contact Information:</p>
-					<p>Address 1: {studentData.address1}</p>
-					<p>Address 2: {studentData.address2 || "N/A"}</p>
-					<p>City: {studentData.city}</p>
-					<p>County: {studentData.county}</p>
-					<p>Postcode: {studentData.postcode}</p>
-					<p>Hear About Us: {studentData.hear_about_us}</p>
+					<p>Address 1: {student_data.address1}</p>
+					<p>Address 2: {student_data.address2 || "N/A"}</p>
+					<p>City: {student_data.city}</p>
+					<p>County: {student_data.county}</p>
+					<p>Postcode: {student_data.postcode}</p>
+					<p>Hear About Us: {student_data.hear_about_us}</p>
 				</div>
 			</div>
 			<br />
@@ -169,7 +119,7 @@ const BookingDetailsPage = () => {
 				<Link href={"/students"}>
 					<Button variant={"default"}>Back</Button>
 				</Link>
-				<Link href={`/bookings/${student_id}`}>
+				<Link href={`/bookings/${student_data.student_id}`}>
 					<Button variant={"default"}>View Student&apos;s Bookings</Button>
 				</Link>
 				<Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
@@ -188,11 +138,11 @@ const BookingDetailsPage = () => {
 						<Button
 							variant={"destructive"}
 							onClick={() => {
-								deleteStudent().catch((error) => {
-									console.error("Error deleting student:", error);
+								deleteStudent().then(() => {
+									setDeleteDialogOpen(false);
 								});
-								setDeleteDialogOpen(false);
 							}}
+							disabled={loading}
 						>
 							Deregister
 						</Button>
@@ -206,6 +156,63 @@ const BookingDetailsPage = () => {
 			<br />
 		</>
 	);
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const student_id = context.params?.student_id;
+	const { userId } = getAuth(context.req);
+
+	if (!userId) {
+		return {
+			redirect: {
+				destination: "/sign-in",
+				permanent: false,
+			},
+		};
+	}
+	if (!student_id) {
+		return {
+			redirect: {
+				destination: "/students",
+				permanent: false,
+			},
+		};
+	}
+
+	const user_data = await prisma.users.findUnique({
+		where: {
+			user_id: userId,
+		},
+	});
+
+	console.log(userId, student_id);
+	const student_data = await prisma.students.findUnique({
+		where: {
+			user_id: userId,
+			student_id: parseInt(student_id as string, 10),
+		},
+	});
+
+	if (!student_data) {
+		return {
+			redirect: {
+				destination: "/students",
+				permanent: false,
+			},
+		};
+	}
+
+	const formatted_student_data = {
+		...student_data,
+		student_dob: student_data.student_dob.toLocaleDateString("en-GB"),
+	};
+
+	return {
+		props: {
+			student_data: formatted_student_data,
+			user_data,
+		},
+	};
 };
 
 export default BookingDetailsPage;
