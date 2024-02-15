@@ -185,7 +185,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		},
 	});
 
-	console.log(userId, student_id);
 	const student_data = await prisma.students.findUnique({
 		where: {
 			user_id: userId,

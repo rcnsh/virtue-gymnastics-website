@@ -444,6 +444,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			student_dob: student.student_dob.toISOString(),
 		}));
 
+		if (!requestedUserInfo || !studentsWithDateString) {
+			return {
+				redirect: {
+					destination: "/",
+					permanent: false,
+				},
+			};
+		}
+
 		return {
 			props: {
 				students: studentsWithDateString,

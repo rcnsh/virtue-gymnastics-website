@@ -49,7 +49,7 @@ import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import Head from "next/head";
 
-const FormSchema = z.object({
+export const FormSchema = z.object({
 	selected_class: z.string({
 		required_error: "Please select a class to book.",
 	}),

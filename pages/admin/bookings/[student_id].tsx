@@ -25,27 +25,25 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 
-import LineBreaks from "@/components/line-breaks";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@clerk/nextjs";
 import { ArrowUpDown } from "lucide-react";
 import Head from "next/head";
-import Router, { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import Router from "next/router";
+import { useState } from "react";
+import { GetServerSideProps } from "next";
+import { getAuth } from "@clerk/nextjs/server";
+import prisma from "@/lib/prisma";
+import { bookings, students } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
 }
 
-type Bookings = {
-	user_id: string;
-	booking_id: string;
-	student_id: string;
-	selected_class: string;
+interface Bookings extends Omit<bookings, "created_at"> {
 	created_at: Date;
-};
+}
 
 const columns: ColumnDef<Bookings>[] = [
 	{
@@ -92,7 +90,9 @@ const columns: ColumnDef<Bookings>[] = [
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
 						<DropdownMenuItem
-							onClick={() => navigator.clipboard.writeText(booking.student_id)}
+							onClick={() =>
+								navigator.clipboard.writeText(booking.student_id.toString(10))
+							}
 						>
 							Copy Student ID
 						</DropdownMenuItem>
@@ -124,7 +124,9 @@ const columns: ColumnDef<Bookings>[] = [
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
 						<DropdownMenuItem
-							onClick={() => navigator.clipboard.writeText(booking.booking_id)}
+							onClick={() =>
+								navigator.clipboard.writeText(booking.booking_id.toString(10))
+							}
 						>
 							Copy Booking ID
 						</DropdownMenuItem>
@@ -234,22 +236,6 @@ const columns: ColumnDef<Bookings>[] = [
 	},
 ];
 
-async function getData(student_id: string): Promise<Bookings[]> {
-	if (!student_id) {
-		return [];
-	}
-	const response = await fetch(
-		`/api/admin/bookingsFromSpecificStudent?student_id=${student_id}`,
-		{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		},
-	);
-	return await response.json();
-}
-
 function BookingsTable<TData, TValue>({
 	columns,
 	data,
@@ -358,54 +344,10 @@ function BookingsTable<TData, TValue>({
 	);
 }
 
-export default function Users() {
-	const { userId } = useAuth();
-	const router = useRouter();
-	const { student_id } = router.query;
-	const [loading, setLoading] = useState(true);
-	const [isAdmin, setIsAdmin] = useState(false);
-	const [data, setData] = useState<Bookings[]>([]);
-
-	useEffect(() => {
-		const isUserAdmin = fetch(
-			`/api/check/checkIfUserIsAdmin?user_id=${userId}`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			},
-		).then((res) => res.json());
-
-		isUserAdmin.then((res) => {
-			if (res.isAdmin) {
-				setIsAdmin(true);
-			}
-		});
-
-		getData(student_id as string)
-			.then((data) => {
-				setData(data);
-				setLoading(false);
-			})
-			.catch((err) => {
-				console.error(err);
-				setLoading(false);
-			});
-	}, [student_id, userId]);
-
-	if (loading) {
-		return <div>Loading...</div>;
-	}
-	if (!isAdmin) {
-		return (
-			<div>
-				<LineBreaks />
-				<h1 className={"text-4xl flex justify-center"}>Unauthorized</h1>
-				<LineBreaks />
-			</div>
-		);
-	}
+export default function Users({
+	bookings,
+	student,
+}: { bookings: Bookings[]; student: students }) {
 	return (
 		<>
 			<Head>
@@ -414,8 +356,10 @@ export default function Users() {
 			<div className="flex flex-col items-center justify-center space-y-4">
 				<br />
 				<br />
-				<h1 className="text-4xl font-bold">Bookings</h1>
-				<BookingsTable columns={columns} data={data} />
+				<h1 className="text-4xl font-bold">
+					{student.student_first_name} {student.student_last_name}'s Bookings
+				</h1>
+				<BookingsTable columns={columns} data={bookings} />
 				<br />
 				<br />
 				<br />
@@ -424,3 +368,71 @@ export default function Users() {
 		</>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const student_id = parseInt(context.params?.student_id as string, 10);
+	const { userId } = getAuth(context.req);
+
+	if (!userId) {
+		return {
+			redirect: {
+				destination: "/sign-in",
+				permanent: false,
+			},
+		};
+	}
+
+	if (!student_id) {
+		return {
+			redirect: {
+				destination: "/students",
+				permanent: false,
+			},
+		};
+	}
+
+	const bookings = await prisma.bookings.findMany({
+		where: {
+			user_id: userId,
+			student_id: student_id,
+		},
+	});
+
+	const bookingsFormattedDate = bookings.map((booking) => ({
+		...booking,
+		created_at: booking.created_at.toISOString(),
+	}));
+
+	const student = await prisma.students.findUnique({
+		where: {
+			student_id: student_id,
+		},
+	});
+
+	const currentUser = await prisma.users.findUnique({
+		where: {
+			user_id: userId,
+		},
+	});
+
+	if (!bookings || !student || !currentUser || currentUser.admin === false) {
+		return {
+			redirect: {
+				destination: "/students",
+				permanent: false,
+			},
+		};
+	}
+
+	const studentFormattedDate = {
+		...student,
+		student_dob: student.student_dob.toISOString(),
+	};
+
+	return {
+		props: {
+			bookings: bookingsFormattedDate,
+			student: studentFormattedDate,
+		},
+	};
+};
