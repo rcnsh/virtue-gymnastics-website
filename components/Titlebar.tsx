@@ -88,6 +88,11 @@ const listAdminItems: { title: string; href: string; description: string }[] = [
 		href: "/admin/bookings",
 		description: "View all bookings on the site.",
 	},
+	{
+		title: "Admin: Classes",
+		href: "/admin/classes",
+		description: "View all classes on the site.",
+	},
 ];
 
 const Titlebar = () => {
