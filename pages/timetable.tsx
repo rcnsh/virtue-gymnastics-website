@@ -123,6 +123,7 @@ export async function getStaticProps() {
 			description: classItem.description,
 		})),
 	);
+	console.log(classes);
 	return {
 		props: {
 			classes,
