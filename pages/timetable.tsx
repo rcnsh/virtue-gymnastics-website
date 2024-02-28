@@ -132,7 +132,6 @@ export async function getStaticProps() {
 			description: classItem.description,
 		})),
 	);
-	{/* refetch the data every 86400 seconds (a.k.a every week) */}
 	return {
 		props: {
 			classes,
