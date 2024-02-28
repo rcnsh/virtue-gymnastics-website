@@ -1,3 +1,4 @@
+{/* imports */}
 import LineBreaks from "@/components/line-breaks";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +21,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 
+{/* define a type for our data */}
 type FlattenedClass = {
 	id: string;
 	name: string;
@@ -32,7 +34,9 @@ type FlattenedClass = {
 	description: string;
 };
 
+{/* set up timetable component and take in the classes data */}
 function Timetable({ classes }: { classes: FlattenedClass[] }) {
+	{/* define states for our class pop up modal */}
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const [eventInfo, setEventInfo] = useState<EventClickArg | null>(null);
 
@@ -43,6 +47,7 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 				<meta name="description" content="Virtue Movement" />
 			</Head>
 			<div className={styles.calendar}>
+				{/* use the FullCalender library to render a calender with our given data */}
 				<FullCalendar
 					schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
 					plugins={[
@@ -66,6 +71,7 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 						setModalIsOpen(true);
 						setEventInfo(info);
 					}}
+					{/* data is input here */}
 					events={classes}
 					eventTimeFormat={{
 						hour: "numeric",
@@ -74,6 +80,7 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 					}}
 					weekNumberCalculation={"ISO"}
 				/>
+				{/* define our class pop up dialog modal */}
 				<Dialog open={modalIsOpen} onOpenChange={setModalIsOpen}>
 					<DialogContent>
 						<DialogHeader>
@@ -103,6 +110,8 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 	);
 }
 
+{/* fetch the timetable data STATICALLY because this data will remain the same
+most of the time and will decrease loading times significantly */}
 export async function getStaticProps() {
 	const classesprop = await prisma.class.findMany({
 		include: {
@@ -123,6 +132,7 @@ export async function getStaticProps() {
 			description: classItem.description,
 		})),
 	);
+	{/* refetch the data every 86400 seconds (a.k.a every week) */}
 	return {
 		props: {
 			classes,

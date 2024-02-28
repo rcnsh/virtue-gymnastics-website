@@ -1,7 +1,11 @@
+// import stuff
 import NewStudentForm from "@/components/students/NewStudentForm";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Head from "next/head";
 
+{
+	/* render the master oage */
+}
 function NewStudentPage() {
 	return (
 		<>

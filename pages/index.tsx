@@ -1,3 +1,4 @@
+// Importing the necessary components
 import InstagramSection from "@/components/InstagramSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import { FooterEmailForm } from "@/components/footer/footer-email-form";
@@ -9,6 +10,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 
+// The main page
 const Index: NextPage = () => {
 	return (
 		<>
@@ -43,7 +45,7 @@ const Index: NextPage = () => {
 					</motion.button>
 				</Link>
 			</div>
-
+			{/* decoritive elements */}
 			<div>
 				<motion.img
 					src={"/home/arrow.webp"}
@@ -152,8 +154,10 @@ const Index: NextPage = () => {
 				/>
 				<div className={styles.glow2} />
 			</div>
+			{/* Instagram and Testimonial Components */}
 			<InstagramSection />
 			<TestimonialsSection />
+			{/* footer */}
 			<main className={"container"}>
 				<section>
 					<Image

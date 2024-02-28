@@ -76,7 +76,7 @@ const listAdminItems: { title: string; href: string; description: string }[] = [
 	{
 		title: "Admin: Users",
 		href: "/admin/users",
-		description: "View All Users on the Site.",
+		description: "View All users on the Site.",
 	},
 	{
 		title: "Admin: Students",
@@ -92,6 +92,11 @@ const listAdminItems: { title: string; href: string; description: string }[] = [
 		title: "Admin: Classes",
 		href: "/admin/classes",
 		description: "View all classes on the site.",
+	},
+	{
+		title: "Admin: Schedules",
+		href: "/admin/schedules",
+		description: "View all schedules on the site.",
 	},
 ];
 

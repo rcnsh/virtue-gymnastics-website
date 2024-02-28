@@ -1,3 +1,6 @@
+{
+	/* imports */
+}
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -10,6 +13,9 @@ import { getAuth } from "@clerk/nextjs/server";
 import { GetServerSideProps } from "next";
 import prisma from "@/lib/prisma";
 
+{
+	/* set up students component */
+}
 function Students({ students: userStudents }: { students: students[] }) {
 	const router = useRouter();
 	return (
@@ -82,6 +88,7 @@ function Students({ students: userStudents }: { students: students[] }) {
 					))}
 				</div>
 			</SignedIn>
+			{/* If user isnt signed in, we just tell them to sign in */}
 			<SignedOut>
 				<div className={"flex justify-center"}>
 					<h1 className={"text-2xl text-white "}>
@@ -99,6 +106,9 @@ function Students({ students: userStudents }: { students: students[] }) {
 	);
 }
 
+{
+	/* data fetching before rendering component */
+}
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const auth = getAuth(context.req);
 
@@ -117,6 +127,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			user_id: userId,
 		},
 	});
+
+	{
+		/* we cannot return non-serialised data through getserversideprops so we will convert it to a string first */
+	}
 
 	const studentsWithDateString = students.map((student) => ({
 		...student,

@@ -1,3 +1,4 @@
+// Imports
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -18,6 +19,7 @@ import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import type { students } from "@prisma/client";
 
+// define the BookingData type for our data
 interface BookingData {
 	booking_id: number;
 	student_id: number;
@@ -27,6 +29,7 @@ interface BookingData {
 	student: students;
 }
 
+// setup Bookings component
 function Bookings({ bookings }: { bookings: BookingData[] }) {
 	const router = useRouter();
 	const refreshData = () => {
@@ -37,6 +40,9 @@ function Bookings({ bookings }: { bookings: BookingData[] }) {
 		new Array(bookings.length).fill(false),
 	);
 
+	{
+		/* remove booking by its id if the user clicks delete */
+	}
 	function removeBooking(booking_id: number, index: number) {
 		fetch(`/api/delete/deleteBooking?booking_id=${booking_id}`, {
 			method: "DELETE",
@@ -55,6 +61,9 @@ function Bookings({ bookings }: { bookings: BookingData[] }) {
 		});
 	}
 
+	{
+		/* main html body */
+	}
 	return (
 		<>
 			<Head>
@@ -161,6 +170,9 @@ function Bookings({ bookings }: { bookings: BookingData[] }) {
 	);
 }
 
+{
+	/* data fetching */
+}
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const { userId } = getAuth(context.req);
 
@@ -182,6 +194,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		},
 	});
 
+	{
+		/* we cannot return non-serialised data through getserversideprops so we will convert it to a string first */
+	}
 	const bookingsFormattedDate = bookings.map((booking) => ({
 		...booking,
 		created_at: booking.created_at.toISOString(),

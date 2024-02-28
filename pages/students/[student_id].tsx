@@ -15,10 +15,16 @@ import { GetServerSideProps } from "next";
 import { getAuth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 
+{
+	/* typescript magic to change student_dob tupe to string */
+}
 interface modifiedStudentData extends Omit<students, "student_dob"> {
 	student_dob: string;
 }
 
+{
+	/* take in the student data and the user data */
+}
 function BookingDetailsPage({
 	student_data,
 	user_data,
@@ -28,6 +34,9 @@ function BookingDetailsPage({
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 
+	{
+		/* student deletion function */
+	}
 	const deleteStudent = async () => {
 		try {
 			setLoading(true);
@@ -40,7 +49,9 @@ function BookingDetailsPage({
 					},
 				},
 			);
-
+			{
+				/* if the student is successfully deleted, redirect to all students page */
+			}
 			if (result.ok) {
 				router.push("/students").catch((error) => {
 					console.error("Error navigating to students page:", error);
@@ -50,7 +61,9 @@ function BookingDetailsPage({
 			console.error("Error deleting student:", error);
 		}
 	};
-
+	{
+		/* render all the information about the student */
+	}
 	return (
 		<>
 			<div className="bg-gray-800 rounded-lg shadow-lg p-8 text-center">
@@ -158,6 +171,9 @@ function BookingDetailsPage({
 	);
 }
 
+{
+	/* fetch the student data and the user data */
+}
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const student_id = context.params?.student_id;
 	const { userId } = getAuth(context.req);
@@ -200,6 +216,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			},
 		};
 	}
+
+	// format the student data to be a string
 
 	const formatted_student_data = {
 		...student_data,
