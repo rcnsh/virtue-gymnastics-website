@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
+import { getAuth } from "@clerk/nextjs/server";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -7,6 +8,20 @@ export default async function handler(
 ) {
 	if (req.method === "POST") {
 		try {
+			const { userId } = getAuth(req);
+
+			if (!userId) {
+				return res.status(401).json({ error: "Unauthorized" });
+			}
+
+			const currentUser = await prisma.users.findUnique({
+				where: { user_id: userId },
+			});
+
+			if (!currentUser || !currentUser.admin) {
+				return res.status(401).json({ error: "Unauthorised" });
+			}
+
 			const { user_id, admin } = req.body;
 
 			const user = await prisma.users.findUnique({
