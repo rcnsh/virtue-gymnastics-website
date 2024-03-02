@@ -45,7 +45,7 @@ const Index: NextPage = () => {
 					</motion.button>
 				</Link>
 			</div>
-			{/* decoritive elements */}
+			{/* decorative elements */}
 			<div>
 				<motion.img
 					src={"/home/arrow.webp"}
@@ -161,7 +161,7 @@ const Index: NextPage = () => {
 			<main className={"container"}>
 				<section>
 					<Image
-						src={"/footer/footer imgs.webp"}
+						src={"/footer/footer img.webp"}
 						alt={"promo image 1"}
 						width={600}
 						height={600}

@@ -88,7 +88,7 @@ function Students({ students: userStudents }: { students: students[] }) {
 					))}
 				</div>
 			</SignedIn>
-			{/* If user isnt signed in, we just tell them to sign in */}
+			{/* If user isn't signed in, we just tell them to sign in */}
 			<SignedOut>
 				<div className={"flex justify-center"}>
 					<h1 className={"text-2xl text-white "}>
@@ -129,7 +129,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	});
 
 	{
-		/* we cannot return non-serialised data through getserversideprops so we will convert it to a string first */
+		/* we cannot return non-serialised data through getServerSideProps, so we will convert it to a string first */
 	}
 
 	const studentsWithDateString = students.map((student) => ({

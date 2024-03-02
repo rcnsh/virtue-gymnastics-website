@@ -16,7 +16,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 
 {
-	/* typescript magic to change student_dob tupe to string */
+	/* typescript magic to change student_dob type to string */
 }
 interface modifiedStudentData extends Omit<students, "student_dob"> {
 	student_dob: string;

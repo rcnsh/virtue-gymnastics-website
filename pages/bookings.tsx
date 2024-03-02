@@ -195,7 +195,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	});
 
 	{
-		/* we cannot return non-serialised data through getserversideprops so we will convert it to a string first */
+		/* we cannot return non-serialised data through getServerSideProps, so we will convert it to a string first */
 	}
 	const bookingsFormattedDate = bookings.map((booking) => ({
 		...booking,

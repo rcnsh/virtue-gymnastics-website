@@ -4,7 +4,7 @@ import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Head from "next/head";
 
 {
-	/* render the master oage */
+	/* render the master page */
 }
 function NewStudentPage() {
 	return (
