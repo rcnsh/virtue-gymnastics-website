@@ -1,7 +1,6 @@
 {
 	/* imports */
 }
-import LineBreaks from "@/components/line-breaks";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -112,7 +111,6 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 					</DialogContent>
 				</Dialog>
 			</div>
-			<LineBreaks />
 		</>
 	);
 }
