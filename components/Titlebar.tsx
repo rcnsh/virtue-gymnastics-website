@@ -11,7 +11,7 @@ import {
 	NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
-import { UserButton, useAuth, useUser } from "@clerk/nextjs";
+import { useAuth, UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import styles from "../styles/Titlebar.module.css";
 
@@ -107,20 +107,16 @@ const Titlebar = () => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		const isUserAdmin = fetch(
-			`/api/check/checkIfUserIsAdmin?user_id=${userId}`,
-			{
+		async function isUserAdmin() {
+			return await fetch(`/api/check/checkIfUserIsAdmin?user_id=${userId}`, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
 				},
-			},
-		).then((res) => res.json());
-
-		isUserAdmin.then((res) => {
-			if (res.isAdmin) {
-				setIsAdmin(true);
-			}
+			}).then((res) => res.json());
+		}
+		isUserAdmin().then((res) => {
+			setIsAdmin(res.isAdmin);
 		});
 	}, [isSignedIn, userId]);
 
