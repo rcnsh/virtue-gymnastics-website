@@ -22,6 +22,18 @@ jobs:
         with:
           node-version: "18"
           cache: "pnpm"
+      - run: |
+          touch .env
+          echo CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} >> .env
+          echo CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} >> .env
+          echo NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} >> .env
+          echo API_URL=${{ secrets.API_URL }} >> .env
+          echo RESEND_API_KEY=${{ secrets.RESEND_API_KEY }} >> .env
+          echo NEXT_PUBLIC_CLERK_SIGN_IN_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }} >> .env
+          echo NEXT_PUBLIC_CLERK_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }} >> .env
+          echo NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL }} >> .env
+          echo NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL }} >> .env
+          cat .env
       - run: pnpm install
       - name: Cypress run
         # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
