@@ -8,6 +8,8 @@ export default authMiddleware({
 		"/api/fetchTimetable",
 		"/api/clerk/created",
 		"/api/clerk",
+		"/sign-in",
+		"/sign-up",
 	],
 });
 

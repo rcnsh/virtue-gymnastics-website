@@ -12,7 +12,8 @@
     "lint": "biome lint .",
     "prepare": "husky install",
     "start": "next start",
-    "test": "echo No tests found."
+    "test": "cypress run",
+    "cypress:open": "cypress open"
   },
   "lint-staged": {
     "*": "biome format . --write"
@@ -66,6 +67,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.1",
+    "cypress-real-events": "^1.12.0",
     "date-fns": "^3.3.1",
     "embla-carousel-react": "^8.0.0",
     "framer-motion": "^11.0.8",
@@ -88,6 +90,7 @@
     "@faker-js/faker": "^8.4.1",
     "@prisma/client": "^5.10.2",
     "autoprefixer": "^10.4.18",
+    "cypress": "^13.6.6",
     "husky": ">=9",
     "lint-staged": ">=15",
     "postcss": "^8.4.35",

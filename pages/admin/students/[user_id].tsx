@@ -385,7 +385,10 @@ function StudentsTable<TData, TValue>({
 export default function Users({
 	students,
 	user,
-}: { students: Student[]; user: users }) {
+}: {
+	students: Student[];
+	user: users;
+}) {
 	return (
 		<>
 			<Head>

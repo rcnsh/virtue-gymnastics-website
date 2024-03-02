@@ -28,7 +28,10 @@ interface modifiedStudentData extends Omit<students, "student_dob"> {
 function BookingDetailsPage({
 	student_data,
 	user_data,
-}: { student_data: modifiedStudentData; user_data: users }) {
+}: {
+	student_data: modifiedStudentData;
+	user_data: users;
+}) {
 	const router = useRouter();
 
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);

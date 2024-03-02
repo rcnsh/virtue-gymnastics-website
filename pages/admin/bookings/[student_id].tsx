@@ -347,7 +347,10 @@ function BookingsTable<TData, TValue>({
 export default function Users({
 	bookings,
 	student,
-}: { bookings: Bookings[]; student: students }) {
+}: {
+	bookings: Bookings[];
+	student: students;
+}) {
 	return (
 		<>
 			<Head>

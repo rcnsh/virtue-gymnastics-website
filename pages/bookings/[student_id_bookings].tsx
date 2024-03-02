@@ -30,7 +30,10 @@ interface BookingData {
 function Bookings({
 	student_id_bookings,
 	student_info,
-}: { student_id_bookings: BookingData[]; student_info: students }) {
+}: {
+	student_id_bookings: BookingData[];
+	student_info: students;
+}) {
 	const router = useRouter();
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean[]>(
 		new Array(student_id_bookings.length).fill(false),

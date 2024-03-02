@@ -14,6 +14,9 @@ import { Separator } from "@/components/ui/separator";
 import { UserButton, useAuth, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import styles from "../styles/Titlebar.module.css";
+import { GetServerSideProps } from "next";
+import { getAuth } from "@clerk/nextjs/server";
+import prisma from "@/lib/prisma";
 
 const listItems: { title: string; href: string; description: string }[] = [
 	{
@@ -100,29 +103,8 @@ const listAdminItems: { title: string; href: string; description: string }[] = [
 	},
 ];
 
-const Titlebar = () => {
+function Titlebar({ isUserAdmin }: { isUserAdmin: boolean }) {
 	const { isSignedIn } = useUser();
-	const { userId } = useAuth();
-	const [isAdmin, setIsAdmin] = useState(false);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		const isUserAdmin = fetch(
-			`/api/check/checkIfUserIsAdmin?user_id=${userId}`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			},
-		).then((res) => res.json());
-
-		isUserAdmin.then((res) => {
-			if (res.isAdmin) {
-				setIsAdmin(true);
-			}
-		});
-	}, [isSignedIn, userId]);
 
 	return (
 		<section className={styles.titlebar}>
@@ -164,7 +146,7 @@ const Titlebar = () => {
 										</ul>
 									</>
 								)}
-								{isAdmin && (
+								{isUserAdmin && (
 									<>
 										<Separator />
 										<ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[400px]">
@@ -209,6 +191,28 @@ const Titlebar = () => {
 			)}
 		</section>
 	);
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { userId } = getAuth(context.req);
+
+	const user = await prisma.users.findUnique({
+		where: { user_id: userId as string },
+	});
+
+	if (!user) {
+		return {
+			props: {
+				isUserAdmin: false,
+			},
+		};
+	}
+
+	return {
+		props: {
+			isUserAdmin: user.admin || false,
+		},
+	};
 };
 
 export default Titlebar;
