@@ -4,7 +4,7 @@ import { SignUp } from "@clerk/nextjs";
 	/* custom sign in page */
 }
 
-const SignInPage = () => {
+const SignUpPage = () => {
 	return (
 		<>
 			<br />
@@ -27,4 +27,4 @@ const SignInPage = () => {
 	);
 };
 
-export default SignInPage;
+export default SignUpPage;
