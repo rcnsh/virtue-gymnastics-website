@@ -55,11 +55,15 @@
 
 Note: The directories are listed in alphabetical order.
 
-## ⚙️Environment Variable
+## ⚙️Environment Variables
 
-- DATABASE_URL: url for the postgres database
-- CLERK_SECRET_KEY: Clerk private api key
+- DATABASE_URL: URL for the postgres database
+- DIRECT_URL: Direct url of the database for dev jobs
+- CLERK_SECRET_KEY: Clerk private API key
 - RESEND_API_KEY: Resend api key for sending emails
+- NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: Clerk public API key
+- NEXT_PUBLIC_CLERK_...: Environmental variables for defining clerk behavior
+
 
 ## 🚀 Run Locally
 
