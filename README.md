@@ -98,7 +98,7 @@ yarn dev
         </a>
         <br />
         <a href="https://github.com/RCNOverwatcher/virtue-gymnastics-website/commits?author=RCNOverwatcher" title="Contributions" spellcheck="false">
-          155 contributions
+          All of the contributions
         </a>
       </td></table>
 
