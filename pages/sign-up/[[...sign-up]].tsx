@@ -1,8 +1,6 @@
 import { SignUp } from "@clerk/nextjs";
 
-{
-	/* custom sign in page */
-}
+/* custom sign in page */
 
 const SignUpPage = () => {
 	return (

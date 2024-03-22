@@ -325,7 +325,7 @@ function StudentsTable<TData, TValue>({
 												: flexRender(
 														header.column.columnDef.header,
 														header.getContext(),
-												  )}
+													)}
 										</TableHead>
 									);
 								})}

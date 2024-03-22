@@ -6,9 +6,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
-{
-	/* define our layout with framer motion elements to make the pages fade in */
-}
+/* define our layout with framer motion elements to make the pages fade in */
+
 const Layout = ({ children }: { children: ReactNode }) => {
 	return (
 		<>

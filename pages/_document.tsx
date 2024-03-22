@@ -1,6 +1,4 @@
-{
-	/* boilerplate */
-}
+/* boilerplate */
 
 import Document, { Head, Html, Main, NextScript } from "next/document";
 

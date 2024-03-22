@@ -34,11 +34,12 @@ import Head from "next/head";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 
+// define the data type for our table
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
 }
-
+// define the data type for our booking data
 type Bookings = {
 	user_id: string;
 	booking_id: string;
@@ -295,7 +296,7 @@ function BookingsTable<TData, TValue>({
 												: flexRender(
 														header.column.columnDef.header,
 														header.getContext(),
-												  )}
+													)}
 										</TableHead>
 									);
 								})}

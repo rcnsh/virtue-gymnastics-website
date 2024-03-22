@@ -1,8 +1,7 @@
 import { SignIn } from "@clerk/nextjs";
 
-{
-	/* custom sign up page */
-}
+/* custom sign up page */
+
 const LoginPage = () => {
 	return (
 		<>

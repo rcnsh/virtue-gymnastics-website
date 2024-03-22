@@ -1,6 +1,5 @@
-{
-	/* imports */
-}
+/* imports */
+
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -22,9 +21,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 
-{
-	/* define a type for our data */
-}
+/* define a type for our data */
+
 type FlattenedClass = {
 	id: string;
 	name: string;
@@ -37,13 +35,11 @@ type FlattenedClass = {
 	description: string;
 };
 
-{
-	/* set up timetable component and take in the classes data */
-}
+/* set up timetable component and take in the classes data */
+
 function Timetable({ classes }: { classes: FlattenedClass[] }) {
-	{
-		/* define states for our class pop up modal */
-	}
+	/* define states for our class pop up modal */
+
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const [eventInfo, setEventInfo] = useState<EventClickArg | null>(null);
 
@@ -115,10 +111,9 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 	);
 }
 
-{
-	/* fetch the timetable data STATICALLY because this data will remain the same
+/* fetch the timetable data STATICALLY because this data will remain the same
 most of the time and will decrease loading times significantly */
-}
+
 export async function getStaticProps() {
 	const classesProp = await prisma.class.findMany({
 		include: {

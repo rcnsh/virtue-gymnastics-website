@@ -1,6 +1,5 @@
-{
-	/* imports */
-}
+/* imports */
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -13,9 +12,8 @@ import { getAuth } from "@clerk/nextjs/server";
 import { GetServerSideProps } from "next";
 import prisma from "@/lib/prisma";
 
-{
-	/* set up students component */
-}
+/* set up students component */
+
 function Students({ students: userStudents }: { students: students[] }) {
 	const router = useRouter();
 	return (
@@ -74,7 +72,7 @@ function Students({ students: userStudents }: { students: students[] }) {
 										{student.student_dob
 											? new Date(student.student_dob).toLocaleDateString(
 													"en-GB",
-											  )
+												)
 											: "N/A"}
 									</p>
 									<p>
@@ -106,9 +104,8 @@ function Students({ students: userStudents }: { students: students[] }) {
 	);
 }
 
-{
-	/* data fetching before rendering component */
-}
+/* data fetching before rendering component */
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const auth = getAuth(context.req);
 
@@ -128,9 +125,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		},
 	});
 
-	{
-		/* we cannot return non-serialised data through getServerSideProps, so we will convert it to a string first */
-	}
+	/* we cannot return non-serialised data through getServerSideProps, so we will convert it to a string first */
 
 	const studentsWithDateString = students.map((student) => ({
 		...student,

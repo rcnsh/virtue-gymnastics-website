@@ -15,16 +15,14 @@ import { GetServerSideProps } from "next";
 import { getAuth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 
-{
-	/* typescript magic to change student_dob type to string */
-}
+/* typescript magic to change student_dob type to string */
+
 interface modifiedStudentData extends Omit<students, "student_dob"> {
 	student_dob: string;
 }
 
-{
-	/* take in the student data and the user data */
-}
+/* take in the student data and the user data */
+
 function BookingDetailsPage({
 	student_data,
 	user_data,
@@ -174,9 +172,8 @@ function BookingDetailsPage({
 	);
 }
 
-{
-	/* fetch the student data and the user data */
-}
+/* fetch the student data and the user data */
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const student_id = context.params?.student_id;
 	const { userId } = getAuth(context.req);

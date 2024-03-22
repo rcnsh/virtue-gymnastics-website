@@ -1,6 +1,5 @@
-{
-	/* boilerplate code mostly */
-}
+/* boilerplate code mostly */
+
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { AppProps } from "next/app";
