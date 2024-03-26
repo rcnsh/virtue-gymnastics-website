@@ -37,7 +37,6 @@ import {
 import { cn } from "@/lib/utils";
 import conditions from "@/pages/api/json/conditions.json";
 import days from "@/pages/api/json/daysOfTheWeek.json";
-import howHearAboutUs from "@/pages/api/json/howHearAboutUs.json";
 import { format } from "date-fns";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { CalendarIcon } from "lucide-react";
@@ -52,6 +51,41 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+
+const howHear = [
+	{
+		id: "none",
+		name: "(None)",
+	},
+	{
+		id: "wom",
+		name: "word of mouth",
+	},
+	{
+		id: "social",
+		name: "social media",
+	},
+	{
+		id: "flyer",
+		name: "flyer or leaflet",
+	},
+	{
+		id: "internet",
+		name: "internet search",
+	},
+	{
+		id: "display",
+		name: "display/showcase",
+	},
+	{
+		id: "returning",
+		name: "returning student",
+	},
+	{
+		id: "other",
+		name: "other",
+	},
+];
 
 import {
 	Select,
@@ -345,7 +379,7 @@ const NewStudentForm = () => {
 																)}
 															>
 																{field.value
-																	? howHearAboutUs.find(
+																	? howHear.find(
 																			(hearchoice) =>
 																				hearchoice.name === field.value,
 																	  )?.name
@@ -359,7 +393,7 @@ const NewStudentForm = () => {
 															<CommandInput placeholder="Search..." />
 															<CommandEmpty>Nothing found.</CommandEmpty>
 															<CommandGroup>
-																{howHearAboutUs.map((hearchoice) => (
+																{howHear.map((hearchoice) => (
 																	<CommandItem
 																		value={hearchoice.id}
 																		key={hearchoice.name}
