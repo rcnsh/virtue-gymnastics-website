@@ -108,6 +108,15 @@ function Students({ students: userStudents }: { students: students[] }) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const { userId } = getAuth(context.req);
 
+	if (!userId) {
+		return {
+			redirect: {
+				destination: "/sign-in",
+				permanent: false,
+			},
+		};
+	}
+
 	const students = (await prisma.$queryRaw`
 	SELECT * FROM "students" WHERE "user_id" = ${userId};
   `) as students[];
