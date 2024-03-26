@@ -9,11 +9,10 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getAuth } from "@clerk/nextjs/server";
-import { GetServerSideProps } from "next";
+import type { GetServerSideProps } from "next";
 import prisma from "@/lib/prisma";
 
 /* set up students component */
-
 function Students({ students: userStudents }: { students: students[] }) {
 	const router = useRouter();
 	return (
@@ -110,6 +109,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	const { userId } = getAuth(context.req);
 
 	if (!userId) {
+		console.error("User is not signed in?", userId);
 		return {
 			redirect: {
 				destination: "/sign-in",
