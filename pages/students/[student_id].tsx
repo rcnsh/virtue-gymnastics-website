@@ -195,18 +195,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 
-	const user_data = await prisma.users.findUnique({
-		where: {
-			user_id: userId,
-		},
-	});
+	const user_data =
+		(await prisma.$queryRaw`SELECT * FROM users WHERE user_id = ${userId}`) as users[];
 
-	const student_data = await prisma.students.findUnique({
-		where: {
-			user_id: userId,
-			student_id: parseInt(student_id as string, 10),
-		},
-	});
+	const student_data =
+		(await prisma.$queryRaw`SELECT * FROM students WHERE user_id = ${userId} AND student_id = ${parseInt(
+			student_id as string,
+			10,
+		)}`) as students[];
 
 	if (!student_data) {
 		return {
@@ -220,14 +216,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	// format the student data to be a string
 
 	const formatted_student_data = {
-		...student_data,
-		student_dob: student_data.student_dob.toLocaleDateString("en-GB"),
+		...student_data[0],
+		student_dob: student_data[0].student_dob.toLocaleDateString("en-GB"),
 	};
 
 	return {
 		props: {
 			student_data: formatted_student_data,
-			user_data,
+			user_data: user_data[0],
 		},
 	};
 };

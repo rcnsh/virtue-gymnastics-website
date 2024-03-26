@@ -34,7 +34,7 @@ import { useState } from "react";
 import { GetServerSideProps } from "next";
 import { getAuth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
-import { bookings, students } from "@prisma/client";
+import { bookings, students, users } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -287,7 +287,7 @@ function BookingsTable<TData, TValue>({
 												: flexRender(
 														header.column.columnDef.header,
 														header.getContext(),
-													)}
+												  )}
 										</TableHead>
 									);
 								})}
@@ -394,31 +394,29 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 
-	const bookings = await prisma.bookings.findMany({
-		where: {
-			user_id: userId,
-			student_id: student_id,
-		},
-	});
+	const bookings = (await prisma.$queryRaw`
+	SELECT * FROM "bookings" WHERE "user_id" = ${userId} AND "student_id" = ${student_id};
+  `) as bookings[];
 
 	const bookingsFormattedDate = bookings.map((booking) => ({
 		...booking,
 		created_at: booking.created_at.toISOString(),
 	}));
 
-	const student = await prisma.students.findUnique({
-		where: {
-			student_id: student_id,
-		},
-	});
+	const students = (await prisma.$queryRaw`
+	SELECT * FROM "students" WHERE "student_id" = ${student_id};
+  `) as students[];
 
-	const currentUser = await prisma.users.findUnique({
-		where: {
-			user_id: userId,
-		},
-	});
+	const currentUser = (await prisma.$queryRaw`
+	SELECT * FROM "users" WHERE "user_id" = ${userId};
+  `) as users;
 
-	if (!bookings || !student || !currentUser || currentUser.admin === false) {
+	if (
+		!bookings ||
+		!students[0] ||
+		!currentUser ||
+		currentUser.admin === false
+	) {
 		return {
 			redirect: {
 				destination: "/students",
@@ -428,8 +426,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	}
 
 	const studentFormattedDate = {
-		...student,
-		student_dob: student.student_dob.toISOString(),
+		...students[0],
+		student_dob: students[0].student_dob.toISOString(),
 	};
 
 	return {

@@ -9,9 +9,6 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from "@tanstack/react-table";
-
-import { users } from "@prisma/client";
-
 import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -40,6 +37,7 @@ import { useState } from "react";
 import { GetServerSideProps } from "next";
 import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
+import type { students, users, bookings } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -325,7 +323,7 @@ function StudentsTable<TData, TValue>({
 												: flexRender(
 														header.column.columnDef.header,
 														header.getContext(),
-													)}
+												  )}
 										</TableHead>
 									);
 								})}
@@ -423,25 +421,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 
-	const currentUserInfo = await prisma.users.findUnique({
-		where: {
-			user_id: userId as string,
-		},
-	});
+	const currentUserInfo = (await prisma.$queryRaw`
+  SELECT *
+  FROM "users"
+  WHERE "user_id" = ${userId};
+`) as users[];
 
-	if (currentUserInfo?.admin) {
-		const students = await prisma.students.findMany({
-			where: {
-				user_id: user_id_query as string,
-			},
-		});
+	if (currentUserInfo[0]?.admin) {
+		const students = (await prisma.$queryRaw`
+  SELECT *
+  FROM "students"
+  WHERE "user_id" = ${user_id_query};
+`) as students[];
 
-		const requestedUserInfo = await prisma.users.findUnique({
-			where: {
-				user_id: user_id_query as string,
-			},
-		});
-
+		const requestedUserInfo = (await prisma.$queryRaw`
+SELECT *
+FROM "users"
+WHERE "user_id" = ${user_id_query};
+`) as users[];
 		const studentsWithDateString = students.map((student) => ({
 			...student,
 			student_dob: student.student_dob.toISOString(),
@@ -459,11 +456,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		return {
 			props: {
 				students: studentsWithDateString,
-				user: requestedUserInfo,
+				user: requestedUserInfo[0],
 			},
 		};
 	}
-
 	return {
 		redirect: {
 			destination: "/",

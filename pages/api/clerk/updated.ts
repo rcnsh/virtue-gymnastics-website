@@ -17,20 +17,17 @@ export default async function handler(
 		}
 
 		try {
-			const newUser = await prisma.users.update({
-				where: {
-					user_id: data.id,
-				},
-				data: {
-					first_name: data.first_name,
-					last_name: data.last_name,
-					email: data.email_addresses[0].email_address,
-					admin: admin,
-				},
-			});
+			await prisma.$executeRaw`UPDATE users 
+	SET 
+		first_name = ${data.first_name},
+		last_name = ${data.last_name},
+		email = ${data.email_addresses[0].email_address},
+		admin = ${admin}
+	WHERE 
+		user_id = ${data.id}`;
+
 			res.status(201).json({
 				message: "User updated successfully",
-				user_id: newUser.user_id,
 			});
 		} catch (error) {
 			console.error("Error updating user:", error);

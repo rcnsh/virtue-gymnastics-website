@@ -17,7 +17,7 @@ import { useState } from "react";
 import { GetServerSideProps } from "next";
 import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
-import type { students } from "@prisma/client";
+import type { students, bookings } from "@prisma/client";
 
 // define the BookingData type for our data
 interface BookingData {
@@ -28,6 +28,8 @@ interface BookingData {
 	created_at: string;
 	student: students;
 }
+
+interface PrismaReturn extends bookings, students {}
 
 // setup Bookings component
 function Bookings({ bookings }: { bookings: BookingData[] }) {
@@ -185,25 +187,52 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 
-	const bookings = await prisma.bookings.findMany({
-		where: {
-			user_id: userId,
-		},
-		include: {
-			student: true,
-		},
-	});
-
+	const bookings = (await prisma.$queryRawUnsafe(
+		`
+		SELECT
+		  b.booking_id,
+		  b.student_id,
+		  b.user_id,
+		  b.selected_class,
+		  b.created_at,
+		  json_build_object(
+			'student_id', s.student_id,
+			'address1', s.address1,
+			'address2', s.address2,
+			'city', s.city,
+			'county', s.county,
+			'postcode', s.postcode,
+			'home_phone', s.home_phone,
+			'work_phone', s.work_phone,
+			'mobile_phone1', s.mobile_phone1,
+			'mobile_phone2', s.mobile_phone2,
+			'hear_about_us', s.hear_about_us,
+			'student_first_name', s.student_first_name,
+			'student_last_name', s.student_last_name,
+			'student_dob', s.student_dob,
+			'student_gender', s.student_gender,
+			'student_medical_conditions', s.student_medical_conditions,
+			'student_additional_info', s.student_additional_info,
+			'student_preferred_days', s.student_preferred_days,
+			'student_photo_consent', s.student_photo_consent,
+			'student_video_consent', s.student_video_consent,
+			'student_walking_home_consent', s.student_walking_home_consent,
+			'terms_and_conditions', s.terms_and_conditions,
+			'privacy_policy', s.privacy_policy,
+			'marketing_consent', s.marketing_consent
+		  ) AS student
+		FROM "bookings" b
+		JOIN "students" s ON b.student_id = s.student_id
+		WHERE b.user_id = $1;
+	  `,
+		userId,
+	)) as PrismaReturn[];
 	{
 		/* we cannot return non-serialised data through getServerSideProps, so we will convert it to a string first */
 	}
 	const bookingsFormattedDate = bookings.map((booking) => ({
 		...booking,
 		created_at: booking.created_at.toISOString(),
-		student: {
-			...booking.student,
-			student_dob: booking.student.student_dob.toISOString(),
-		},
 	}));
 
 	return {

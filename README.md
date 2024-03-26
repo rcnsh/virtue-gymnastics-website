@@ -62,8 +62,7 @@ Note: The directories are listed in alphabetical order.
 - CLERK_SECRET_KEY: Clerk private API key
 - RESEND_API_KEY: Resend api key for sending emails
 - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: Clerk public API key
-- NEXT_PUBLIC_CLERK_...: Environmental variables for defining clerk behavior
-
+- NEXT*PUBLIC_CLERK*...: Environmental variables for defining clerk behavior
 
 ## 🚀 Run Locally
 

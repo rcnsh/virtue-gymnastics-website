@@ -13,17 +13,10 @@ export default async function handler(
 
 		const studentId = parseInt(req.body.selected_student, 10);
 		try {
-			const result = await prisma.bookings.create({
-				data: {
-					selected_class: req.body.selected_class,
-					student_id: studentId,
-					user_id: userId,
-				} as bookings,
-			});
+			await prisma.$executeRaw`INSERT INTO bookings (selected_class, student_id, user_id) VALUES (${req.body.selected_class}, ${studentId}, ${userId})`;
 
 			res.status(201).json({
 				message: "Booking created successfully",
-				bookingID: result.booking_id,
 			});
 		} catch (error) {
 			console.error("Error inserting booking:", error);

@@ -11,16 +11,14 @@ export default async function handler(
 		const id = parseInt(student_id as string, 10);
 
 		try {
-			const deletedBooking = await prisma.students.delete({
-				where: {
-					student_id: id,
-				},
-			});
+			await prisma.$executeRaw`DELETE FROM students WHERE student_id = ${id}`;
 
-			res.status(200).json(deletedBooking);
+			res.status(200).json({
+				message: "Student deleted successfully",
+			});
 		} catch (error) {
-			console.error("Error deleting booking:", error);
-			res.status(500).json({ error: "Error deleting booking" });
+			console.error("Error deleting student:", error);
+			res.status(500).json({ error: "Error deleting student" });
 		}
 	} else {
 		res.status(405).json({ error: "Method Not Allowed" });

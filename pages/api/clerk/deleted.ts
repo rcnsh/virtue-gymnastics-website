@@ -9,15 +9,10 @@ export default async function handler(
 		const { data } = req.body;
 
 		try {
-			const newUser = await prisma.users.delete({
-				where: {
-					user_id: data.id,
-				},
-			});
+			await prisma.$executeRaw`DELETE FROM users WHERE user_id = ${data.id}`;
 
 			res.status(201).json({
 				message: "User deleted successfully",
-				user_id: newUser.user_id,
 			});
 		} catch (error) {
 			console.error("Error deleting user:", error);

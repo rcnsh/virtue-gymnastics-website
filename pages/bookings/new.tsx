@@ -229,7 +229,7 @@ function NewBooking({ students: usersStudents }: { students: students[] }) {
 																			? uniqueClasses.find(
 																					(classes) =>
 																						classes.id === field.value,
-																				)?.name
+																			  )?.name
 																			: classTitle}
 																		<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 																	</Button>
@@ -378,11 +378,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 
-	const students = await prisma.students.findMany({
-		where: {
-			user_id: user_id as string,
-		},
-	});
+	const students =
+		(await prisma.$queryRaw`SELECT * FROM students WHERE user_id = ${user_id}`) as students[];
 
 	const studentsFormattedDate = students.map((student) => ({
 		...student,

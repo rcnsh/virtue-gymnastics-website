@@ -23,6 +23,22 @@ import { useState } from "react";
 
 /* define a type for our data */
 
+type Class = {
+	schedules: {
+		id: number;
+		classId: string;
+		startTime: string;
+		endTime: string;
+		daysOfWeek: number[];
+	}[];
+	id: string;
+	name: string;
+	cost: string;
+	backgroundColor: string;
+	description: string;
+	ageGroup: string | null;
+};
+
 type FlattenedClass = {
 	id: string;
 	name: string;
@@ -115,11 +131,30 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 most of the time and will decrease loading times significantly */
 
 export async function getStaticProps() {
-	const classesProp = await prisma.class.findMany({
-		include: {
-			schedules: true,
-		},
-	});
+	const classesProp = (await prisma.$queryRaw`
+  SELECT 
+    "Class"."id",
+    "Class"."name",
+    "Class"."cost",
+    "Class"."backgroundColor",
+    "Class"."description",
+    "Class"."ageGroup",
+    (
+      SELECT 
+        json_agg(
+          json_build_object(
+            'id', "Schedule"."id",
+            'classId', "Schedule"."classId",
+            'startTime', "Schedule"."startTime",
+            'endTime', "Schedule"."endTime",
+            'daysOfWeek', "Schedule"."daysOfWeek"
+          )
+        )
+      FROM "Schedule"
+      WHERE "Schedule"."classId" = "Class"."id"
+    ) AS "schedules"
+  FROM "Class";
+`) as Class[];
 
 	const classes = classesProp.flatMap((classItem) =>
 		classItem.schedules.map((schedule) => ({

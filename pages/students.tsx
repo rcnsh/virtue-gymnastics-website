@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { students } from "@prisma/client";
+import type { students } from "@prisma/client";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -72,7 +72,7 @@ function Students({ students: userStudents }: { students: students[] }) {
 										{student.student_dob
 											? new Date(student.student_dob).toLocaleDateString(
 													"en-GB",
-												)
+											  )
 											: "N/A"}
 									</p>
 									<p>
@@ -119,11 +119,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 
-	const students = await prisma.students.findMany({
-		where: {
-			user_id: userId,
-		},
-	});
+	const students = (await prisma.$queryRaw`
+	SELECT * FROM "students" WHERE "user_id" = ${userId};
+  `) as students[];
 
 	/* we cannot return non-serialised data through getServerSideProps, so we will convert it to a string first */
 

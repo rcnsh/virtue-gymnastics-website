@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
+import { users, Class } from "@prisma/client";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -14,15 +15,20 @@ export default async function handler(
 				return res.status(401).json({ error: "Unauthorized" });
 			}
 
-			const user = await prisma.users.findUnique({
-				where: { user_id: userId },
-			});
+			const user = (await prisma.$queryRaw`
+  SELECT *
+  FROM "users"
+  WHERE "user_id" = ${userId};
+`) as users[];
 
-			if (!user || !user.admin) {
+			if (!user[0] || !user[0].admin) {
 				return res.status(401).json({ error: "Unauthorised" });
 			}
 
-			const classes = await prisma.class.findMany();
+			const classes = (await prisma.$queryRaw`
+			SELECT *
+			FROM "Class"
+			`) as Class[];
 
 			res.status(200).json(classes);
 		} catch (error) {

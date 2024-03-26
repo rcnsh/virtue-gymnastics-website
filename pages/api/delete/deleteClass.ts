@@ -9,13 +9,11 @@ export default async function handler(
 		const { class_id } = req.query;
 
 		try {
-			const deletedClass = await prisma.class.delete({
-				where: {
-					id: class_id as string,
-				},
-			});
+			await prisma.$executeRaw`DELETE FROM Class WHERE id = ${class_id}`;
 
-			res.status(200).json(deletedClass);
+			res.status(200).json({
+				message: "Class deleted successfully",
+			});
 		} catch (error) {
 			console.error("Error deleting booking:", error);
 			res.status(500).json({ error: "Error deleting booking" });

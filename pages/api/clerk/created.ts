@@ -17,19 +17,10 @@ export default async function handler(
 		}
 
 		try {
-			const newUser = await prisma.users.create({
-				data: {
-					user_id: data.id,
-					first_name: data.first_name,
-					last_name: data.last_name,
-					email: data.email_addresses[0].email_address,
-					admin: admin,
-				},
-			});
+			await prisma.$executeRaw`INSERT INTO users (user_id, first_name, last_name, email, admin) VALUES (${data.id}, ${data.first_name}, ${data.last_name}, ${data.email_addresses[0].email_address}, ${admin})`;
 
 			res.status(201).json({
 				message: "User created successfully",
-				user_id: newUser.user_id,
 			});
 		} catch (error) {
 			console.error("Error inserting user:", error);
