@@ -107,9 +107,8 @@ function Students({ students: userStudents }: { students: students[] }) {
 /* data fetching before rendering component */
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const auth = getAuth(context.req);
+	const { userId } = getAuth(context.req);
 
-	const userId = auth.userId;
 	if (!userId) {
 		return {
 			redirect: {
