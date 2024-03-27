@@ -381,14 +381,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	const students =
 		(await prisma.$queryRaw`SELECT * FROM students WHERE user_id = ${user_id}`) as students[];
 
-	const studentsFormattedDate = students.map((student) => ({
-		...student,
-		student_dob: student.student_dob.toISOString(),
-	}));
-
 	return {
 		props: {
-			students: studentsFormattedDate,
+			students: students,
 		},
 	};
 };

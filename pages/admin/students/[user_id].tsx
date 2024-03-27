@@ -439,12 +439,8 @@ SELECT *
 FROM "users"
 WHERE "user_id" = ${user_id_query};
 `) as users[];
-		const studentsWithDateString = students.map((student) => ({
-			...student,
-			student_dob: student.student_dob.toISOString(),
-		}));
 
-		if (!requestedUserInfo || !studentsWithDateString) {
+		if (!requestedUserInfo || !students) {
 			return {
 				redirect: {
 					destination: "/",
@@ -455,7 +451,7 @@ WHERE "user_id" = ${user_id_query};
 
 		return {
 			props: {
-				students: studentsWithDateString,
+				students: students,
 				user: requestedUserInfo[0],
 			},
 		};

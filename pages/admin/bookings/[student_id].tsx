@@ -425,15 +425,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 
-	const studentFormattedDate = {
-		...students[0],
-		student_dob: students[0].student_dob.toISOString(),
-	};
-
 	return {
 		props: {
 			bookings: bookingsFormattedDate,
-			student: studentFormattedDate,
+			student: students[0],
 		},
 	};
 };

@@ -121,16 +121,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	SELECT * FROM "students" WHERE "user_id" = ${userId};
   `) as students[];
 
-	/* we cannot return non-serialised data through getServerSideProps, so we will convert it to a string first */
-
-	const studentsWithDateString = students.map((student) => ({
-		...student,
-		student_dob: student.student_dob.toISOString(),
-	}));
-
 	return {
 		props: {
-			students: studentsWithDateString,
+			students: students,
 		},
 	};
 };

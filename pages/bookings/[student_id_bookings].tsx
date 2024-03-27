@@ -259,15 +259,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		created_at: booking.created_at.toISOString(),
 	}));
 
-	const studentFormattedDate = {
-		...student[0],
-		student_dob: student[0].student_dob.toISOString(),
-	};
-
 	return {
 		props: {
 			student_id_bookings: bookingsFormattedDate,
-			student_info: studentFormattedDate,
+			student_info: student[0],
 		},
 	};
 };
