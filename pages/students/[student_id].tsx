@@ -90,7 +90,10 @@ function BookingDetailsPage({
 							Name: {student_data.student_first_name}{" "}
 							{student_data.student_last_name}
 						</p>
-						<p>Date of Birth: {student_data.student_dob}</p>
+						<p>
+							Date of Birth:{" "}
+							{new Date(student_data.student_dob).toLocaleDateString("en-gb")}
+						</p>
 						<p>Gender: {student_data.student_gender}</p>
 						<p>
 							Medical Conditions:{" "}
