@@ -33,7 +33,7 @@ model students {
   hear_about_us                String     @db.VarChar(255)
   student_first_name           String     @db.VarChar(255)
   student_last_name            String     @db.VarChar(255)
-  student_dob                  DateTime   @db.Date
+  student_dob                  String     @db.VarChar(255)
   student_gender               String     @db.VarChar(10)
   student_medical_conditions   String[]
   student_additional_info      String?    @db.VarChar(500)
