@@ -215,14 +215,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 	// format the student data to be a string
 
-	const formatted_student_data = {
-		...student_data[0],
-		student_dob: student_data[0].student_dob.toLocaleDateString("en-GB"),
-	};
-
 	return {
 		props: {
-			student_data: formatted_student_data,
+			student_data: student_data[0],
 			user_data: user_data[0],
 		},
 	};
