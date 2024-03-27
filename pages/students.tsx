@@ -71,7 +71,7 @@ function Students({ students: userStudents }: { students: students[] }) {
 										{student.student_dob
 											? new Date(student.student_dob).toLocaleDateString(
 													"en-GB",
-											  )
+												)
 											: "N/A"}
 									</p>
 									<p>

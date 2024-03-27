@@ -382,7 +382,7 @@ const NewStudentForm = () => {
 																	? howHear.find(
 																			(hearchoice) =>
 																				hearchoice.name === field.value,
-																	  )?.name
+																		)?.name
 																	: ""}
 																<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 															</Button>
@@ -599,12 +599,12 @@ const NewStudentForm = () => {
 																					? field.onChange([
 																							...(field.value || []),
 																							day.id,
-																					  ])
+																						])
 																					: field.onChange(
 																							(field.value || []).filter(
 																								(value) => value !== day.id,
 																							),
-																					  );
+																						);
 																			}}
 																		/>
 																	</FormControl>
