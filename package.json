@@ -60,7 +60,7 @@
 		"@radix-ui/react-tooltip": "^1.0.7",
 		"@tanstack/react-table": "^8.15.0",
 		"@types/node": "20.11.30",
-		"@types/react": "18.2.67",
+		"@types/react": "18.2.73",
 		"@types/react-dom": "18.2.22",
 		"@vercel/postgres": "^0.7.2",
 		"@vercel/speed-insights": "^1.0.10",
@@ -70,15 +70,15 @@
 		"cypress-real-events": "^1.12.0",
 		"date-fns": "^3.6.0",
 		"embla-carousel-react": "^8.0.0",
-		"framer-motion": "^11.0.20",
-		"lucide-react": "^0.361.0",
+		"framer-motion": "^11.0.23",
+		"lucide-react": "^0.363.0",
 		"next": "14.1.4",
 		"next-themes": "^0.3.0",
 		"popmotion": "^11.0.5",
 		"react": "18.2.0",
 		"react-day-picker": "^8.10.0",
 		"react-dom": "18.2.0",
-		"react-hook-form": "^7.51.1",
+		"react-hook-form": "^7.51.2",
 		"resend": "^3.2.0",
 		"tailwind-merge": "^2.2.2",
 		"tailwindcss-animate": "^1.0.7",
@@ -86,7 +86,7 @@
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.6.2",
+		"@biomejs/biome": "1.6.3",
 		"@faker-js/faker": "^8.4.1",
 		"@prisma/client": "^5.11.0",
 		"autoprefixer": "^10.4.19",
@@ -96,6 +96,6 @@
 		"postcss": "^8.4.38",
 		"prisma": "^5.11.0",
 		"react-icons": "^5.0.1",
-		"tailwindcss": "^3.4.1"
+		"tailwindcss": "^3.4.3"
 	}
 }
