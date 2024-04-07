@@ -379,6 +379,7 @@ export default function Users() {
 		getData()
 			.then((data) => {
 				setData(data);
+				console.log(data);
 				setLoading(false);
 			})
 			.catch((err) => {
