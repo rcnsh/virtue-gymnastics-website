@@ -2,8 +2,7 @@
 
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
-import { AppProps } from "next/app";
-import React from "react";
+import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
 
