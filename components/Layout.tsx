@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/themeProvider";
 import { Separator } from "@/components/ui/separator";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 /* define our layout with framer motion elements to make the pages fade in */
 

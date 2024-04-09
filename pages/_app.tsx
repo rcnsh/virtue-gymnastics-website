@@ -1,5 +1,3 @@
-/* boilerplate code mostly */
-
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import type { AppProps } from "next/app";
@@ -15,6 +13,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 					baseTheme: dark,
 				}}
 			>
+				{/* add a background texture to the entire site */}
 				<div className={"backgroundTexture"}>
 					<Layout>
 						<Component {...pageProps} />

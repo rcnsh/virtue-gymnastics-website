@@ -111,7 +111,7 @@ const Index: NextPage = () => {
 			<div className={"container"}>
 				<Image
 					src="/home/homeImage.webp"
-					alt=""
+					alt={"home image"}
 					width={3000}
 					height={3397}
 					className={styles.homeImage}
@@ -123,7 +123,7 @@ const Index: NextPage = () => {
 					<Image
 						src={"/home/dots.webp"}
 						className={styles.dots1}
-						alt={""}
+						alt={"dots effect"}
 						width={200}
 						height={200}
 					/>
@@ -131,7 +131,7 @@ const Index: NextPage = () => {
 					<Image
 						src={"/home/dots.webp"}
 						className={styles.dots2}
-						alt={""}
+						alt={"dots effect"}
 						width={200}
 						height={200}
 					/>

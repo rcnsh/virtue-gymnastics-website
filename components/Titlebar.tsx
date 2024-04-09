@@ -183,12 +183,14 @@ const Titlebar = () => {
 				</NavigationMenu>
 			</div>
 			<div className={styles.logo}>
-				<Image
-					src={"/virtue-icon.png"}
-					alt={"Virtue Icon"}
-					width={215}
-					height={92}
-				/>
+				<Link href={"/"}>
+					<Image
+						src={"/virtue-icon.png"}
+						alt={"Virtue Icon"}
+						width={215}
+						height={92}
+					/>
+				</Link>
 			</div>
 			{isSignedIn ? (
 				<UserButton />
