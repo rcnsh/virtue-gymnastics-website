@@ -20,6 +20,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
+import type { GetStaticProps } from "next";
 
 /* define a type for our data */
 
@@ -130,8 +131,8 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 /* fetch the timetable data STATICALLY because this data will remain the same
 most of the time and will decrease loading times significantly */
 
-export async function getStaticProps() {
-	const classesProp = (await prisma.$queryRaw`
+export const getStaticProps: GetStaticProps = async () => {
+	const classesProp: Class[] = await prisma.$queryRaw`
   SELECT 
     "Class"."id",
     "Class"."name",
@@ -154,7 +155,7 @@ export async function getStaticProps() {
       WHERE "Schedule"."classId" = "Class"."id"
     ) AS "schedules"
   FROM "Class";
-`) as Class[];
+`;
 
 	const classes = classesProp.flatMap((classItem) =>
 		classItem.schedules.map((schedule) => ({
@@ -173,8 +174,7 @@ export async function getStaticProps() {
 		props: {
 			classes,
 		},
-		revalidate: 86400,
 	};
-}
+};
 
 export default Timetable;
