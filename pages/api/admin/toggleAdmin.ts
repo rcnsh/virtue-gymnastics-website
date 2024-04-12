@@ -16,10 +16,10 @@ export default async function handler(
 			}
 
 			const currentUser = (await prisma.$queryRaw`
-  SELECT *
-  FROM "users"
-  WHERE "user_id" = ${userId};
-`) as users[];
+			  SELECT *
+			  FROM "users"
+			  WHERE "user_id" = ${userId};
+			`) as users[];
 
 			if (!currentUser[0] || !currentUser[0].admin) {
 				return res.status(401).json({ error: "Unauthorised" });
@@ -28,20 +28,20 @@ export default async function handler(
 			const { user_id, admin } = req.body;
 
 			const user = (await prisma.$queryRaw`
-  SELECT *
-  FROM "users"
-  WHERE "user_id" = ${user_id};
-`) as users[];
+			  SELECT *
+			  FROM "users"
+			  WHERE "user_id" = ${user_id};
+			`) as users[];
 
 			if (!user[0]) {
 				return res.status(404).json({ error: "User not found" });
 			}
 
 			await prisma.$executeRaw`
-  UPDATE "users"
-  SET "admin" = ${admin}
-  WHERE "user_id" = ${user_id};
-`;
+			  UPDATE "users"
+			  SET "admin" = ${admin}
+			  WHERE "user_id" = ${user_id};
+			`;
 
 			return res
 				.status(200)

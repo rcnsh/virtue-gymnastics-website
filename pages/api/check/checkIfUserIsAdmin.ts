@@ -11,10 +11,10 @@ export default async function handler(
 
 		try {
 			const user = (await prisma.$queryRaw`
-  SELECT *
-  FROM "users"
-  WHERE "user_id" = ${user_id};
-`) as users[];
+			  SELECT *
+			  FROM "users"
+			  WHERE "user_id" = ${user_id};
+			`) as users[];
 
 			res.status(200).json({ isAdmin: !!user[0]?.admin });
 		} catch (error) {
