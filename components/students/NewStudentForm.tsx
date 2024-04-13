@@ -52,6 +52,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/router";
+
 const howHear = [
 	{
 		id: "none",
@@ -86,16 +96,6 @@ const howHear = [
 		name: "other",
 	},
 ];
-
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { useAuth } from "@clerk/nextjs";
-import { useRouter } from "next/router";
 
 const FormSchema = z.object({
 	address1: z.string(),
