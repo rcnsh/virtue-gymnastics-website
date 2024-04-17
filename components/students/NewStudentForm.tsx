@@ -104,7 +104,10 @@ const FormSchema = z.object({
 	county: z.string(),
 	postcode: z
 		.string()
-		.regex(/^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i, "Invalid Postcode"),
+		.regex(
+			/([A-PR-UWYZ][A-HK-Y0-9](?:[A-HJKS-UW0-9][ABEHMNPRV-Y0-9]?)?\s*[0-9][ABD-HJLNP-UW-Z]{2}|GIR\s*0AA)/i,
+			"Invalid Postcode",
+		),
 	homePhone: z
 		.string()
 		.regex(
@@ -554,7 +557,7 @@ const NewStudentForm = () => {
 														<SelectTrigger>
 															<SelectValue
 																placeholder="Select gender"
-																id="studentGender"
+																id="studentender"
 															/>
 														</SelectTrigger>
 													</FormControl>
