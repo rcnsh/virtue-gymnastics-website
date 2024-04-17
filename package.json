@@ -13,7 +13,8 @@
 		"prepare": "husky install",
 		"start": "next start",
 		"test": "cypress run",
-		"cypress:open": "cypress open"
+		"cypress:open": "cypress open",
+		"cypress": "cypress"
 	},
 	"lint-staged": {
 		"*": "biome format . --write"

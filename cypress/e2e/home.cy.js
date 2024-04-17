@@ -1,4 +1,4 @@
-describe("Check links work", () => {
+describe("Home page testing", () => {
 	beforeEach(() => {
 		cy.visit("/", { failOnStatusCode: false });
 		cy.clearCookies({ domain: window.location.domain });
@@ -22,7 +22,8 @@ describe("Check links work", () => {
 	});
 	it("Clicks on the profile link on the home page", () => {
 		cy.wait(2000);
-		cy.visit("/students", { failOnStatusCode: false });
+		cy.visit("/", { failOnStatusCode: false });
+		cy.contains("JOIN THE FAMILY").click();
 
 		cy.url().should("include", "/students");
 		cy.get("h1").should("include.text", "Current Students");
