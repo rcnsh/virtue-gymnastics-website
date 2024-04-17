@@ -229,6 +229,7 @@ const NewStudentForm = () => {
 												<FormControl>
 													<Input
 														placeholder="Enter address line 1"
+														id="address1"
 														{...field}
 													/>
 												</FormControl>
@@ -246,6 +247,7 @@ const NewStudentForm = () => {
 												<FormControl>
 													<Input
 														placeholder="Enter address line 2"
+														id="address2"
 														{...field}
 													/>
 												</FormControl>
@@ -261,7 +263,11 @@ const NewStudentForm = () => {
 											<FormItem className="flex flex-col">
 												<FormLabel>City/Town:</FormLabel>
 												<FormControl>
-													<Input placeholder="Enter city/town" {...field} />
+													<Input
+														placeholder="Enter city/town"
+														id="city"
+														{...field}
+													/>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -275,7 +281,7 @@ const NewStudentForm = () => {
 											<FormItem className="flex flex-col">
 												<FormLabel>County:</FormLabel>
 												<FormControl>
-													<Input {...field} />
+													<Input {...field} id="county" />
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -289,7 +295,11 @@ const NewStudentForm = () => {
 											<FormItem className="flex flex-col">
 												<FormLabel>Postcode:</FormLabel>
 												<FormControl>
-													<Input placeholder="Enter postcode" {...field} />
+													<Input
+														placeholder="Enter postcode"
+														{...field}
+														id="postcode"
+													/>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -305,6 +315,7 @@ const NewStudentForm = () => {
 												<FormControl>
 													<Input
 														placeholder="Enter your home phone number"
+														id="homePhone"
 														{...field}
 													/>
 												</FormControl>
@@ -322,6 +333,7 @@ const NewStudentForm = () => {
 												<FormControl>
 													<Input
 														placeholder="Enter your work phone number"
+														id="workPhone"
 														{...field}
 													/>
 												</FormControl>
@@ -337,7 +349,11 @@ const NewStudentForm = () => {
 											<FormItem className="flex flex-col">
 												<FormLabel>Mobile 1:</FormLabel>
 												<FormControl>
-													<Input placeholder="Enter mobile 1" {...field} />
+													<Input
+														placeholder="Enter mobile 1"
+														id="mobile1"
+														{...field}
+													/>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -351,7 +367,11 @@ const NewStudentForm = () => {
 											<FormItem className="flex flex-col">
 												<FormLabel>Mobile 2:</FormLabel>
 												<FormControl>
-													<Input placeholder="Enter mobile 2" {...field} />
+													<Input
+														placeholder="Enter mobile 2"
+														id="mobile2"
+														{...field}
+													/>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -377,6 +397,7 @@ const NewStudentForm = () => {
 																	"w-[200px] justify-between",
 																	!field.value && "text-muted-foreground",
 																)}
+																id="hearAboutUs"
 															>
 																{field.value
 																	? howHear.find(
@@ -442,7 +463,11 @@ const NewStudentForm = () => {
 											<FormItem className="flex flex-col">
 												<FormLabel>First Name:</FormLabel>
 												<FormControl>
-													<Input placeholder="Enter first name" {...field} />
+													<Input
+														placeholder="Enter first name"
+														{...field}
+														id="studentFirstName"
+													/>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -456,7 +481,11 @@ const NewStudentForm = () => {
 											<FormItem className="flex flex-col">
 												<FormLabel>Last Name:</FormLabel>
 												<FormControl>
-													<Input placeholder="Enter last name" {...field} />
+													<Input
+														placeholder="Enter last name"
+														{...field}
+														id="studentLastName"
+													/>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -480,6 +509,7 @@ const NewStudentForm = () => {
 																"w-[240px] justify-start text-left font-normal",
 																!date && "text-muted-foreground",
 															)}
+															id="studentDOB"
 														>
 															<CalendarIcon className="mr-2 h-4 w-4" />
 															{date ? (
@@ -522,7 +552,10 @@ const NewStudentForm = () => {
 												>
 													<FormControl>
 														<SelectTrigger>
-															<SelectValue placeholder="Select gender" />
+															<SelectValue
+																placeholder="Select gender"
+																id="studentGender"
+															/>
 														</SelectTrigger>
 													</FormControl>
 													<SelectContent>
@@ -566,6 +599,7 @@ const NewStudentForm = () => {
 													<Textarea
 														placeholder="Give us any additional information about your child that you think we should know."
 														className="resize-none"
+														id="studentAdditionalInfo"
 														{...field}
 													/>
 												</FormControl>
@@ -635,6 +669,7 @@ const NewStudentForm = () => {
 													<Switch
 														checked={field.value}
 														onCheckedChange={field.onChange}
+														id="studentPhotoConsent"
 													/>
 												</FormControl>
 											</FormItem>
@@ -655,6 +690,7 @@ const NewStudentForm = () => {
 													<Switch
 														checked={field.value}
 														onCheckedChange={field.onChange}
+														id="studentVideoConsent"
 													/>
 												</FormControl>
 											</FormItem>
@@ -675,6 +711,7 @@ const NewStudentForm = () => {
 													<Switch
 														checked={field.value}
 														onCheckedChange={field.onChange}
+														id="studentWalkingHomeConsent"
 													/>
 												</FormControl>
 											</FormItem>
@@ -730,6 +767,7 @@ const NewStudentForm = () => {
 													<Switch
 														checked={field.value}
 														onCheckedChange={field.onChange}
+														id="termsAndConditions"
 													/>
 												</FormControl>
 											</FormItem>
@@ -789,6 +827,7 @@ const NewStudentForm = () => {
 													<Switch
 														checked={field.value}
 														onCheckedChange={field.onChange}
+														id="privacyPolicy"
 													/>
 												</FormControl>
 											</FormItem>

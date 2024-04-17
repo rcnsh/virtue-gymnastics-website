@@ -28,4 +28,9 @@ describe("Home page testing", () => {
 		cy.url().should("include", "/students");
 		cy.get("h1").should("include.text", "Current Students");
 	});
+	it("Swipes on the testimonials section", () => {
+		cy.visit("/", { failOnStatusCode: false });
+		cy.get(".embla").scrollIntoView();
+		cy.get(".embla").realSwipe("toLeft").realSwipe("toLeft");
+	});
 });
