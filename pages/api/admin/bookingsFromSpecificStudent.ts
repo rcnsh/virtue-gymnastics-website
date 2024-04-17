@@ -16,10 +16,10 @@ export default async function handler(
 			}
 
 			const user = (await prisma.$queryRaw`
-  SELECT *
-  FROM "users"
-  WHERE "user_id" = ${userId};
-`) as users[];
+			  SELECT *
+			  FROM "users"
+			  WHERE "user_id" = ${userId};
+			`) as users[];
 
 			if (!user[0] || !user[0].admin) {
 				return res.status(401).json({ error: "Unauthorised" });

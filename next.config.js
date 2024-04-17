@@ -1,3 +1,5 @@
+const { withAxiom } = require("next-axiom");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
@@ -9,10 +11,6 @@ const nextConfig = {
 	},
 
 	reactStrictMode: true,
-	compiler: {},
-	experimental: {
-		scrollRestoration: true,
-	},
 };
 
-module.exports = nextConfig;
+module.exports = withAxiom(nextConfig);

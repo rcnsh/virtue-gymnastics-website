@@ -35,9 +35,8 @@ function BookingDetailsPage({
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	{
-		/* student deletion function */
-	}
+	/* student deletion function */
+
 	const deleteStudent = async () => {
 		try {
 			setLoading(true);
@@ -62,9 +61,9 @@ function BookingDetailsPage({
 			console.error("Error deleting student:", error);
 		}
 	};
-	{
-		/* render all the information about the student */
-	}
+
+	/* render all the information about the student */
+
 	return (
 		<>
 			<div className="bg-gray-800 rounded-lg shadow-lg p-8 text-center">

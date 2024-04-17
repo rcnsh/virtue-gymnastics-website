@@ -12,13 +12,13 @@ export default async function handler(
 		const student_id_number = parseInt(student_id as string, 10);
 		try {
 			const existingBooking = (await prisma.$queryRaw`
-  SELECT *
-  FROM "bookings"
-  WHERE "student_id" = ${student_id_number}
-    AND "selected_class" = ${selected_class}
-  ORDER BY "booking_id"
-  LIMIT 1;
-`) as bookings[];
+			  SELECT *
+			  FROM "bookings"
+			  WHERE "student_id" = ${student_id_number}
+				AND "selected_class" = ${selected_class}
+			  ORDER BY "booking_id"
+			  LIMIT 1;
+			`) as bookings[];
 
 			res.status(200).json({ hasBooking: !!existingBooking[0] });
 		} catch (error) {
