@@ -96,14 +96,18 @@ function BookingDetailsPage({
 						<p>Gender: {student_data.student_gender}</p>
 						<p>
 							Medical Conditions:{" "}
-							{student_data.student_medical_conditions.join(", ") || "N/A"}
+							{student_data.student_medical_conditions
+								? student_data.student_medical_conditions.join(", ")
+								: "N/A"}
 						</p>
 						<p>
 							Additional Info: {student_data.student_additional_info || "N/A"}
 						</p>
 						<p>
 							Preferred Days:{" "}
-							{student_data.student_preferred_days.join(", ") || "N/A"}
+							{student_data.student_preferred_days
+								? student_data.student_preferred_days.join(", ")
+								: "N/A"}
 						</p>
 					</div>
 				</div>
@@ -160,7 +164,7 @@ function BookingDetailsPage({
 							}}
 							disabled={loading}
 						>
-							Deregister
+							Confirm Deregister
 						</Button>
 					</DialogContent>
 				</Dialog>

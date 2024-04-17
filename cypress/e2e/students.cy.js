@@ -14,7 +14,7 @@ describe("Students testing", () => {
 		cy.get(".cl-formButtonPrimary").click();
 	});
 
-	it("Fill out and submit student form", () => {
+	it("Student Form Flow", () => {
 		cy.wait(2000);
 		cy.visit("/students/new", { failOnStatusCode: false });
 
@@ -49,7 +49,18 @@ describe("Students testing", () => {
 		cy.get("#termsAndConditions").click();
 		cy.get("#privacyPolicy").click();
 
-		cy.get("button[type=submit]").realClick();
-		cy.url().should("include", "/students");
+		cy.get("button[type=submit]").click();
+
+		cy.contains("Example Student First Name").click();
+
+		cy.contains("Example Student First Name Example Student Last Name").should(
+			"be.visible",
+		);
+		cy.contains("Deregister Student").should("be.visible").click();
+		cy.get("button").contains("Confirm Deregister").click({ force: true });
+
+		cy.contains("Example Student First Name Example Student Last Name").should(
+			"not.exist",
+		);
 	});
 });

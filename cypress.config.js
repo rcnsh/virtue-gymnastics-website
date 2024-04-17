@@ -9,6 +9,6 @@ export default defineConfig({
 	videoCompression: true,
 	env: {
 		EMAIL: "testuser@virtue.com",
-		PASSWORD: "testpassword",
+		PASSWORD: "testpasswordvirtue",
 	},
 });
