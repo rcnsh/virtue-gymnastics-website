@@ -22,7 +22,7 @@ describe("Students testing", () => {
 		cy.get("#address2").type("999 Example St.");
 		cy.get("#city").type("Example City");
 		cy.get("#county").type("Example County");
-		cy.get("#postcode").type("EX4 MPL");
+		cy.get("#postcode").type("EX4 7PL");
 		cy.get("#homePhone").type("012");
 		cy.get("#workPhone").type("345");
 		cy.get("#mobile1").type("678");
