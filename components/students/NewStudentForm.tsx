@@ -557,7 +557,7 @@ const NewStudentForm = () => {
 														<SelectTrigger>
 															<SelectValue
 																placeholder="Select gender"
-																id="studentender"
+																id="student-gender"
 															/>
 														</SelectTrigger>
 													</FormControl>
