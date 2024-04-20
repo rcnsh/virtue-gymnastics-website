@@ -12,9 +12,8 @@
 </p>
 
 <p></p>
+<h1 align="center" style="font-size: 1.875rem; line-height: 2.25rem;">Virtue Movement Website Project</h1>
 <p></p>
-
-# Virtue Movement Website Project
 
 ## 🔍 Table of Contents
 
