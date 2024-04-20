@@ -51,7 +51,7 @@ describe("Students testing", () => {
 
 		cy.get("button[type=submit]").click();
 
-		cy.contains("Example Student First Name").click();
+		cy.contains("Example Student First Name").first().click();
 
 		cy.contains("Example Student First Name Example Student Last Name").should(
 			"be.visible",
