@@ -1,5 +1,5 @@
 describe("Home page testing", () => {
-	beforeEach(() => {
+	it("Clicks on the timetable link on the home page", () => {
 		cy.visit("/", { failOnStatusCode: false });
 		cy.clearCookies({ domain: window.location.domain });
 		cy.reload();
@@ -12,8 +12,6 @@ describe("Home page testing", () => {
 			.should("be.visible")
 			.type(Cypress.env("PASSWORD"));
 		cy.get(".cl-formButtonPrimary").click();
-	});
-	it("Clicks on the timetable link on the home page", () => {
 		cy.visit("/", { failOnStatusCode: false });
 
 		cy.contains("TIMETABLE").click();
