@@ -14,9 +14,9 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import {
-	ColumnDef,
-	ColumnFiltersState,
-	SortingState,
+	type ColumnDef,
+	type ColumnFiltersState,
+	type SortingState,
 	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,
@@ -31,10 +31,10 @@ import { ArrowUpDown } from "lucide-react";
 import Head from "next/head";
 import Router from "next/router";
 import { useState } from "react";
-import { GetServerSideProps } from "next";
+import type { GetServerSideProps } from "next";
 import { getAuth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
-import { bookings, students, users } from "@prisma/client";
+import type { bookings, students, users } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -373,7 +373,7 @@ export default function Users({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const student_id = parseInt(context.params?.student_id as string, 10);
+	const student_id = Number.parseInt(context.params?.student_id as string, 10);
 	const { userId } = getAuth(context.req);
 
 	if (!userId) {

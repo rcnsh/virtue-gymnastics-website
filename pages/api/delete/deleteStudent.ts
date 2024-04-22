@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 
 export default async function handler(
@@ -8,7 +8,7 @@ export default async function handler(
 	if (req.method === "DELETE") {
 		const { student_id } = req.query;
 
-		const id = parseInt(student_id as string, 10);
+		const id = Number.parseInt(student_id as string, 10);
 
 		try {
 			await prisma.$executeRaw`DELETE FROM students WHERE student_id = ${id}`;

@@ -11,7 +11,7 @@ import {
 import prisma from "@/lib/prisma";
 import styles from "@/styles/Timetable.module.css";
 import adaptivePlugin from "@fullcalendar/adaptive";
-import { EventClickArg } from "@fullcalendar/core";
+import type { EventClickArg } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";

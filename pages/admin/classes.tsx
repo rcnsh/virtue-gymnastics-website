@@ -14,9 +14,9 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import {
-	ColumnDef,
-	ColumnFiltersState,
-	SortingState,
+	type ColumnDef,
+	type ColumnFiltersState,
+	type SortingState,
 	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,

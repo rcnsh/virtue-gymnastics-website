@@ -1,7 +1,7 @@
 import {
-	ColumnDef,
-	ColumnFiltersState,
-	SortingState,
+	type ColumnDef,
+	type ColumnFiltersState,
+	type SortingState,
 	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,
@@ -34,7 +34,7 @@ import {
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { GetServerSideProps } from "next";
+import type { GetServerSideProps } from "next";
 import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import type { students, users, bookings } from "@prisma/client";

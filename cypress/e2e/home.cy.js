@@ -33,4 +33,9 @@ describe("Home page testing", () => {
 		cy.get(".embla").scrollIntoView();
 		cy.get(".embla").realSwipe("toLeft").realSwipe("toLeft");
 	});
+	it("creates an email", () => {
+		cy.visit("/", { failOnStatusCode: false });
+		cy.get(".cl-footer__emailInput").type("{ enter }");
+		cy.get(".cl-footer__emailInput").should("have.value", "");
+	});
 });

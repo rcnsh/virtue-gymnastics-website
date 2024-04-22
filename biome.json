@@ -3,6 +3,18 @@
 	"organizeImports": {
 		"enabled": true
 	},
+	"files": {
+		"ignore": [
+			".next",
+			"dist",
+			"node_modules",
+			"out",
+			"public",
+			"vercel",
+			"vercel.json",
+			"yarn.lock"
+		]
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {

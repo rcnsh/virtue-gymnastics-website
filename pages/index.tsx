@@ -5,7 +5,7 @@ import { FooterEmailForm } from "@/components/footer/footer-email-form";
 import LineBreaks from "@/components/line-breaks";
 import styles from "@/styles/Home.module.css";
 import { motion } from "framer-motion";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -54,7 +54,7 @@ const Index: NextPage = () => {
 					height={200}
 					className={styles.arrow}
 					animate={{ x: [0, 20, 0], offset: 1, y: [0, -20, 0] }}
-					transition={{ repeat: Infinity, duration: 10 }}
+					transition={{ repeat: Number.POSITIVE_INFINITY, duration: 10 }}
 				/>
 				<motion.img
 					src={"/home/other arrow.webp"}
@@ -67,7 +67,7 @@ const Index: NextPage = () => {
 						y: [0, -10, 0],
 						speed: 0.5,
 					}}
-					transition={{ repeat: Infinity, duration: 3 }}
+					transition={{ repeat: Number.POSITIVE_INFINITY, duration: 3 }}
 				/>
 				<motion.img
 					src={"/home/double arrow.webp"}
@@ -76,7 +76,7 @@ const Index: NextPage = () => {
 					height={30}
 					className={styles.doublearrow}
 					animate={{ x: [0, 50, 0], offset: 0.5 }}
-					transition={{ repeat: Infinity, duration: 10 }}
+					transition={{ repeat: Number.POSITIVE_INFINITY, duration: 10 }}
 				/>
 				<Image
 					src={"/home/wave 1.webp"}
@@ -105,7 +105,7 @@ const Index: NextPage = () => {
 					animate={{
 						rotate: [360, 0],
 					}}
-					transition={{ repeat: Infinity, duration: 20 }}
+					transition={{ repeat: Number.POSITIVE_INFINITY, duration: 20 }}
 				/>
 			</div>
 			<div className={"container"}>

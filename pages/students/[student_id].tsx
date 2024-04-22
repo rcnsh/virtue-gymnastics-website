@@ -7,11 +7,11 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { students, users } from "@prisma/client";
+import type { students, users } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { GetServerSideProps } from "next";
+import type { GetServerSideProps } from "next";
 import { getAuth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 
@@ -49,9 +49,9 @@ function BookingDetailsPage({
 					},
 				},
 			);
-			{
-				/* if the student is successfully deleted, redirect to all students page */
-			}
+
+			/* if the student is successfully deleted, redirect to all students page */
+
 			if (result.ok) {
 				router.push("/students").catch((error) => {
 					console.error("Error navigating to students page:", error);
@@ -205,7 +205,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		(await prisma.$queryRaw`SELECT * FROM users WHERE user_id = ${userId}`) as users[];
 
 	const student_data =
-		(await prisma.$queryRaw`SELECT * FROM students WHERE user_id = ${userId} AND student_id = ${parseInt(
+		(await prisma.$queryRaw`SELECT * FROM students WHERE user_id = ${userId} AND student_id = ${Number.parseInt(
 			student_id as string,
 			10,
 		)}`) as students[];

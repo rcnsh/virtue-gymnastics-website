@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
-import { bookings } from "@prisma/client";
+import type { bookings } from "@prisma/client";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -9,7 +9,7 @@ export default async function handler(
 	if (req.method === "GET") {
 		const { student_id, selected_class } = req.query;
 
-		const student_id_number = parseInt(student_id as string, 10);
+		const student_id_number = Number.parseInt(student_id as string, 10);
 		try {
 			const existingBooking = (await prisma.$queryRaw`
 			  SELECT *

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { students, bookings } from "@prisma/client";
+import type { students, bookings } from "@prisma/client";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -177,7 +177,7 @@ function Bookings({
 	);
 }
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const student_id = parseInt(
+	const student_id = Number.parseInt(
 		context.params?.student_id_bookings as string,
 		10,
 	);

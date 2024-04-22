@@ -1,4 +1,4 @@
-import * as React from "react";
+import type { FC } from "react";
 
 interface EmailTemplateProps {
 	Name: string;
@@ -6,7 +6,7 @@ interface EmailTemplateProps {
 	Message: string;
 }
 
-export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
+export const EmailTemplate: FC<Readonly<EmailTemplateProps>> = ({
 	Name,
 	Email,
 	Message,

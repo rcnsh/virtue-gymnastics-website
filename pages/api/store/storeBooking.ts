@@ -1,5 +1,4 @@
-import { bookings } from "@prisma/client";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 
@@ -11,7 +10,7 @@ export default async function handler(
 		const auth = getAuth(req);
 		const userId = auth.userId;
 
-		const studentId = parseInt(req.body.selected_student, 10);
+		const studentId = Number.parseInt(req.body.selected_student, 10);
 		try {
 			await prisma.$executeRaw`INSERT INTO bookings (selected_class, student_id, user_id) VALUES (${req.body.selected_class}, ${studentId}, ${userId})`;
 

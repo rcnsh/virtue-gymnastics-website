@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
-import { users, bookings } from "@prisma/client";
+import type { users, bookings } from "@prisma/client";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -27,7 +27,7 @@ export default async function handler(
 
 			const { student_id } = req.query;
 
-			const student_id_number = parseInt(student_id as string);
+			const student_id_number = Number.parseInt(student_id as string);
 
 			const bookings = (await prisma.$queryRaw`
 			SELECT *
