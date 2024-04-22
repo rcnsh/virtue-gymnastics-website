@@ -115,7 +115,7 @@ export const FooterEmailForm = () => {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit" disabled={loading}>
+				<Button type="submit" disabled={loading} id="email-submit">
 					{loading ? "Submitting..." : "Submit"}
 				</Button>
 				{submitted && <p>Thanks, your message was sent!</p>}

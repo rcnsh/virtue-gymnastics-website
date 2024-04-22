@@ -35,7 +35,9 @@ describe("Home page testing", () => {
 	});
 	it("creates an email", () => {
 		cy.visit("/", { failOnStatusCode: false });
-		cy.get(".cl-footer__emailInput").type("{ enter }");
-		cy.get(".cl-footer__emailInput").should("have.value", "");
+		cy.get("#email-name").type("test email");
+		cy.get("#email-email").type("testuser@virtue.com");
+		cy.get("#email-message").type("test message");
+		cy.get("#email-submit").click();
 	});
 });
