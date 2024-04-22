@@ -11,6 +11,8 @@ export default authMiddleware({
 		"/api/clerk/deleted",
 		"/sign-in",
 		"/sign-up",
+		"/api/footer-send",
+		"/_axiom/web-vitals",
 	],
 });
 
