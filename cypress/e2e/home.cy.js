@@ -1,5 +1,3 @@
-import { it } from "node:test";
-
 describe("Home page testing", () => {
 	beforeEach(() => {
 		cy.visit("/", { failOnStatusCode: false });
