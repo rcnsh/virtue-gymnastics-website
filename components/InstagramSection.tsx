@@ -1,6 +1,7 @@
 import styles from "@/styles/InstagramSection.module.css";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const InstagramSection = () => {
 	return (
@@ -20,13 +21,15 @@ const InstagramSection = () => {
 					alt={""}
 					width={100}
 				/>
-				<motion.button
-					className={styles.buttonFollow}
-					whileHover={{ scale: 1.05 }}
-					whileTap={{ scale: 0.95 }}
-				>
-					FOLLOW
-				</motion.button>
+				<Link href={"https://instagram.com/virtuemovementco"}>
+					<motion.button
+						className={styles.buttonFollow}
+						whileHover={{ scale: 1.05 }}
+						whileTap={{ scale: 0.95 }}
+					>
+						FOLLOW
+					</motion.button>
+				</Link>
 			</div>
 			<div className={"container unselectable"}>
 				<div className={"flex flex-wrap justify-center"}>
