@@ -20,7 +20,7 @@ const Footer = () => {
 					width={200}
 					height={200}
 				/>
-				<section>
+				<section id="footer-section">
 					<div className={"flex w-[100vw] justify-evenly align-middle"}>
 						{/* eslint-disable-next-line @next/next/no-img-element */}
 						<img

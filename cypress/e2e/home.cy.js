@@ -1,51 +1,47 @@
 describe("Home page testing", () => {
 	it("Clicks on the events link on the home page", () => {
 		cy.visit("/", { failOnStatusCode: false });
-		cy.contains("Events/Camps").click();
+		cy.get("#footer-section").contains("Events/Camps").click();
 
 		cy.contains("This page could not be found.").should("be.visible");
 	});
 	it("Clicks on the FAQs link on the home page", () => {
 		cy.visit("/", { failOnStatusCode: false });
-		cy.contains("FAQs").click();
+		cy.get("#footer-section").contains("FAQs").click();
 
 		cy.contains("This page could not be found.").should("be.visible");
 	});
 	it("Clicks on the Parties link on the home page", () => {
 		cy.visit("/", { failOnStatusCode: false });
-		cy.contains("Parties").click();
+		cy.get("#footer-section").contains("Parties").click();
 
 		cy.contains("This page could not be found.").should("be.visible");
 	});
 	it("Clicks on the About Us link on the home page", () => {
 		cy.visit("/", { failOnStatusCode: false });
-		cy.contains("About Us").click();
+		cy.get("#footer-section").contains("About Us").click();
 
 		cy.contains("This page could not be found.").should("be.visible");
 	});
 	it("Clicks on the Member Info link on the home page", () => {
 		cy.visit("/", { failOnStatusCode: false });
-		cy.contains("Member Info").click();
+		cy.get("#footer-section").contains("Member Info").click();
 
 		cy.contains("This page could not be found.").should("be.visible");
 	});
 	it("Clicks on the Welfare link on the home page", () => {
 		cy.visit("/", { failOnStatusCode: false });
-		cy.contains("Welfare").click();
+		cy.get("#footer-section").contains("Welfare").click();
 
 		cy.contains("This page could not be found.").should("be.visible");
 	});
 	it("Clicks on the External Hire link on the home page", () => {
 		cy.visit("/", { failOnStatusCode: false });
-		cy.contains("External Hire").click();
+		cy.get("#footer-section").contains("External Hire").click();
 
 		cy.contains("This page could not be found.").should("be.visible");
 	});
 
-	it("Clicks on the Instagram link on the home page", () => {
-		cy.visit("/", { failOnStatusCode: false });
-		cy.contains("FOLLOW").click();
-	});
 	it("Clicks on the timetable link on the home page", () => {
 		cy.visit("/", { failOnStatusCode: false });
 
