@@ -85,4 +85,11 @@ describe("Home page testing", () => {
 
 		cy.url().should("include", "/external-hire");
 	});
+
+	it("Clicks on the Instagram link on the home page", () => {
+		cy.visit("/", { failOnStatusCode: false });
+		cy.contains("FOLLOW").click();
+
+		cy.url().should("include", "instagram.com/virtuemovementco");
+	});
 });
