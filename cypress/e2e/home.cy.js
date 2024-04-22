@@ -39,5 +39,6 @@ describe("Home page testing", () => {
 		cy.get("#email-email").type("testuser@virtue.com");
 		cy.get("#email-message").type("test message");
 		cy.get("#email-submit").click();
+		cy.contains("Thanks, your message was sent!").should("be.visible");
 	});
 });
