@@ -17,7 +17,7 @@ export default async function handler(
 
 	try {
 		const data = await resend.emails.send({
-			from: "Virtue Website Enquiry <onboarding@resend.dev>",
+			from: "Virtue Website Enquiry <enquiries@virtue.rcn.sh>",
 			text: "Virtue Email",
 			to: ["jacobjameswiltshire@protonmail.com"],
 			subject: "New Enquiry from Virtue Website",
