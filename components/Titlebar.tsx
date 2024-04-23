@@ -100,6 +100,10 @@ const listAdminItems: { title: string; href: string; description: string }[] = [
 	},
 ];
 
+/**
+ * Renders the title bar component.
+ * @returns The JSX element representing the title bar.
+ */
 const Titlebar = () => {
 	const { isSignedIn } = useUser();
 	const { userId } = useAuth();

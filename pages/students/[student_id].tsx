@@ -23,6 +23,14 @@ interface modifiedStudentData extends Omit<students, "student_dob"> {
 
 /* take in the student data and the user data */
 
+/**
+ * Renders the details of a student's booking.
+ *
+ * @param {Object} props - The component props.
+ * @param {modifiedStudentData} props.student_data - The modified student data.
+ * @param {users} props.user_data - The user data.
+ * @returns {JSX.Element} The JSX element representing the booking details page.
+ */
 function BookingDetailsPage({
 	student_data,
 	user_data,

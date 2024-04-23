@@ -11,6 +11,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 // The main page
+/**
+ * The main page component for the Virtue Gymnastics website.
+ * Renders the homepage content including headings, buttons, decorative elements, and footer.
+ */
 const Index: NextPage = () => {
 	return (
 		<>

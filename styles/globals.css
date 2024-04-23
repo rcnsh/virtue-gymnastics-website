@@ -1,3 +1,29 @@
+/**
+ * This CSS file contains global styles for the Virtue Gymnastics website. It imports fonts from Google Fonts and sets up the base styles using Tailwind CSS.
+ * 
+ * The file includes the following styles:
+ * - @import: Imports the "Cabin" font from Google Fonts.
+ * - @tailwind: Includes the base, components, and utilities styles from Tailwind CSS.
+ * - @font-face: Defines the "Montserrat" font family with various font properties and sources.
+ * - body: Sets the background color, text color, font family, font size, line height, and other styles for the body element.
+ * - .backgroundTexture: Sets the background size, background color, and other styles for elements with the "backgroundTexture" class.
+ * - .box: Sets the width, aspect ratio, position, and background gradients for elements with the "box" class.
+ * - .box::before: Sets the position, background gradients, background size, and blend modes for the pseudo-element "::before" of elements with the "box" class.
+ * - @layer base: Defines CSS variables for various colors and styles used throughout the file.
+ * - .dark: Overrides the CSS variables defined in the @layer base for the dark theme.
+ * - @layer base: Applies a border style to all elements and sets the background color and text color for the body element.
+ * - .theme-light: Defines CSS variables for colors used in the light theme.
+ * - .theme-dark: Defines CSS variables for colors used in the dark theme.
+ * - .unselectable: Sets the user-select property to "none" to prevent text selection.
+ * - .embla: Sets the slide spacing, slide size, slide height, and other styles for elements with the "embla" class.
+ * - .embla__viewport: Sets the overflow property to "hidden" for elements with the "embla__viewport" class.
+ * - .embla__container: Sets the backface-visibility, display, and touch-action properties for elements with the "embla__container" class.
+ * - .embla__slide: Sets the flex, padding, and position properties for elements with the "embla__slide" class.
+ * - .embla__slide__img: Sets the display, height, width, and object-fit properties for elements with the "embla__slide__img" class.
+ * - .embla__slide__number: Sets the width, height, position, background color, and other styles for elements with the "embla__slide__number" class.
+ * - .embla__slide__number > span: Sets the color, background image, and other styles for the span element inside elements with the "embla__slide__number" class.
+ */
+
 @import url("https://fonts.googleapis.com/css2?family=Cabin&display=swap");
 
 @tailwind base;
@@ -78,10 +104,7 @@ body {
       rgba(255, 255, 1, 0.5),
       rgb(055, 255, 255) 20%
     );
-  background-size:
-    15px 13px,
-    12px 22px,
-    12px 22px;
+  background-size: 15px 13px, 12px 22px, 12px 22px;
   background-blend-mode: exclusion, normal;
   mix-blend-mode: exclusion;
   content: "";
@@ -161,9 +184,7 @@ body {
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 

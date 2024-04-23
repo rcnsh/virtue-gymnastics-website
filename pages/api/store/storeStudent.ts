@@ -1,6 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 
+/**
+ * Handles the API request to store a new student.
+ * @param req - The NextApiRequest object representing the incoming request.
+ * @param res - The NextApiResponse object representing the outgoing response.
+ */
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,

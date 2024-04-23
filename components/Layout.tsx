@@ -8,6 +8,12 @@ import type { ReactNode } from "react";
 
 /* define our layout with framer motion elements to make the pages fade in */
 
+/**
+ * Renders the layout component.
+ *
+ * @param {ReactNode} children - The child components to be rendered within the layout.
+ * @returns {JSX.Element} The rendered layout component.
+ */
 const Layout = ({ children }: { children: ReactNode }) => {
 	return (
 		<>

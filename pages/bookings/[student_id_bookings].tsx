@@ -29,6 +29,14 @@ interface BookingData {
 	student: students;
 }
 
+/**
+ * Renders the bookings page for a specific student.
+ *
+ * @param {Object} props - The component props.
+ * @param {BookingData[]} props.student_id_bookings - The list of bookings for the student.
+ * @param {students} props.student_info - The information of the student.
+ * @returns {JSX.Element} The rendered component.
+ */
 function Bookings({
 	student_id_bookings,
 	student_info,

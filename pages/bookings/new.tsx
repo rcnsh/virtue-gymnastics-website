@@ -81,6 +81,13 @@ function uniqueByIdAndName(
 	return uniqueBookings;
 }
 
+/**
+ * Renders the booking form for creating a new booking.
+ *
+ * @param {Object} props - The component props.
+ * @param {Array} props.students - The array of students.
+ * @returns {JSX.Element} The JSX element representing the booking form.
+ */
 function NewBooking({ students: usersStudents }: { students: students[] }) {
 	const searchParams = useSearchParams();
 	const router = useRouter();

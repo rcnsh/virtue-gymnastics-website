@@ -2,6 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import type { users } from "@prisma/client";
 
+/**
+ * Checks if a user is an admin.
+ * @param req - The NextApiRequest object.
+ * @param res - The NextApiResponse object.
+ */
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,

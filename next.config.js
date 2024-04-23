@@ -1,6 +1,10 @@
 const { withAxiom } = require("next-axiom");
 
-/** @type {import('next').NextConfig} */
+/**
+ * Configuration object for Next.js.
+ *
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
 	images: {
 		remotePatterns: [

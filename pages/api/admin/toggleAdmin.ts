@@ -3,6 +3,12 @@ import prisma from "../../../lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import type { users } from "@prisma/client";
 
+/**
+ * Handles the API request to toggle the admin state of a user.
+ * @param req - The NextApiRequest object representing the incoming request.
+ * @param res - The NextApiResponse object representing the outgoing response.
+ * @returns A Promise that resolves to the response JSON object.
+ */
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,

@@ -1,5 +1,9 @@
 import { defineConfig } from "cypress";
 
+/**
+ * Cypress configuration file.
+ * @module cypress.config
+ */
 export default defineConfig({
 	e2e: {
 		baseUrl: "https://virtue.rcn.sh",

@@ -12,7 +12,13 @@ import { getAuth } from "@clerk/nextjs/server";
 import type { GetServerSideProps } from "next";
 import prisma from "@/lib/prisma";
 
-/* set up students component */
+/**
+ * Renders a page displaying the current students.
+ *
+ * @param {Object} props - The component props.
+ * @param {Array} props.students - An array of student objects.
+ * @returns {JSX.Element} The rendered Students component.
+ */
 function Students({ students: userStudents }: { students: students[] }) {
 	const router = useRouter();
 	return (

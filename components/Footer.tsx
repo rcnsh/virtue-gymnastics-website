@@ -7,6 +7,10 @@ import {
 	BiLogoYoutube,
 } from "react-icons/bi";
 
+/**
+ * Footer component for the Virtue Gymnastics website.
+ * Renders the footer section with quick links and social media links.
+ */
 const Footer = () => {
 	return (
 		<main className={"w-[100vw] bottom-0"}>

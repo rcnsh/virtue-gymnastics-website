@@ -1,6 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 
+/**
+ * Handles the deletion of a user.
+ *
+ * @param req - The Next.js API request object.
+ * @param res - The Next.js API response object.
+ */
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,

@@ -3,6 +3,11 @@ import prisma from "../../../lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import type { users, bookings } from "@prisma/client";
 
+/**
+ * Retrieves bookings from a specific student.
+ * @param req - The NextApiRequest object.
+ * @param res - The NextApiResponse object.
+ */
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,

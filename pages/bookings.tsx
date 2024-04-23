@@ -32,6 +32,13 @@ interface BookingData {
 interface PrismaReturn extends bookings, students {}
 
 // setup Bookings component
+/**
+ * Renders the Bookings component.
+ *
+ * @param {Object} props - The component props.
+ * @param {BookingData[]} props.bookings - The array of booking data.
+ * @returns {JSX.Element} The rendered Bookings component.
+ */
 function Bookings({ bookings }: { bookings: BookingData[] }) {
 	const router = useRouter();
 	const refreshData = () => {

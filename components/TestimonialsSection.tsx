@@ -4,12 +4,18 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
 
+/**
+ * Renders the TestimonialsSection component.
+ * This component displays testimonials and provides options to leave a review and view all reviews.
+ */
 const TestimonialsSection = () => {
 	const [emblaRef] = useEmblaCarousel({
 		startIndex: 2,
 	});
+
 	return (
 		<section>
+			{/* Testimonials title */}
 			<div
 				className={
 					"w-[100%] text-center text-[80px] xl:text-[100px] 2xl:text-[120px] uppercase leading-none unselectable"
@@ -17,6 +23,8 @@ const TestimonialsSection = () => {
 			>
 				<h1 className={styles.testimonialsTitle}>TESTIMONIALS</h1>
 			</div>
+
+			{/* Testimonials heading */}
 			<h1
 				className={
 					"text-7xl bottom-60 left-28 font-bold relative overflow-hidden unselectable"
@@ -24,6 +32,8 @@ const TestimonialsSection = () => {
 			>
 				TESTIMONIALS
 			</h1>
+
+			{/* Leave a review */}
 			<div className={styles.leaveAReview}>
 				<Link
 					href={
@@ -39,6 +49,8 @@ const TestimonialsSection = () => {
 					</Button>
 				</Link>
 			</div>
+
+			{/* View all reviews */}
 			<div className={styles.viewAllReviews}>
 				<Link href={"https://www.google.com/search?q=virtue+gymnastics"}>
 					<Button
@@ -50,10 +62,13 @@ const TestimonialsSection = () => {
 					</Button>
 				</Link>
 			</div>
+
+			{/* Testimonials carousel */}
 			<section className={"relative bottom-64 overflow-hidden"}>
 				<div className={"flex align-middle justify-center"}>
 					<div className={"embla"} ref={emblaRef}>
 						<div className={"embla__container"}>
+							{/* Testimonial 1 */}
 							<Image
 								className={"embla__slide"}
 								alt={"testimonial1"}
@@ -63,6 +78,8 @@ const TestimonialsSection = () => {
 								loading={"eager"}
 								priority={true}
 							/>
+
+							{/* Testimonial 2 */}
 							<Image
 								className={"embla__slide"}
 								alt={"testimonial2"}
@@ -72,6 +89,8 @@ const TestimonialsSection = () => {
 								loading={"eager"}
 								priority={true}
 							/>
+
+							{/* Testimonial 3 */}
 							<Image
 								className={"embla__slide"}
 								alt={"testimonial3"}
@@ -81,6 +100,8 @@ const TestimonialsSection = () => {
 								loading={"eager"}
 								priority={true}
 							/>
+
+							{/* Testimonial 4 */}
 							<Image
 								className={"embla__slide"}
 								alt={"testimonial4"}
@@ -90,6 +111,8 @@ const TestimonialsSection = () => {
 								loading={"eager"}
 								priority={true}
 							/>
+
+							{/* Testimonial 5 */}
 							<Image
 								className={"embla__slide"}
 								alt={"testimonial5"}

@@ -2,6 +2,10 @@ import { SignIn } from "@clerk/nextjs";
 
 /* custom sign up page */
 
+/**
+ * Renders the Sign In page.
+ * @returns JSX element representing the Sign In page.
+ */
 const LoginPage = () => {
 	return (
 		<>

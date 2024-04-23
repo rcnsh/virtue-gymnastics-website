@@ -3,8 +3,11 @@ import NewStudentForm from "@/components/students/NewStudentForm";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Head from "next/head";
 
-/* render the master page */
-
+/**
+ * Renders the page for creating a new student.
+ *
+ * @returns The JSX element representing the new student page.
+ */
 function NewStudentPage() {
 	return (
 		<>

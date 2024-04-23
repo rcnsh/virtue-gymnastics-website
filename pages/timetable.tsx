@@ -52,8 +52,13 @@ type FlattenedClass = {
 	description: string;
 };
 
-/* set up timetable component and take in the classes data */
-
+/**
+ * Renders a timetable component with a calendar and class pop up modal.
+ *
+ * @param {Object} props - The component props.
+ * @param {FlattenedClass[]} props.classes - The array of classes to be displayed on the timetable.
+ * @returns {JSX.Element} The rendered timetable component.
+ */
 function Timetable({ classes }: { classes: FlattenedClass[] }) {
 	/* define states for our class pop up modal */
 

@@ -2,6 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import type { bookings } from "@prisma/client";
 
+/**
+ * Checks if there is a duplicate booking for a given student and selected class.
+ * @param req - The NextApiRequest object.
+ * @param res - The NextApiResponse object.
+ */
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,

@@ -4,6 +4,11 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+/**
+ * Handles the API request for sending a footer message.
+ * @param req - The NextApiRequest object.
+ * @param res - The NextApiResponse object.
+ */
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,

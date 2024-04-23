@@ -3,6 +3,11 @@ import prisma from "../../../lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import type { bookings, users } from "@prisma/client";
 
+/**
+ * Retrieves bookings from the database if the user is authorized.
+ * @param req - The NextApiRequest object.
+ * @param res - The NextApiResponse object.
+ */
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,

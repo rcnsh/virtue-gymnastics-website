@@ -3,6 +3,11 @@ import prisma from "../../../lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import type { users, Schedule } from "@prisma/client";
 
+/**
+ * Retrieves schedules from the database if the request method is GET and the user is authorized.
+ * @param req - The NextApiRequest object representing the incoming request.
+ * @param res - The NextApiResponse object representing the outgoing response.
+ */
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,
