@@ -91,7 +91,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.6.4",
 		"@faker-js/faker": "^8.4.1",
-		"@prisma/client": "^5.12.1",
+		"@prisma/client": "^5.13.0",
 		"autoprefixer": "^10.4.19",
 		"cypress": "^13.7.3",
 		"husky": ">=9",

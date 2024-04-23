@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import type { users } from "@prisma/client";
+import { isUserAdmin } from "@/lib/utils";
 
 /**
  * Handles the API request to toggle the admin state of a user.
@@ -21,15 +22,7 @@ export default async function handler(
 				return res.status(401).json({ error: "Unauthorized" });
 			}
 
-			const currentUser = (await prisma.$queryRaw`
-			  SELECT *
-			  FROM "users"
-			  WHERE "user_id" = ${userId};
-			`) as users[];
-
-			if (!currentUser[0] || !currentUser[0].admin) {
-				return res.status(401).json({ error: "Unauthorised" });
-			}
+			isUserAdmin(userId, res);
 
 			const { user_id, admin } = req.body;
 
