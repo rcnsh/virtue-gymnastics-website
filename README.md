@@ -67,28 +67,24 @@ Note: The directories are listed in alphabetical order.
 
 ## 🚀 Run Locally
 
+0. Install [Node.js](https://nodejs.org/en/)
+
 1.Clone the virtue-gymnastics-website repository:
 
 ```sh
 git clone https://github.com/RCNOverwatcher/virtue-gymnastics-website
 ```
 
-2.Install the dependencies with one of the package managers listed below:
+2.Install the dependencies:
 
 ```bash
-pnpm install
-bun install
 npm install
-yarn install
 ```
 
 3.Start the development mode:
 
 ```bash
-pnpm dev
-bun dev
 npm run dev
-yarn dev
 ```
 
 ## 🙌 Contributors
