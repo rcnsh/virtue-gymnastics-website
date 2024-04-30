@@ -168,8 +168,8 @@ dependencies:
     specifier: 14.2.2
     version: 14.2.2(react-dom@18.2.0)(react@18.2.0)
   next-axiom:
-    specifier: '0'
-    version: 0.18.1(next@14.2.2)
+    specifier: '1'
+    version: 1.1.1(next@14.2.2)(react@18.2.0)
   next-themes:
     specifier: ^0.3.0
     version: 0.3.0(react-dom@18.2.0)(react@18.2.0)
@@ -3819,13 +3819,16 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /next-axiom@0.18.1(next@14.2.2):
-    resolution: {integrity: sha512-yWhAwcruCAedktE9DGR9nATF5RhFgiUhzj4ghv3JdblEYRtyR4IuRgo/pDzHI6IAvcB5I7xWB+vfvWsSgXIHtw==}
-    engines: {node: '>=15'}
+  /next-axiom@1.1.1(next@14.2.2)(react@18.2.0):
+    resolution: {integrity: sha512-0r/TJ+/zetD+uDc7B+2E7WpC86hEtQ1U+DuWYrP/JNmUz+ZdPFbrZgzOSqaZ6TwYbXP56VVlPfYwq1YsKHTHYQ==}
+    engines: {node: '>=18'}
     peerDependencies:
-      next: '>=12.1.4'
+      next: '>=13.4'
+      react: '>=18.0.0'
     dependencies:
       next: 14.2.2(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      remeda: 1.61.0
       whatwg-fetch: 3.6.20
     dev: false
 
@@ -4359,6 +4362,10 @@ packages:
 
   /regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
+    dev: false
+
+  /remeda@1.61.0:
+    resolution: {integrity: sha512-caKfSz9rDeSKBQQnlJnVW3mbVdFgxgGWQKq1XlFokqjf+hQD5gxutLGTTY2A/x24UxVyJe9gH5fAkFI63ULw4A==}
     dev: false
 
   /request-progress@3.0.0:
