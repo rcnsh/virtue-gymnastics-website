@@ -9,8 +9,8 @@ dependencies:
     specifier: ^4.30.0
     version: 4.30.0(next@14.2.2)(react-dom@18.2.0)(react@18.2.0)
   '@clerk/themes':
-    specifier: ^1.7.13
-    version: 1.7.13(react@18.2.0)
+    specifier: ^2.1.0
+    version: 2.1.0
   '@fullcalendar/adaptive':
     specifier: ^6.1.11
     version: 6.1.11(@fullcalendar/core@6.1.11)
@@ -430,20 +430,24 @@ packages:
       swr: 2.2.0(react@18.2.0)
     dev: false
 
-  /@clerk/themes@1.7.13(react@18.2.0):
-    resolution: {integrity: sha512-uTq/m0Jh0Rb3Ow9WvrdVfRvKMsTl62fu8AkRbOAda/S4RpwDe2hWk4uMmSLceKNJ/notIwxXq+kVtJbrecPP2g==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      react: '>=16'
+  /@clerk/themes@2.1.0:
+    resolution: {integrity: sha512-6VkDNMDZuBtGV2bs0w2kdV2RFX6wS/RYWPOsab+pCx742MYKRTN5tp/Tj5M4GljOXR1hbAH/UEGt/zkRXXYYDQ==}
+    engines: {node: '>=18.17.0'}
     dependencies:
-      '@clerk/types': 3.64.0
-      react: 18.2.0
+      '@clerk/types': 4.1.0
       tslib: 2.4.1
     dev: false
 
   /@clerk/types@3.64.0:
     resolution: {integrity: sha512-fthhIAXaNIYQZ+82kUA00IUR8fwjewb/9sQI1J1NhoGbLp5rtxjKmNa6EQGKfcSG0svJyQ56kdSUUfawxRm5fw==}
     engines: {node: '>=14'}
+    dependencies:
+      csstype: 3.1.1
+    dev: false
+
+  /@clerk/types@4.1.0:
+    resolution: {integrity: sha512-e9vsD7EdQE0q9mPwPMq1kPtPC9BYGR8BucEoEu+pEyXXD5cdSkzM+WvhUonnTHNzYE/W/X5d1zFDNvCV5YfS5Q==}
+    engines: {node: '>=18.17.0'}
     dependencies:
       csstype: 3.1.1
     dev: false
