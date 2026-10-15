@@ -236,8 +236,8 @@ devDependencies:
     specifier: ^5.13.0
     version: 5.13.0
   react-icons:
-    specifier: ^5.1.0
-    version: 5.1.0(react@18.2.0)
+    specifier: ^5.2.1
+    version: 5.2.1(react@18.2.0)
   tailwindcss:
     specifier: ^3.4.3
     version: 3.4.3
@@ -4264,8 +4264,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-icons@5.1.0(react@18.2.0):
-    resolution: {integrity: sha512-D3zug1270S4hbSlIRJ0CUS97QE1yNNKDjzQe3HqY0aefp2CBn9VgzgES27sRR2gOvFK+0CNx/BW0ggOESp6fqQ==}
+  /react-icons@5.2.1(react@18.2.0):
+    resolution: {integrity: sha512-zdbW5GstTzXaVKvGSyTaBalt7HSfuK5ovrzlpyiWHAFXndXTdd/1hdDHI4xBM1Mn7YriT6aqESucFl9kEXzrdw==}
     peerDependencies:
       react: '*'
     dependencies:
