@@ -1,24 +1,32 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.4.1/schema.json",
-	"organizeImports": {
-		"enabled": true
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
 	},
 	"files": {
-		"ignore": [
-			".next",
-			"dist",
-			"node_modules",
-			"out",
-			"public",
-			"vercel",
-			"vercel.json",
-			"yarn.lock"
-		]
+		"includes": ["**", "!lib/generated", "!public", "!pnpm-lock.yaml"]
+	},
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"preset": "recommended",
+			"performance": {
+				"noImgElement": "off"
+			}
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
 		}
 	}
 }

@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
-import styles from "@/styles/TestimonialsSection.module.css";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import styles from "@/styles/TestimonialsSection.module.css";
 
 /**
  * Renders the TestimonialsSection component.
@@ -18,7 +18,7 @@ const TestimonialsSection = () => {
 			{/* Testimonials title */}
 			<div
 				className={
-					"w-[100%] text-center text-[80px] xl:text-[100px] 2xl:text-[120px] uppercase leading-none unselectable"
+					"w-full text-center text-[80px] xl:text-[100px] 2xl:text-[120px] uppercase leading-none unselectable"
 				}
 			>
 				<h1 className={styles.testimonialsTitle}>TESTIMONIALS</h1>

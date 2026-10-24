@@ -1,14 +1,15 @@
 // Importing the necessary components
-import InstagramSection from "@/components/InstagramSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import { FooterEmailForm } from "@/components/footer/footer-email-form";
-import LineBreaks from "@/components/line-breaks";
-import styles from "@/styles/Home.module.css";
+
 import { motion } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { FooterEmailForm } from "@/components/footer/footer-email-form";
+import InstagramSection from "@/components/InstagramSection";
+import LineBreaks from "@/components/line-breaks";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import styles from "@/styles/Home.module.css";
 
 // The main page
 /**
@@ -210,7 +211,7 @@ const Index: NextPage = () => {
 				</section>
 			</main>
 			<section>
-				<div className={"flex w-[100vw]"}>
+				<div className={"flex w-screen"}>
 					<div className={"centre-inner"}>
 						<h5 className={"text-5xl m-auto w-1/3"}>LETS CHAT</h5>
 						<FooterEmailForm />
@@ -220,14 +221,12 @@ const Index: NextPage = () => {
 						alt={""}
 						width={200}
 						height={200}
-						className={
-							"relative float-right top-[5rem] right-[5rem] w-[8rem] h-[8rem]"
-						}
+						className={"relative float-right top-20 right-20 w-32 h-32"}
 					/>
 				</div>
 			</section>
 			<section>
-				<div className={"flex w-[100vw]"}>
+				<div className={"flex w-screen"}>
 					<Image
 						src={"/footer/bottom card.webp"}
 						alt={"policies card"}

@@ -1,77 +1,23 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
+import { route } from "@/lib/auth/api";
+import { db } from "@/lib/db";
+import { StudentPayloadSchema, toNewStudent } from "@/lib/validation/student";
 
 /**
- * Handles the API request to store a new student.
- * @param req - The NextApiRequest object representing the incoming request.
- * @param res - The NextApiResponse object representing the outgoing response.
+ * Registers a new student under the signed-in user.
  */
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse,
-) {
-	if (req.method === "POST") {
-		try {
-			await prisma.$executeRaw`INSERT INTO students (
-				address1,
-				address2,
-				city,
-				county,
-				postcode,
-				home_phone,
-				work_phone,
-				mobile_phone1,
-				mobile_phone2,
-				hear_about_us,
-				student_first_name,
-				student_last_name,
-				student_dob,
-				student_gender,
-				student_medical_conditions,
-				student_additional_info,
-				student_preferred_days,
-				student_photo_consent,
-				student_video_consent,
-				student_walking_home_consent,
-				terms_and_conditions,
-				privacy_policy,
-				marketing_consent,
-				user_id
-			  ) VALUES (
-				${req.body.address1},
-				${req.body.address2},
-				${req.body.city},
-				${req.body.county},
-				${req.body.postcode},
-				${req.body.homePhone},
-				${req.body.workPhone},
-				${req.body.mobilePhone1},
-				${req.body.mobilePhone2},
-				${req.body.hearAboutUs},
-				${req.body.studentFirstName},
-				${req.body.studentLastName},
-				${req.body.studentDOB},
-				${req.body.studentGender},
-				${req.body.studentMedicalConditions},
-				${req.body.studentAdditionalInfo},
-				${req.body.studentPreferredDays},
-				${req.body.studentPhotoConsent},
-				${req.body.studentVideoConsent},
-				${req.body.studentWalkingHomeConsent},
-				${req.body.termsAndConditions},
-				${req.body.privacyPolicy},
-				${req.body.marketingConsent},
-				${req.body.user_id}
-			  )`;
+export default route(
+	{
+		POST: async (req, res, { user }) => {
+			const parsed = StudentPayloadSchema.safeParse(req.body);
+			if (!parsed.success) {
+				return res.status(400).json({ error: parsed.error.issues[0].message });
+			}
 
-			res.status(201).json({
-				message: "Student created successfully",
-			});
-		} catch (error) {
-			console.error("Error inserting student:", error);
-			res.status(500).json({ error: "Error creating student" });
-		}
-	} else {
-		res.status(405).json({ error: "Method not allowed" });
-	}
-}
+			const student = await db.students.create(
+				toNewStudent(parsed.data, user.user_id),
+			);
+			return res.status(201).json({ student });
+		},
+	},
+	"user",
+);

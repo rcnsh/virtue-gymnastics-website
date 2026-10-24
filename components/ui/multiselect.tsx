@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { Check, ChevronsUpDown, X } from "lucide-react";
 import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -9,13 +9,14 @@ import {
 	CommandGroup,
 	CommandInput,
 	CommandItem,
+	CommandList,
 } from "@/components/ui/command";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { Check, ChevronsUpDown, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export type OptionType = {
 	id: string;
@@ -63,9 +64,9 @@ function MultiSelect({
 								onClick={() => handleUnselect(item)}
 							>
 								{item}
-								{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 								<button
-									className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+									type="button"
+									className="ml-1 ring-offset-background rounded-full outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2"
 									onKeyDown={(e) => {
 										if (e.key === "Enter") {
 											handleUnselect(item);
@@ -88,30 +89,34 @@ function MultiSelect({
 			<PopoverContent className="w-full p-0">
 				<Command className={className}>
 					<CommandInput placeholder="Search ..." />
-					<CommandEmpty>No item found.</CommandEmpty>
-					<CommandGroup className="max-h-64 overflow-auto">
-						{options.map((option) => (
-							<CommandItem
-								key={option.id}
-								onSelect={() => {
-									onChange(
-										selected.includes(option.id)
-											? selected.filter((item) => item !== option.id)
-											: [...selected, option.id],
-									);
-									setOpen(true);
-								}}
-							>
-								<Check
-									className={cn(
-										"mr-2 h-4 w-4",
-										selected.includes(option.id) ? "opacity-100" : "opacity-0",
-									)}
-								/>
-								{option.name}
-							</CommandItem>
-						))}
-					</CommandGroup>
+					<CommandList>
+						<CommandEmpty>No item found.</CommandEmpty>
+						<CommandGroup className="max-h-64 overflow-auto">
+							{options.map((option) => (
+								<CommandItem
+									key={option.id}
+									onSelect={() => {
+										onChange(
+											selected.includes(option.id)
+												? selected.filter((item) => item !== option.id)
+												: [...selected, option.id],
+										);
+										setOpen(true);
+									}}
+								>
+									<Check
+										className={cn(
+											"mr-2 h-4 w-4",
+											selected.includes(option.id)
+												? "opacity-100"
+												: "opacity-0",
+										)}
+									/>
+									{option.name}
+								</CommandItem>
+							))}
+						</CommandGroup>
+					</CommandList>
 				</Command>
 			</PopoverContent>
 		</Popover>

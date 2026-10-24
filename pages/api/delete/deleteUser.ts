@@ -1,30 +1,25 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
+import { route } from "@/lib/auth/api";
+import { db } from "@/lib/db";
 
 /**
- * Handles the DELETE request to delete a user.
- *
- * @param req - The NextApiRequest object representing the incoming request.
- * @param res - The NextApiResponse object representing the outgoing response.
+ * Deletes a user along with their students, bookings and sessions.
  */
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse,
-) {
-	if (req.method === "DELETE") {
-		const { user_id } = req.body;
+export default route(
+	{
+		DELETE: async (req, res, { user }) => {
+			const { user_id } = req.query;
+			if (typeof user_id !== "string") {
+				return res.status(400).json({ error: "Missing user_id." });
+			}
+			if (user_id === user.user_id) {
+				return res
+					.status(400)
+					.json({ error: "You can't delete your own account here." });
+			}
 
-		try {
-			await prisma.$executeRaw`DELETE FROM users WHERE user_id = ${user_id}`;
-
-			res.status(200).json({
-				message: "User deleted successfully",
-			});
-		} catch (error) {
-			console.error("Error deleting user:", error);
-			res.status(500).json({ error: "Error deleting user" });
-		}
-	} else {
-		res.status(405).json({ error: "Method Not Allowed" });
-	}
-}
+			await db.users.delete(user_id);
+			return res.status(200).json({ message: "User deleted successfully" });
+		},
+	},
+	"admin",
+);

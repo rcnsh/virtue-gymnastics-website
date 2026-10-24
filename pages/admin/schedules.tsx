@@ -1,10 +1,27 @@
 import {
+	type ColumnDef,
+	type ColumnFiltersState,
+	flexRender,
+	getCoreRowModel,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	type SortingState,
+	useReactTable,
+} from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
+import Head from "next/head";
+import Router from "next/router";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
 	Table,
 	TableBody,
@@ -13,27 +30,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import {
-	type ColumnDef,
-	type ColumnFiltersState,
-	type SortingState,
-	flexRender,
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
-	useReactTable,
-} from "@tanstack/react-table";
-
-import LineBreaks from "@/components/line-breaks";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useAuth } from "@clerk/nextjs";
-import { ArrowUpDown } from "lucide-react";
-import Head from "next/head";
-import Router from "next/router";
-import { useEffect, useState } from "react";
-import type { Schedule } from "@prisma/client";
+import { adminOnly } from "@/lib/auth/pages";
+import type { Schedule } from "@/lib/db";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -62,7 +60,7 @@ const columns: ColumnDef<Schedule>[] = [
 						<DropdownMenuSeparator />
 						<DropdownMenuItem
 							onClick={() =>
-								fetch(`/api/delete/deleteClass?class_id=${schedule.id}`, {
+								fetch(`/api/delete/deleteSchedule?schedule_id=${schedule.id}`, {
 									method: "DELETE",
 									headers: {
 										"Content-Type": "application/json",
@@ -72,7 +70,7 @@ const columns: ColumnDef<Schedule>[] = [
 									.then(Router.reload)
 							}
 						>
-							Delete Class
+							Delete Schedule
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
@@ -335,29 +333,11 @@ function SchedulesTable<TData, TValue>({
 	);
 }
 
-export default function Users() {
-	const { userId } = useAuth();
+export default function AdminSchedules() {
 	const [loading, setLoading] = useState(true);
-	const [isAdmin, setIsAdmin] = useState(false);
 	const [data, setData] = useState<Schedule[]>([]);
 
 	useEffect(() => {
-		const isUserAdmin = fetch(
-			`/api/check/checkIfUserIsAdmin?user_id=${userId}`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			},
-		).then((res) => res.json());
-
-		isUserAdmin.then((res) => {
-			if (res.isAdmin) {
-				setIsAdmin(true);
-			}
-		});
-
 		getData()
 			.then((data) => {
 				setData(data);
@@ -367,19 +347,10 @@ export default function Users() {
 				console.error(err);
 				setLoading(false);
 			});
-	}, [userId]);
+	}, []);
 
 	if (loading) {
 		return <div>Loading...</div>;
-	}
-	if (!isAdmin) {
-		return (
-			<div>
-				<LineBreaks />
-				<h1 className={"text-4xl flex justify-center"}>Unauthorized</h1>
-				<LineBreaks />
-			</div>
-		);
 	}
 	return (
 		<>
@@ -399,3 +370,5 @@ export default function Users() {
 		</>
 	);
 }
+
+export const getServerSideProps = adminOnly;

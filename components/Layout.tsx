@@ -1,10 +1,10 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 import Footer from "@/components/Footer";
 import Titlebar from "@/components/Titlebar";
 import { ThemeProvider } from "@/components/themeProvider";
 import { Separator } from "@/components/ui/separator";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { motion } from "framer-motion";
-import type { ReactNode } from "react";
 
 /* define our layout with framer motion elements to make the pages fade in */
 
@@ -20,7 +20,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 			{/* speedinsights to see how page speed does */}
 			<SpeedInsights />
 			<motion.main
-				className={"w-[100vw] min-h-[100dvh]"}
+				className={"w-screen min-h-dvh"}
 				initial={{
 					opacity: 0,
 				}}

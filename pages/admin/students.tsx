@@ -1,21 +1,19 @@
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
-	type SortingState,
 	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
+	type SortingState,
 	useReactTable,
 } from "@tanstack/react-table";
-
-import { useAuth } from "@clerk/nextjs";
-
 import { ArrowUpDown } from "lucide-react";
-
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -23,10 +21,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { Input } from "@/components/ui/input";
-
-import LineBreaks from "@/components/line-breaks";
 import {
 	Table,
 	TableBody,
@@ -35,9 +30,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { adminOnly } from "@/lib/auth/pages";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -81,15 +74,12 @@ const DeletionDropdownMenu = (student: Student) => {
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					onClick={() =>
-						fetch("/api/delete/deleteStudent", {
-							method: "DELETE",
-							headers: {
-								"Content-Type": "application/json",
+						fetch(
+							`/api/delete/deleteStudent?student_id=${encodeURIComponent(student.student_id)}`,
+							{
+								method: "DELETE",
 							},
-							body: JSON.stringify({
-								student_id: student.student_id,
-							}),
-						})
+						)
 							.then((res) => res.json())
 							.then(router.reload)
 					}
@@ -390,29 +380,11 @@ function StudentsTable<TData, TValue>({
 	);
 }
 
-export default function Users() {
-	const { userId } = useAuth();
+export default function AdminStudents() {
 	const [loading, setLoading] = useState(true);
-	const [isAdmin, setIsAdmin] = useState(false);
 	const [data, setData] = useState<Student[]>([]);
 
 	useEffect(() => {
-		const isUserAdmin = fetch(
-			`/api/check/checkIfUserIsAdmin?user_id=${userId}`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			},
-		).then((res) => res.json());
-
-		isUserAdmin.then((res) => {
-			if (res.isAdmin) {
-				setIsAdmin(true);
-			}
-		});
-
 		getData()
 			.then((data) => {
 				setLoading(false);
@@ -422,19 +394,10 @@ export default function Users() {
 				setLoading(false);
 				console.error(err);
 			});
-	}, [userId]);
+	}, []);
 
 	if (loading) {
 		return <div>Loading...</div>;
-	}
-	if (!isAdmin) {
-		return (
-			<div>
-				<LineBreaks />
-				<h1 className={"text-4xl flex justify-center"}>Unauthorized</h1>
-				<LineBreaks />
-			</div>
-		);
 	}
 	return (
 		<>
@@ -454,3 +417,5 @@ export default function Users() {
 		</>
 	);
 }
+
+export const getServerSideProps = adminOnly;

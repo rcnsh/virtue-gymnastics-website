@@ -1,34 +1,27 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
-import type { bookings } from "@prisma/client";
+import { parseId, route } from "@/lib/auth/api";
+import { db } from "@/lib/db";
 
 /**
- * Checks if there is a duplicate booking for a given student and selected class.
- * @param req - The NextApiRequest object.
- * @param res - The NextApiResponse object.
+ * Checks whether one of the user's students is already booked onto a class.
  */
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse,
-) {
-	if (req.method === "GET") {
-		const { student_id, selected_class } = req.query;
+export default route(
+	{
+		GET: async (req, res, { user }) => {
+			const studentId = parseId(req.query.student_id);
+			const { selected_class } = req.query;
+			if (!studentId || typeof selected_class !== "string") {
+				return res.status(400).json({ error: "Missing student or class." });
+			}
 
-		const student_id_number = Number.parseInt(student_id as string, 10);
-		try {
-			const existingBooking = (await prisma.$queryRaw`
-			  SELECT *
-			  FROM "bookings"
-			  WHERE "student_id" = ${student_id_number}
-				AND "selected_class" = ${selected_class}
-			  ORDER BY "booking_id"
-			  LIMIT 1;
-			`) as bookings[];
+			const student = await db.students.find(studentId);
+			if (!student || (student.user_id !== user.user_id && !user.admin)) {
+				return res.status(404).json({ error: "Student not found." });
+			}
 
-			res.status(200).json({ hasBooking: !!existingBooking[0] });
-		} catch (error) {
-			console.error("Error checking for existing booking:", error);
-			res.status(500).json({ error: "Error checking for existing booking" });
-		}
-	}
-}
+			return res.status(200).json({
+				hasBooking: await db.bookings.exists(studentId, selected_class),
+			});
+		},
+	},
+	"user",
+);

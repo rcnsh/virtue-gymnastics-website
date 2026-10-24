@@ -1,3 +1,12 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Check, ChevronsUpDown } from "lucide-react";
+import type { GetServerSideProps } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
 	Command,
@@ -5,6 +14,7 @@ import {
 	CommandGroup,
 	CommandInput,
 	CommandItem,
+	CommandList,
 } from "@/components/ui/command";
 import {
 	Dialog,
@@ -32,53 +42,22 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { requireUser } from "@/lib/auth/pages";
+import { db, type Student } from "@/lib/db";
 import { cn } from "@/lib/utils";
-import classes from "@/pages/api/json/classes.json";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { zodResolver } from "@hookform/resolvers/zod";
-import type { students } from "@prisma/client";
-import { Check, ChevronsUpDown } from "lucide-react";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import type { GetServerSideProps } from "next";
-import prisma from "@/lib/prisma";
-import { getAuth } from "@clerk/nextjs/server";
-import Head from "next/head";
 
-export const FormSchema = z.object({
+const FormSchema = z.object({
 	selected_class: z.string({
-		required_error: "Please select a class to book.",
+		error: "Please select a class to book.",
 	}),
 	selected_student: z.string({
-		required_error: "Please select a student for this class.",
+		error: "Please select a student for this class.",
 	}),
 });
 
 interface ClassData {
 	id: string;
 	name: string;
-}
-
-function uniqueByIdAndName(
-	data: Array<{ id: string; name: string }>,
-): Array<{ id: string; name: string }> {
-	const uniqueBookings = data.filter(
-		(currentItem, index, array) =>
-			!array
-				.slice(0, index)
-				.some(
-					(item) =>
-						item.id === currentItem.id && item.name === currentItem.name,
-				),
-	);
-
-	uniqueBookings.sort((a, b) => a.name.localeCompare(b.name));
-
-	return uniqueBookings;
 }
 
 /**
@@ -88,14 +67,20 @@ function uniqueByIdAndName(
  * @param {Array} props.students - The array of students.
  * @returns {JSX.Element} The JSX element representing the booking form.
  */
-function NewBooking({ students: usersStudents }: { students: students[] }) {
-	const searchParams = useSearchParams();
+function NewBooking({
+	students: usersStudents,
+	classes: uniqueClasses,
+}: {
+	students: Student[];
+	classes: ClassData[];
+}) {
 	const router = useRouter();
-	const classTitle = searchParams.get("class") || undefined;
-	const [uniqueClasses, setUniqueClasses] = useState<ClassData[]>([]);
+	const classTitle =
+		typeof router.query.class === "string" ? router.query.class : undefined;
 	const [classOpen, setClassOpen] = useState(false);
 	const [submittedForm, setSubmittedForm] = useState(false);
 	const [alreadyBooked, setAlreadyBooked] = useState(false);
+	const [error, setError] = useState<string | null>(null);
 
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
@@ -105,51 +90,32 @@ function NewBooking({ students: usersStudents }: { students: students[] }) {
 		if (submittedForm) {
 			return;
 		}
-		const response = await fetch(
-			`/api/check/checkDuplicateBooking?student_id=${encodeURIComponent(
-				data.selected_student,
-			)}&selected_class=${encodeURIComponent(data.selected_class)}`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
+		setError(null);
+		setSubmittedForm(true);
+
+		const response = await fetch("/api/store/storeBooking", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
 			},
-		);
+			body: JSON.stringify(data),
+		});
 
 		if (response.ok) {
-			const { hasBooking } = await response.json();
+			await router.push("/bookings");
+			return;
+		}
 
-			if (hasBooking) {
-				setAlreadyBooked(true);
-				console.error("Student already has a booking for this class.");
-			} else {
-				setSubmittedForm(true);
-				fetch("/api/store/storeBooking", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(data),
-				}).then((response) => {
-					if (response.ok) {
-						router.push("/bookings").catch((error) => {
-							console.error(`Error navigating to bookings page:${error}`);
-						});
-					} else {
-						console.error("Error storing booking:", response);
-					}
-				});
-			}
+		setSubmittedForm(false);
+		if (response.status === 409) {
+			setAlreadyBooked(true);
 		} else {
-			console.error("Error checking for existing booking:", response);
+			const body = await response.json().catch(() => ({}));
+			setError(body.error ?? "Something went wrong, please try again.");
 		}
 	};
 
 	useEffect(() => {
-		const uniqueClasses = uniqueByIdAndName(classes);
-		setUniqueClasses(uniqueClasses);
-
 		if (!classTitle) {
 			return;
 		}
@@ -183,68 +149,64 @@ function NewBooking({ students: usersStudents }: { students: students[] }) {
 				<br />
 				<br />
 				<div className={"w-[80vw]"}>
-					<SignedIn>
-						<div className="flex flex-col justify-center py-2 border border-white rounded-lg p-10">
-							<h1 className="text-4xl font-bold text-white flex justify-center p-10">
-								Booking Form
-							</h1>
-							{usersStudents.length === 0 ? (
-								<>
-									<h1 className={"text-3xl flex justify-center"}>
-										No registered students found.
-									</h1>
-									<br />
-									<div className={"p-10"}>
-										<Link
-											href={"/students/new"}
-											className={"flex justify-center"}
-										>
-											<Button className={"w-[40%] text-xl"}>
-												Register a student
-											</Button>
-										</Link>
-									</div>
-								</>
-							) : (
-								<div className={"p-8"}>
-									<Form {...form}>
-										<form
-											onSubmit={form.handleSubmit(onSubmit)}
-											className="w-2/3 space-y-6"
-										>
-											<FormField
-												control={form.control}
-												name="selected_class"
-												render={({ field }) => (
-													<FormItem className="flex flex-col">
-														<FormLabel>Class</FormLabel>
-														<Popover
-															open={classOpen}
-															onOpenChange={setClassOpen}
-														>
-															<PopoverTrigger asChild>
-																<FormControl>
-																	<Button
-																		variant="outline"
-																		role="combobox"
-																		className={cn(
-																			"w-[200px] justify-between",
-																			!field.value && "text-muted-foreground",
-																		)}
-																	>
-																		{field.value
-																			? uniqueClasses.find(
-																					(classes) =>
-																						classes.id === field.value,
-																				)?.name
-																			: classTitle}
-																		<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-																	</Button>
-																</FormControl>
-															</PopoverTrigger>
-															<PopoverContent className="w-[200px] p-0 overflow-y-auto max-h-[30rem]">
-																<Command>
-																	<CommandInput placeholder="Search classes..." />
+					<div className="flex flex-col justify-center py-2 border border-white rounded-lg p-10">
+						<h1 className="text-4xl font-bold text-white flex justify-center p-10">
+							Booking Form
+						</h1>
+						{usersStudents.length === 0 ? (
+							<>
+								<h1 className={"text-3xl flex justify-center"}>
+									No registered students found.
+								</h1>
+								<br />
+								<div className={"p-10"}>
+									<Link
+										href={"/students/new"}
+										className={"flex justify-center"}
+									>
+										<Button className={"w-[40%] text-xl"}>
+											Register a student
+										</Button>
+									</Link>
+								</div>
+							</>
+						) : (
+							<div className={"p-8"}>
+								<Form {...form}>
+									<form
+										onSubmit={form.handleSubmit(onSubmit)}
+										className="w-2/3 space-y-6"
+									>
+										<FormField
+											control={form.control}
+											name="selected_class"
+											render={({ field }) => (
+												<FormItem className="flex flex-col">
+													<FormLabel>Class</FormLabel>
+													<Popover open={classOpen} onOpenChange={setClassOpen}>
+														<PopoverTrigger asChild>
+															<FormControl>
+																<Button
+																	variant="outline"
+																	role="combobox"
+																	className={cn(
+																		"w-[200px] justify-between",
+																		!field.value && "text-muted-foreground",
+																	)}
+																>
+																	{field.value
+																		? uniqueClasses.find(
+																				(classes) => classes.id === field.value,
+																			)?.name
+																		: classTitle}
+																	<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+																</Button>
+															</FormControl>
+														</PopoverTrigger>
+														<PopoverContent className="w-[200px] p-0 overflow-y-auto max-h-120">
+															<Command>
+																<CommandInput placeholder="Search classes..." />
+																<CommandList>
 																	<CommandEmpty>No class found.</CommandEmpty>
 																	<CommandGroup>
 																		{uniqueClasses.map((classes) => (
@@ -280,86 +242,81 @@ function NewBooking({ students: usersStudents }: { students: students[] }) {
 																			</CommandItem>
 																		))}
 																	</CommandGroup>
-																</Command>
-															</PopoverContent>
-														</Popover>
-														<FormMessage />
-													</FormItem>
-												)}
-											/>
-											<FormField
-												control={form.control}
-												name="selected_student"
-												render={({ field }) => (
-													<FormItem>
-														<FormLabel>Student</FormLabel>
-														<Select
-															onValueChange={field.onChange}
-															defaultValue={field.value}
+																</CommandList>
+															</Command>
+														</PopoverContent>
+													</Popover>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="selected_student"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Student</FormLabel>
+													<Select
+														onValueChange={field.onChange}
+														defaultValue={field.value}
+													>
+														<FormControl>
+															<SelectTrigger>
+																<SelectValue placeholder="Select a student for this class" />
+															</SelectTrigger>
+														</FormControl>
+														<SelectContent
+															className={"overflow-y-auto max-h-120"}
 														>
-															<FormControl>
-																<SelectTrigger>
-																	<SelectValue placeholder="Select a student for this class" />
-																</SelectTrigger>
-															</FormControl>
-															<SelectContent
-																className={"overflow-y-auto max-h-[30rem]"}
-															>
-																{usersStudents.map((student) => (
-																	<SelectItem
-																		key={student.student_id}
-																		value={student.student_id.toString()}
-																	>
-																		{student.student_first_name}{" "}
-																		{student.student_last_name}
-																	</SelectItem>
-																))}
-															</SelectContent>
-														</Select>
-														<FormMessage />
-													</FormItem>
-												)}
-											/>
-											<Button type="submit">Submit</Button>
-										</form>
-									</Form>
-								</div>
-							)}
-							<Dialog open={alreadyBooked} onOpenChange={setAlreadyBooked}>
-								<DialogContent>
-									<DialogHeader>
-										<DialogTitle className={"flex justify-center"}>
-											Booking already exists
-										</DialogTitle>
-									</DialogHeader>
+															{usersStudents.map((student) => (
+																<SelectItem
+																	key={student.student_id}
+																	value={student.student_id.toString()}
+																>
+																	{student.student_first_name}{" "}
+																	{student.student_last_name}
+																</SelectItem>
+															))}
+														</SelectContent>
+													</Select>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+										{error && (
+											<p role="alert" className="text-sm text-red-400">
+												{error}
+											</p>
+										)}
+										<Button type="submit" disabled={submittedForm}>
+											Submit
+										</Button>
+									</form>
+								</Form>
+							</div>
+						)}
+						<Dialog open={alreadyBooked} onOpenChange={setAlreadyBooked}>
+							<DialogContent>
+								<DialogHeader>
+									<DialogTitle className={"flex justify-center"}>
+										Booking already exists
+									</DialogTitle>
+								</DialogHeader>
 
-									<div className={"p-8"}>
-										<p className={"flex justify-center"}>
-											This student is already booked for this class.
-										</p>
-										<br />
-										<div className={"flex justify-center"}>
-											<Button onClick={() => setAlreadyBooked(false)}>
-												Close
-											</Button>
-										</div>
+								<div className={"p-8"}>
+									<p className={"flex justify-center"}>
+										This student is already booked for this class.
+									</p>
+									<br />
+									<div className={"flex justify-center"}>
+										<Button onClick={() => setAlreadyBooked(false)}>
+											Close
+										</Button>
 									</div>
-								</DialogContent>
-							</Dialog>
-						</div>
-					</SignedIn>
-					<SignedOut>
-						<div className={"flex justify-center"}>
-							<h1 className={"text-2xl text-white"}>
-								Please{" "}
-								<Link href={"/sign-in"} className={"text-blue-400"}>
-									{" "}
-									sign in
-								</Link>{" "}
-								to book a class
-							</h1>
-						</div>
-					</SignedOut>
+								</div>
+							</DialogContent>
+						</Dialog>
+					</div>
 				</div>
 				<br />
 				<br />
@@ -372,25 +329,15 @@ function NewBooking({ students: usersStudents }: { students: students[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const auth = getAuth(context.req);
+	const auth = await requireUser(context);
+	if ("redirect" in auth) return auth;
 
-	const user_id = auth.userId;
-
-	if (!user_id) {
-		return {
-			redirect: {
-				destination: "/sign-in",
-				permanent: false,
-			},
-		};
-	}
-
-	const students =
-		(await prisma.$queryRaw`SELECT * FROM students WHERE user_id = ${user_id}`) as students[];
+	const classes = await db.classes.list();
 
 	return {
 		props: {
-			students: students,
+			students: await db.students.listForUser(auth.user.user_id),
+			classes: classes.map(({ id, name }) => ({ id, name })),
 		},
 	};
 };

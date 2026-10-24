@@ -13,19 +13,19 @@ import {
  */
 const Footer = () => {
 	return (
-		<main className={"w-[100vw] bottom-0"}>
+		<main className={"w-screen bottom-0"}>
 			<section className={"backgroundTexture"}>
 				<br />
 				<br />
 				<Image
 					src={"/home/scribble.webp"}
 					alt={"scribble deco"}
-					className={"relative float-right w-[10vw] top-[15rem] right-[35vw]"}
+					className={"relative float-right w-[10vw] top-60 right-[35vw]"}
 					width={200}
 					height={200}
 				/>
 				<section id="footer-section">
-					<div className={"flex w-[100vw] justify-evenly align-middle"}>
+					<div className={"flex w-screen justify-evenly align-middle"}>
 						{/* eslint-disable-next-line @next/next/no-img-element */}
 						<img
 							src={"/virtue-icon.png"}
@@ -34,19 +34,15 @@ const Footer = () => {
 						/>
 						<div className={"space-y-2"}>
 							<h5 className={"text-3xl"}>QUICK LINKS</h5>
-							<Link href={"/events"}>Events/Camps</Link>
+							<Link href={"/"}>Home</Link>
 							<br />
-							<Link href={"/faq"}>FAQs</Link>
+							<Link href={"/timetable"}>Timetable</Link>
 							<br />
-							<Link href={"/parties"}>Parties</Link>
+							<Link href={"/bookings/new"}>Book a Class</Link>
 							<br />
-							<Link href={"/about-us"}>About Us</Link>
+							<Link href={"/students"}>Your Students</Link>
 							<br />
-							<Link href={"/member-info"}>Member Info</Link>
-							<br />
-							<Link href={"/welfare"}>Welfare</Link>
-							<br />
-							<Link href={"/external-hire"}>External Hire</Link>
+							<Link href={"/bookings"}>Your Bookings</Link>
 							<br />
 						</div>
 						<div>

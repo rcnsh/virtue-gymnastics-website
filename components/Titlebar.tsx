@@ -1,7 +1,15 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
-
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
 	ListItem,
 	NavigationMenu,
@@ -11,8 +19,7 @@ import {
 	NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
-import { useAuth, UserButton, useUser } from "@clerk/nextjs";
-import Link from "next/link";
+import { useAuth } from "@/lib/auth/client";
 import styles from "../styles/Titlebar.module.css";
 
 const listItems: { title: string; href: string; description: string }[] = [
@@ -22,40 +29,9 @@ const listItems: { title: string; href: string; description: string }[] = [
 		description: "Virtue's Home Page.",
 	},
 	{
-		title: "Events/Camps",
-		href: "/events",
-		description: "Events and camps that are happening.",
-	},
-	{
-		title: "FAQS",
-		href: "/faqs",
-		description: "Frequently asked questions.",
-	},
-	{
-		title: "Parties",
-		href: "/parties",
-		description: "Book a party or event at Virtue Movement.",
-	},
-	{
-		title: "Member Info",
-		href: "/members",
-		description: "Become a member of Virtue Movement.",
-	},
-
-	{
-		title: "External Hire",
-		href: "/external-hire",
-		description: "Hire Virtue Movement!",
-	},
-	{
-		title: "Socials",
-		href: "/socials",
-		description: "Learn more about our socials.",
-	},
-	{
-		title: "About Us",
-		href: "/about-us",
-		description: "Learn more about Virtue Movement.",
+		title: "Timetable",
+		href: "/timetable",
+		description: "See our classes and book a place.",
 	},
 ];
 
@@ -105,24 +81,10 @@ const listAdminItems: { title: string; href: string; description: string }[] = [
  * @returns The JSX element representing the title bar.
  */
 const Titlebar = () => {
-	const { isSignedIn } = useUser();
-	const { userId } = useAuth();
-	const [isAdmin, setIsAdmin] = useState(false);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		async function isUserAdmin() {
-			return await fetch(`/api/check/checkIfUserIsAdmin?user_id=${userId}`, {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}).then((res) => res.json());
-		}
-		isUserAdmin().then((res) => {
-			setIsAdmin(res.isAdmin);
-		});
-	}, [isSignedIn, userId]);
+	const { user, loading, signOut } = useAuth();
+	const router = useRouter();
+	const isSignedIn = !!user;
+	const isAdmin = !!user?.admin;
 
 	return (
 		<section className={styles.titlebar}>
@@ -196,8 +158,29 @@ const Titlebar = () => {
 					/>
 				</Link>
 			</div>
-			{isSignedIn ? (
-				<UserButton />
+			{loading ? (
+				<div />
+			) : user ? (
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button variant="outline">{user.first_name}</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent align="end">
+						<DropdownMenuLabel>{user.email}</DropdownMenuLabel>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem asChild>
+							<Link href="/account">Your account</Link>
+						</DropdownMenuItem>
+						<DropdownMenuItem
+							onSelect={async () => {
+								await signOut();
+								await router.push("/");
+							}}
+						>
+							Sign out
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
 			) : (
 				<div>
 					<Link href={"/sign-in"}>

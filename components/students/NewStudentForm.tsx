@@ -1,16 +1,25 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
+import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
+import { useRouter } from "next/router";
+import React from "react";
+import { useForm } from "react-hook-form";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
 	Command,
 	CommandEmpty,
 	CommandGroup,
 	CommandInput,
 	CommandItem,
+	CommandList,
 } from "@/components/ui/command";
 import {
 	Dialog,
@@ -28,30 +37,13 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { MultiSelect } from "@/components/ui/multiselect";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import conditions from "@/pages/api/json/conditions.json";
-import days from "@/pages/api/json/daysOfTheWeek.json";
-import { format } from "date-fns";
-import { Check, ChevronsUpDown } from "lucide-react";
-import { CalendarIcon } from "lucide-react";
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-
 import {
 	Select,
 	SelectContent,
@@ -59,8 +51,16 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { useAuth } from "@clerk/nextjs";
-import { useRouter } from "next/router";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import conditions from "@/data/conditions.json";
+import days from "@/data/daysOfTheWeek.json";
+import { cn } from "@/lib/utils";
+import {
+	StudentFormSchema as FormSchema,
+	type StudentForm,
+} from "@/lib/validation/student";
 
 const howHear = [
 	{
@@ -97,102 +97,38 @@ const howHear = [
 	},
 ];
 
-const FormSchema = z.object({
-	address1: z.string(),
-	address2: z.string().optional(),
-	city: z.string(),
-	county: z.string(),
-	postcode: z
-		.string()
-		.regex(
-			/^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/i,
-			"Invalid Postcode",
-		),
-	homePhone: z
-		.string()
-		.regex(
-			/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?(-?\s?[0-9])+$/,
-			"Invalid Phone Number",
-		)
-		.optional(),
-	workPhone: z
-		.string()
-		.regex(
-			/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?(-?\s?[0-9])+$/,
-			"Invalid Phone Number",
-		)
-		.optional(),
-	mobilePhone1: z
-		.string()
-		.regex(
-			/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?(-?\s?[0-9])+$/,
-			"Invalid Phone Number",
-		),
-	mobilePhone2: z
-		.string()
-		.regex(
-			/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?(-?\s?[0-9])+$/,
-			"Invalid Phone Number",
-		)
-		.optional(),
-	hearAboutUs: z.string(),
-	studentFirstName: z.string(),
-	studentLastName: z.string(),
-	studentDOB: z.date(),
-	studentGender: z.enum(["male", "female", "na", "other"]),
-	studentMedicalConditions: z.array(z.string()).optional(),
-	studentAdditionalInfo: z
-		.string()
-		.max(500, {
-			message: "Additional Info must be less than 500 characters.",
-		})
-		.optional(),
-	studentPreferredDays: z.array(z.string()).optional(),
-	studentPhotoConsent: z.boolean().default(false).optional(),
-	studentVideoConsent: z.boolean().default(false).optional(),
-	studentWalkingHomeConsent: z.boolean().default(false).optional(),
-	termsAndConditions: z.boolean().default(false),
-	privacyPolicy: z.boolean().default(false),
-	marketingConsent: z.boolean().default(false),
-	user_id: z.string(),
-});
-
 const NewStudentForm = () => {
-	const { userId } = useAuth();
 	const router = useRouter();
-	const form = useForm<z.infer<typeof FormSchema>>({
+	const [error, setError] = React.useState<string | null>(null);
+	const form = useForm<StudentForm>({
 		resolver: zodResolver(FormSchema),
+		defaultValues: {
+			studentMedicalConditions: [],
+			studentPreferredDays: [],
+			studentPhotoConsent: false,
+			studentVideoConsent: false,
+			studentWalkingHomeConsent: false,
+			termsAndConditions: false,
+			privacyPolicy: false,
+			marketingConsent: false,
+		},
 	});
 
-	useEffect(() => {
-		if (typeof userId === "string") {
-			form.setValue("user_id", userId);
-		}
-	}, [form, userId]);
-
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		if (!data.termsAndConditions) {
-			alert("You must accept the terms and conditions");
-			return;
-		}
-		if (!data.privacyPolicy) {
-			alert("You must accept the privacy policy");
-			return;
-		}
-
-		fetch("/api/store/storeStudent", {
+	async function onSubmit(data: StudentForm) {
+		setError(null);
+		const response = await fetch("/api/store/storeStudent", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(data),
-		}).then((response) => {
-			if (response.ok) {
-				router.push("/students").catch((err) => console.error(err));
-			} else {
-				throw new Error("Something went wrong");
-			}
 		});
+		if (response.ok) {
+			await router.push("/students");
+		} else {
+			const body = await response.json().catch(() => ({}));
+			setError(body.error ?? "Something went wrong, please try again.");
+		}
 	}
 
 	const [date, setDate] = React.useState<Date>();
@@ -415,32 +351,34 @@ const NewStudentForm = () => {
 													<PopoverContent className="w-[200px] p-0">
 														<Command>
 															<CommandInput placeholder="Search..." />
-															<CommandEmpty>Nothing found.</CommandEmpty>
-															<CommandGroup>
-																{howHear.map((hearchoice) => (
-																	<CommandItem
-																		value={hearchoice.id}
-																		key={hearchoice.name}
-																		onSelect={() => {
-																			form.setValue(
-																				"hearAboutUs",
-																				hearchoice.name,
-																			);
-																			setOpenHearAboutUs(false);
-																		}}
-																	>
-																		<Check
-																			className={cn(
-																				"mr-2 h-4 w-4",
-																				hearchoice.name === field.value
-																					? "opacity-100"
-																					: "opacity-0",
-																			)}
-																		/>
-																		{hearchoice.name}
-																	</CommandItem>
-																))}
-															</CommandGroup>
+															<CommandList>
+																<CommandEmpty>Nothing found.</CommandEmpty>
+																<CommandGroup>
+																	{howHear.map((hearchoice) => (
+																		<CommandItem
+																			value={hearchoice.id}
+																			key={hearchoice.name}
+																			onSelect={() => {
+																				form.setValue(
+																					"hearAboutUs",
+																					hearchoice.name,
+																				);
+																				setOpenHearAboutUs(false);
+																			}}
+																		>
+																			<Check
+																				className={cn(
+																					"mr-2 h-4 w-4",
+																					hearchoice.name === field.value
+																						? "opacity-100"
+																						: "opacity-0",
+																				)}
+																			/>
+																			{hearchoice.name}
+																		</CommandItem>
+																	))}
+																</CommandGroup>
+															</CommandList>
 														</Command>
 													</PopoverContent>
 												</Popover>
@@ -525,7 +463,7 @@ const NewStudentForm = () => {
 													<PopoverContent align="start" className=" w-auto p-0">
 														<Calendar
 															mode="single"
-															captionLayout="dropdown-buttons"
+															captionLayout="dropdown"
 															selected={date}
 															onSelect={(selectedDate) => {
 																if (typeof selectedDate !== "undefined") {
@@ -534,8 +472,9 @@ const NewStudentForm = () => {
 																}
 																setOpenDatePicker(false);
 															}}
-															fromYear={1920}
-															toYear={2023}
+															startMonth={new Date(1920, 0)}
+															endMonth={new Date()}
+															disabled={{ after: new Date() }}
 														/>
 													</PopoverContent>
 												</Popover>
@@ -860,7 +799,21 @@ const NewStudentForm = () => {
 								</AccordionContent>
 							</AccordionItem>
 						</Accordion>
-						<Button type="submit" className={"w-[100%] m-auto"}>
+						{Object.keys(form.formState.errors).length > 0 && (
+							<p role="alert" className="text-sm text-red-400">
+								Some details are missing or invalid. Check each section above.
+							</p>
+						)}
+						{error && (
+							<p role="alert" className="text-sm text-red-400">
+								{error}
+							</p>
+						)}
+						<Button
+							type="submit"
+							className={"w-full m-auto"}
+							disabled={form.formState.isSubmitting}
+						>
 							Register New Student
 						</Button>
 					</form>

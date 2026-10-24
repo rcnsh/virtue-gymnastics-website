@@ -1,6 +1,5 @@
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
 import type { AppProps } from "next/app";
+import { AuthProvider } from "@/lib/auth/client";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
 
@@ -10,25 +9,17 @@ import "../styles/globals.css";
  * @param {AppProps} props - The props for the App component.
  * @returns {JSX.Element} The rendered App component.
  */
-const App = ({ Component, pageProps }: AppProps): JSX.Element => {
+const App = ({ Component, pageProps }: AppProps) => {
 	return (
-		<>
-			{/* initialise clerk with dark mode */}
-			<ClerkProvider
-				appearance={{
-					baseTheme: dark,
-				}}
-			>
-				{/* add a background texture to the entire site */}
-				<div className={"backgroundTexture"}>
-					<Layout>
-						<Component {...pageProps} />
-					</Layout>
-				</div>
-			</ClerkProvider>
-		</>
+		<AuthProvider>
+			{/* add a background texture to the entire site */}
+			<div className={"backgroundTexture"}>
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</div>
+		</AuthProvider>
 	);
 };
 
 export default App;
-export { reportWebVitals } from "next-axiom";
