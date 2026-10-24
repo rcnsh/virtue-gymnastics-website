@@ -1,29 +1,20 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
+import { route } from "@/lib/auth/api";
+import { db } from "@/lib/db";
 
 /**
- * Deletes a class from the database.
- * @param req - The NextApiRequest object.
- * @param res - The NextApiResponse object.
+ * Deletes a class and its schedules.
  */
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse,
-) {
-	if (req.method === "DELETE") {
-		const { class_id } = req.query;
+export default route(
+	{
+		DELETE: async (req, res) => {
+			const { class_id } = req.query;
+			if (typeof class_id !== "string") {
+				return res.status(400).json({ error: "Missing class_id." });
+			}
 
-		try {
-			await prisma.$executeRaw`DELETE FROM Class WHERE id = ${class_id}`;
-
-			res.status(200).json({
-				message: "Class deleted successfully",
-			});
-		} catch (error) {
-			console.error("Error deleting booking:", error);
-			res.status(500).json({ error: "Error deleting booking" });
-		}
-	} else {
-		res.status(405).json({ error: "Method Not Allowed" });
-	}
-}
+			await db.classes.delete(class_id);
+			return res.status(200).json({ message: "Class deleted successfully" });
+		},
+	},
+	"admin",
+);

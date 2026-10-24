@@ -1,7 +1,8 @@
 generator client {
-  provider     = "prisma-client"
-  output       = "../lib/generated/prisma"
-  moduleFormat = "esm"
+  provider            = "prisma-client"
+  output              = "../lib/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = ""
 }
 
 // Connection URLs live in prisma.config.ts (CLI) and lib/db/prisma.ts (runtime).

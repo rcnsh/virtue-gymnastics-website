@@ -34,19 +34,15 @@ const Footer = () => {
 						/>
 						<div className={"space-y-2"}>
 							<h5 className={"text-3xl"}>QUICK LINKS</h5>
-							<Link href={"/events"}>Events/Camps</Link>
+							<Link href={"/"}>Home</Link>
 							<br />
-							<Link href={"/faq"}>FAQs</Link>
+							<Link href={"/timetable"}>Timetable</Link>
 							<br />
-							<Link href={"/parties"}>Parties</Link>
+							<Link href={"/bookings/new"}>Book a Class</Link>
 							<br />
-							<Link href={"/about-us"}>About Us</Link>
+							<Link href={"/students"}>Your Students</Link>
 							<br />
-							<Link href={"/member-info"}>Member Info</Link>
-							<br />
-							<Link href={"/welfare"}>Welfare</Link>
-							<br />
-							<Link href={"/external-hire"}>External Hire</Link>
+							<Link href={"/bookings"}>Your Bookings</Link>
 							<br />
 						</div>
 						<div>

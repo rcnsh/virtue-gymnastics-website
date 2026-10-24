@@ -1,33 +1,38 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
-import { getAuth } from "@clerk/nextjs/server";
+import { parseId, route } from "@/lib/auth/api";
+import { db } from "@/lib/db";
 
 /**
- * Handles the HTTP POST request to create a booking.
- *
- * @param req - The NextApiRequest object representing the incoming request.
- * @param res - The NextApiResponse object representing the outgoing response.
+ * Books one of the signed-in user's students onto a class.
  */
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse,
-) {
-	if (req.method === "POST") {
-		const auth = getAuth(req);
-		const userId = auth.userId;
+export default route(
+	{
+		POST: async (req, res, { user }) => {
+			const studentId = parseId(req.body?.selected_student);
+			const classId = req.body?.selected_class;
+			if (!studentId || typeof classId !== "string") {
+				return res.status(400).json({ error: "Choose a class and a student." });
+			}
 
-		const studentId = Number.parseInt(req.body.selected_student, 10);
-		try {
-			await prisma.$executeRaw`INSERT INTO bookings (selected_class, student_id, user_id) VALUES (${req.body.selected_class}, ${studentId}, ${userId})`;
+			const student = await db.students.find(studentId);
+			if (!student || student.user_id !== user.user_id) {
+				return res.status(404).json({ error: "Student not found." });
+			}
+			if (!(await db.classes.find(classId))) {
+				return res.status(404).json({ error: "Class not found." });
+			}
+			if (await db.bookings.exists(studentId, classId)) {
+				return res
+					.status(409)
+					.json({ error: "This student is already booked for this class." });
+			}
 
-			res.status(201).json({
-				message: "Booking created successfully",
+			await db.bookings.create({
+				student_id: studentId,
+				user_id: user.user_id,
+				selected_class: classId,
 			});
-		} catch (error) {
-			console.error("Error inserting booking:", error);
-			res.status(500).json({ error: "Error creating booking" });
-		}
-	} else {
-		res.status(405).json({ error: "Method not allowed" });
-	}
-}
+			return res.status(201).json({ message: "Booking created successfully" });
+		},
+	},
+	"user",
+);

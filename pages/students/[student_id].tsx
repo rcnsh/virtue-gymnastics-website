@@ -1,3 +1,7 @@
+import type { GetServerSideProps } from "next";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -7,19 +11,9 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import type { students, users } from "@prisma/client";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import type { GetServerSideProps } from "next";
-import { getAuth } from "@clerk/nextjs/server";
-import prisma from "@/lib/prisma";
-
-/* typescript magic to change student_dob type to string */
-
-interface modifiedStudentData extends Omit<students, "student_dob"> {
-	student_dob: string;
-}
+import { parseId } from "@/lib/auth/api";
+import { requireUser } from "@/lib/auth/pages";
+import { db, type Student, type User } from "@/lib/db";
 
 /* take in the student data and the user data */
 
@@ -27,16 +21,16 @@ interface modifiedStudentData extends Omit<students, "student_dob"> {
  * Renders the details of a student's booking.
  *
  * @param {Object} props - The component props.
- * @param {modifiedStudentData} props.student_data - The modified student data.
- * @param {users} props.user_data - The user data.
+ * @param {Student} props.student_data - The modified student data.
+ * @param {User} props.user_data - The user data.
  * @returns {JSX.Element} The JSX element representing the booking details page.
  */
 function BookingDetailsPage({
 	student_data,
 	user_data,
 }: {
-	student_data: modifiedStudentData;
-	user_data: users;
+	student_data: Student;
+	user_data: User;
 }) {
 	const router = useRouter();
 
@@ -151,7 +145,7 @@ function BookingDetailsPage({
 					<Button variant={"default"}>View Student&apos;s Bookings</Button>
 				</Link>
 				<Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-					<DialogTrigger>
+					<DialogTrigger asChild>
 						<Button variant={"destructive"}>Deregister Student</Button>
 					</DialogTrigger>
 					<DialogContent>
@@ -189,50 +183,19 @@ function BookingDetailsPage({
 /* fetch the student data and the user data */
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const student_id = context.params?.student_id;
-	const { userId } = getAuth(context.req);
+	const auth = await requireUser(context);
+	if ("redirect" in auth) return auth;
 
-	if (!userId) {
-		return {
-			redirect: {
-				destination: "/sign-in",
-				permanent: false,
-			},
-		};
+	const studentId = parseId(context.params?.student_id);
+	const student = studentId && (await db.students.find(studentId));
+	if (!student || student.user_id !== auth.user.user_id) {
+		return { redirect: { destination: "/students", permanent: false } };
 	}
-	if (!student_id) {
-		return {
-			redirect: {
-				destination: "/students",
-				permanent: false,
-			},
-		};
-	}
-
-	const user_data =
-		(await prisma.$queryRaw`SELECT * FROM users WHERE user_id = ${userId}`) as users[];
-
-	const student_data =
-		(await prisma.$queryRaw`SELECT * FROM students WHERE user_id = ${userId} AND student_id = ${Number.parseInt(
-			student_id as string,
-			10,
-		)}`) as students[];
-
-	if (!student_data) {
-		return {
-			redirect: {
-				destination: "/students",
-				permanent: false,
-			},
-		};
-	}
-
-	// format the student data to be a string
 
 	return {
 		props: {
-			student_data: student_data[0],
-			user_data: user_data[0],
+			student_data: student,
+			user_data: auth.user,
 		},
 	};
 };

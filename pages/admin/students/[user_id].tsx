@@ -1,18 +1,20 @@
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
-	type SortingState,
 	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
+	type SortingState,
 	useReactTable,
 } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
-
+import type { GetServerSideProps } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -20,9 +22,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { Input } from "@/components/ui/input";
-
 import {
 	Table,
 	TableBody,
@@ -31,13 +31,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import type { GetServerSideProps } from "next";
-import prisma from "@/lib/prisma";
-import { getAuth } from "@clerk/nextjs/server";
-import type { students, users, bookings } from "@prisma/client";
+import { requireAdmin } from "@/lib/auth/pages";
+import { db, type User } from "@/lib/db";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -81,15 +76,12 @@ const DeletionDropdownMenu = (student: Student) => {
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					onClick={() =>
-						fetch("/api/delete/deleteStudent", {
-							method: "DELETE",
-							headers: {
-								"Content-Type": "application/json",
+						fetch(
+							`/api/delete/deleteStudent?student_id=${encodeURIComponent(student.student_id)}`,
+							{
+								method: "DELETE",
 							},
-							body: JSON.stringify({
-								student_id: student.student_id,
-							}),
-						})
+						)
 							.then((res) => res.json())
 							.then(router.reload)
 					}
@@ -385,7 +377,7 @@ export default function Users({
 	user,
 }: {
 	students: Student[];
-	user: users;
+	user: User;
 }) {
 	return (
 		<>
@@ -409,57 +401,19 @@ export default function Users({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const { userId } = getAuth(context.req);
-	const user_id_query = context.params?.user_id;
+	const auth = await requireAdmin(context);
+	if ("redirect" in auth) return auth;
 
-	if (!userId) {
-		return {
-			redirect: {
-				destination: "/sign-in",
-				permanent: false,
-			},
-		};
+	const userId = context.params?.user_id;
+	const user = typeof userId === "string" && (await db.users.find(userId));
+	if (!user) {
+		return { redirect: { destination: "/admin/users", permanent: false } };
 	}
 
-	const currentUserInfo = (await prisma.$queryRaw`
-  SELECT *
-  FROM "users"
-  WHERE "user_id" = ${userId};
-`) as users[];
-
-	if (currentUserInfo[0]?.admin) {
-		const students = (await prisma.$queryRaw`
-  SELECT *
-  FROM "students"
-  WHERE "user_id" = ${user_id_query};
-`) as students[];
-
-		const requestedUserInfo = (await prisma.$queryRaw`
-SELECT *
-FROM "users"
-WHERE "user_id" = ${user_id_query};
-`) as users[];
-
-		if (!requestedUserInfo || !students) {
-			return {
-				redirect: {
-					destination: "/",
-					permanent: false,
-				},
-			};
-		}
-
-		return {
-			props: {
-				students: students,
-				user: requestedUserInfo[0],
-			},
-		};
-	}
 	return {
-		redirect: {
-			destination: "/",
-			permanent: false,
+		props: {
+			students: await db.students.listForUser(user.user_id),
+			user,
 		},
 	};
 };

@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
-import styles from "@/styles/TestimonialsSection.module.css";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import styles from "@/styles/TestimonialsSection.module.css";
 
 /**
  * Renders the TestimonialsSection component.

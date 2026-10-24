@@ -1,35 +1,50 @@
-import { EmailTemplate } from "@/components/footer/footer-email-template";
-import type { NextApiRequest, NextApiResponse } from "next";
 import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { EmailTemplate } from "@/components/footer/footer-email-template";
+import { route } from "@/lib/auth/api";
+import { allowAttempt, clientIp } from "@/lib/auth/rate-limit";
+import { ContactSchema } from "@/lib/validation/contact";
 
 /**
- * Handles the API request for sending a footer message.
- * @param req - The NextApiRequest object.
- * @param res - The NextApiResponse object.
+ * Emails a message from the footer contact form to the club, via Resend.
+ * Needs RESEND_API_KEY, CONTACT_FROM_EMAIL and CONTACT_TO_EMAIL.
  */
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse,
-) {
-	const { name, email, message } = req.body;
+export default route(
+	{
+		POST: async (req, res) => {
+			const { RESEND_API_KEY, CONTACT_FROM_EMAIL, CONTACT_TO_EMAIL } =
+				process.env;
+			if (!RESEND_API_KEY || !CONTACT_FROM_EMAIL || !CONTACT_TO_EMAIL) {
+				return res
+					.status(503)
+					.json({ error: "The contact form isn't set up yet." });
+			}
 
-	try {
-		const data = await resend.emails.send({
-			from: "Virtue Website Enquiry <enquiries@virtue.rcn.sh>",
-			text: "Virtue Email",
-			to: ["jacobjameswiltshire@protonmail.com"],
-			subject: "New Enquiry from Virtue Website",
-			react: EmailTemplate({
-				Name: name,
-				Email: email,
-				Message: message,
-			}),
-		});
+			if (!allowAttempt(`contact:${clientIp(req)}`, 5)) {
+				return res
+					.status(429)
+					.json({ error: "Too many messages. Try again later." });
+			}
 
-		res.status(200).json(data);
-	} catch (error) {
-		res.status(400).json(error);
-	}
-}
+			const parsed = ContactSchema.safeParse(req.body);
+			if (!parsed.success) {
+				return res.status(400).json({ error: parsed.error.issues[0].message });
+			}
+			const { name, email, message } = parsed.data;
+
+			const { error } = await new Resend(RESEND_API_KEY).emails.send({
+				from: CONTACT_FROM_EMAIL,
+				to: CONTACT_TO_EMAIL.split(",").map((to) => to.trim()),
+				replyTo: email,
+				subject: "New Enquiry from Virtue Website",
+				react: EmailTemplate({ Name: name, Email: email, Message: message }),
+			});
+			if (error) {
+				console.error("Resend failed:", error);
+				return res.status(502).json({ error: "Couldn't send your message." });
+			}
+
+			return res.status(200).json({ ok: true });
+		},
+	},
+	"public",
+);

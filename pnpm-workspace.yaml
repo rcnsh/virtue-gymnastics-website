@@ -1,4 +1,4 @@
 allowBuilds:
-  '@prisma/engines': true
+  "@prisma/engines": true
   cypress: true
   prisma: true

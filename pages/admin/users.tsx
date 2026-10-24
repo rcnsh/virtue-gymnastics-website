@@ -1,10 +1,27 @@
 import {
+	type ColumnDef,
+	type ColumnFiltersState,
+	flexRender,
+	getCoreRowModel,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	type SortingState,
+	useReactTable,
+} from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
 	Table,
 	TableBody,
@@ -13,26 +30,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import {
-	type ColumnDef,
-	type ColumnFiltersState,
-	type SortingState,
-	flexRender,
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
-	useReactTable,
-} from "@tanstack/react-table";
-
-import LineBreaks from "@/components/line-breaks";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useAuth } from "@clerk/nextjs";
-import { ArrowUpDown } from "lucide-react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { adminOnly } from "@/lib/auth/pages";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -74,15 +72,12 @@ const DeletionDropdownMenu = (user: User) => {
 
 				<DropdownMenuItem
 					onClick={() => {
-						fetch("/api/delete/deleteUser", {
-							method: "DELETE",
-							headers: {
-								"Content-Type": "application/json",
+						fetch(
+							`/api/delete/deleteUser?user_id=${encodeURIComponent(user.user_id)}`,
+							{
+								method: "DELETE",
 							},
-							body: JSON.stringify({
-								user_id: user.user_id,
-							}),
-						})
+						)
 							.then((res) => res.json())
 							.then(router.reload);
 					}}
@@ -365,29 +360,11 @@ function UsersTable<TData, TValue>({
 	);
 }
 
-export default function Users() {
-	const { userId } = useAuth();
+export default function AdminUsers() {
 	const [loading, setLoading] = useState(true);
-	const [isAdmin, setIsAdmin] = useState(false);
 	const [data, setData] = useState<User[]>([]);
 
 	useEffect(() => {
-		const isUserAdmin = fetch(
-			`/api/check/checkIfUserIsAdmin?user_id=${userId}`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			},
-		).then((res) => res.json());
-
-		isUserAdmin.then((res) => {
-			if (res.isAdmin) {
-				setIsAdmin(true);
-			}
-		});
-
 		getData()
 			.then((data) => {
 				setData(data);
@@ -397,19 +374,10 @@ export default function Users() {
 				console.error(err);
 				setLoading(false);
 			});
-	}, [userId]);
+	}, []);
 
 	if (loading) {
 		return <div>Loading...</div>;
-	}
-	if (!isAdmin) {
-		return (
-			<div>
-				<LineBreaks />
-				<h1 className={"text-4xl flex justify-center"}>Unauthorized</h1>
-				<LineBreaks />
-			</div>
-		);
 	}
 	return (
 		<>
@@ -429,3 +397,5 @@ export default function Users() {
 		</>
 	);
 }
+
+export const getServerSideProps = adminOnly;

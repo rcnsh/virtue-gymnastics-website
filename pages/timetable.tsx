@@ -1,5 +1,11 @@
 /* imports */
 
+import FullCalendar, { type EventClickInfo } from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/react/daygrid";
+import interactionPlugin from "@fullcalendar/react/interaction";
+import listPlugin from "@fullcalendar/react/list";
+import classicThemePlugin from "@fullcalendar/react/themes/classic";
+import timeGridPlugin from "@fullcalendar/react/timegrid";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -8,41 +14,22 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import prisma from "@/lib/prisma";
+import { db } from "@/lib/db";
 import styles from "@/styles/Timetable.module.css";
-import adaptivePlugin from "@fullcalendar/adaptive";
-import type { EventClickArg } from "@fullcalendar/core";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import listPlugin from "@fullcalendar/list";
-import FullCalendar from "@fullcalendar/react";
-import timeGridPlugin from "@fullcalendar/timegrid";
+import "@fullcalendar/react/skeleton.css";
+import "@fullcalendar/react/themes/classic/theme.css";
+import "@fullcalendar/react/themes/classic/palette.css";
+import "temporal-polyfill/global";
+import type { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
-import type { GetStaticProps } from "next";
 
 /* define a type for our data */
 
-type Class = {
-	schedules: {
-		id: number;
-		classId: string;
-		startTime: string;
-		endTime: string;
-		daysOfWeek: number[];
-	}[];
-	id: string;
-	name: string;
-	cost: string;
-	backgroundColor: string;
-	description: string;
-	ageGroup: string | null;
-};
-
 type FlattenedClass = {
 	id: string;
-	name: string;
+	title: string;
 	startTime: string;
 	endTime: string;
 	cost: string;
@@ -63,7 +50,7 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 	/* define states for our class pop up modal */
 
 	const [modalIsOpen, setModalIsOpen] = useState(false);
-	const [eventInfo, setEventInfo] = useState<EventClickArg | null>(null);
+	const [eventInfo, setEventInfo] = useState<EventClickInfo | null>(null);
 
 	return (
 		<>
@@ -74,13 +61,12 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 			<div className={styles.calendar}>
 				{/* use the FullCalender library to render a calendar with our given data */}
 				<FullCalendar
-					schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
 					plugins={[
 						dayGridPlugin,
 						timeGridPlugin,
-						adaptivePlugin,
 						interactionPlugin,
 						listPlugin,
+						classicThemePlugin,
 					]}
 					headerToolbar={{
 						left: "prev,next today",
@@ -137,30 +123,7 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 most of the time and will decrease loading times significantly */
 
 export const getStaticProps: GetStaticProps = async () => {
-	const classesProp: Class[] = await prisma.$queryRaw`
-  SELECT 
-    "Class"."id",
-    "Class"."name",
-    "Class"."cost",
-    "Class"."backgroundColor",
-    "Class"."description",
-    "Class"."ageGroup",
-    (
-      SELECT 
-        json_agg(
-          json_build_object(
-            'id', "Schedule"."id",
-            'classId', "Schedule"."classId",
-            'startTime', "Schedule"."startTime",
-            'endTime', "Schedule"."endTime",
-            'daysOfWeek', "Schedule"."daysOfWeek"
-          )
-        )
-      FROM "Schedule"
-      WHERE "Schedule"."classId" = "Class"."id"
-    ) AS "schedules"
-  FROM "Class";
-`;
+	const classesProp = await db.classes.list();
 
 	const classes = classesProp.flatMap((classItem) =>
 		classItem.schedules.map((schedule) => ({
@@ -169,7 +132,8 @@ export const getStaticProps: GetStaticProps = async () => {
 			startTime: schedule.startTime,
 			endTime: schedule.endTime,
 			cost: classItem.cost,
-			daysOfWeek: schedule.daysOfWeek.map((day) => day + 1),
+			// stored as 0 = Monday; FullCalendar wants 0 = Sunday
+			daysOfWeek: schedule.daysOfWeek.map((day) => (day + 1) % 7),
 			backgroundColor: classItem.backgroundColor,
 			age: classItem.ageGroup,
 			description: classItem.description,
@@ -179,6 +143,8 @@ export const getStaticProps: GetStaticProps = async () => {
 		props: {
 			classes,
 		},
+		// pick up class changes made by admins without a rebuild
+		revalidate: 60,
 	};
 };
 

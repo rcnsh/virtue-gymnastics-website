@@ -1,10 +1,28 @@
 import {
+	type ColumnDef,
+	type ColumnFiltersState,
+	flexRender,
+	getCoreRowModel,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	type SortingState,
+	useReactTable,
+} from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
+import type { GetServerSideProps } from "next";
+import Head from "next/head";
+import Router from "next/router";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
 	Table,
 	TableBody,
@@ -13,37 +31,16 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import {
-	type ColumnDef,
-	type ColumnFiltersState,
-	type SortingState,
-	flexRender,
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
-	useReactTable,
-} from "@tanstack/react-table";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowUpDown } from "lucide-react";
-import Head from "next/head";
-import Router from "next/router";
-import { useState } from "react";
-import type { GetServerSideProps } from "next";
-import { getAuth } from "@clerk/nextjs/server";
-import prisma from "@/lib/prisma";
-import type { bookings, students, users } from "@prisma/client";
+import { parseId } from "@/lib/auth/api";
+import { requireAdmin } from "@/lib/auth/pages";
+import { type Booking, db, type Student } from "@/lib/db";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
 }
 
-interface Bookings extends Omit<bookings, "created_at"> {
-	created_at: Date;
-}
+type Bookings = Booking;
 
 const columns: ColumnDef<Bookings>[] = [
 	{
@@ -133,15 +130,12 @@ const columns: ColumnDef<Bookings>[] = [
 						<DropdownMenuSeparator />
 						<DropdownMenuItem
 							onClick={() =>
-								fetch("/api/delete/deleteBooking", {
-									method: "DELETE",
-									headers: {
-										"Content-Type": "application/json",
+								fetch(
+									`/api/delete/deleteBooking?booking_id=${encodeURIComponent(booking.booking_id)}`,
+									{
+										method: "DELETE",
 									},
-									body: JSON.stringify({
-										booking_id: booking.booking_id,
-									}),
-								})
+								)
 									.then((res) => res.json())
 									.then(Router.reload)
 							}
@@ -349,7 +343,7 @@ export default function Users({
 	student,
 }: {
 	bookings: Bookings[];
-	student: students;
+	student: Student;
 }) {
 	return (
 		<>
@@ -373,62 +367,19 @@ export default function Users({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const student_id = Number.parseInt(context.params?.student_id as string, 10);
-	const { userId } = getAuth(context.req);
+	const auth = await requireAdmin(context);
+	if ("redirect" in auth) return auth;
 
-	if (!userId) {
-		return {
-			redirect: {
-				destination: "/sign-in",
-				permanent: false,
-			},
-		};
-	}
-
-	if (!student_id) {
-		return {
-			redirect: {
-				destination: "/students",
-				permanent: false,
-			},
-		};
-	}
-
-	const bookings = (await prisma.$queryRaw`
-	SELECT * FROM "bookings" WHERE "user_id" = ${userId} AND "student_id" = ${student_id};
-  `) as bookings[];
-
-	const bookingsFormattedDate = bookings.map((booking) => ({
-		...booking,
-		created_at: booking.created_at.toISOString(),
-	}));
-
-	const students = (await prisma.$queryRaw`
-	SELECT * FROM "students" WHERE "student_id" = ${student_id};
-  `) as students[];
-
-	const currentUser = (await prisma.$queryRaw`
-	SELECT * FROM "users" WHERE "user_id" = ${userId};
-  `) as users;
-
-	if (
-		!bookings ||
-		!students[0] ||
-		!currentUser ||
-		currentUser.admin === false
-	) {
-		return {
-			redirect: {
-				destination: "/students",
-				permanent: false,
-			},
-		};
+	const studentId = parseId(context.params?.student_id);
+	const student = studentId && (await db.students.find(studentId));
+	if (!student) {
+		return { redirect: { destination: "/admin/students", permanent: false } };
 	}
 
 	return {
 		props: {
-			bookings: bookingsFormattedDate,
-			student: students[0],
+			bookings: await db.bookings.listForStudent(student.student_id),
+			student,
 		},
 	};
 };

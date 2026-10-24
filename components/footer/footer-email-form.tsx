@@ -1,3 +1,7 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import type * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -8,20 +12,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-
-const formSchema = z.object({
-	email: z.string().email(),
-	name: z.string(),
-	message: z.string(),
-});
+import { ContactSchema as formSchema } from "@/lib/validation/contact";
 
 export const FooterEmailForm = () => {
 	const [loading, setLoading] = useState(false);
 	const [submitted, setSubmitted] = useState(false);
+	const [error, setError] = useState<string | null>(null);
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -32,27 +28,30 @@ export const FooterEmailForm = () => {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
+	async function onSubmit(values: z.infer<typeof formSchema>) {
 		setLoading(true);
-		fetch("/api/footer-send", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(values),
-		})
-			.then((r) => {
-				if (r.ok) {
-					setSubmitted(true);
-					form.reset();
-				}
-			})
-			.catch((e) => {
-				console.error(e);
-				alert("Something went wrong, please try again later.");
+		setError(null);
+		try {
+			const response = await fetch("/api/footer-send", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(values),
 			});
-
-		setLoading(false);
+			if (response.ok) {
+				setSubmitted(true);
+				form.reset();
+			} else {
+				const body = await response.json().catch(() => ({}));
+				setError(body.error ?? "Something went wrong, please try again later.");
+			}
+		} catch (e) {
+			console.error(e);
+			setError("Something went wrong, please try again later.");
+		} finally {
+			setLoading(false);
+		}
 	}
 
 	return (
@@ -119,6 +118,7 @@ export const FooterEmailForm = () => {
 					{loading ? "Submitting..." : "Submit"}
 				</Button>
 				{submitted && <p>Thanks, your message was sent!</p>}
+				{error && <p className="text-red-400">{error}</p>}
 			</form>
 		</Form>
 	);

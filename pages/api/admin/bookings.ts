@@ -1,37 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
-import { getAuth } from "@clerk/nextjs/server";
-import type { bookings } from "@prisma/client";
-import { isUserAdmin } from "@/lib/utils";
+import { route } from "@/lib/auth/api";
+import { db } from "@/lib/db";
 
 /**
- * Retrieves bookings from the database if the user is authorized.
- * @param req - The NextApiRequest object.
- * @param res - The NextApiResponse object.
+ * Lists every booking.
  */
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse,
-) {
-	if (req.method === "GET") {
-		try {
-			const { userId } = getAuth(req);
-
-			if (!userId) {
-				return res.status(401).json({ error: "Unauthorized" });
-			}
-
-			isUserAdmin(userId, res);
-
-			const bookings = (await prisma.$queryRaw`
-			SELECT *
-			FROM "bookings"
-			`) as bookings[];
-
-			res.status(200).json(bookings);
-		} catch (error) {
-			console.error("Error checking for bookings:", error);
-			res.status(500).json({ error: "Error checking for bookings" });
-		}
-	}
-}
+export default route(
+	{ GET: async (_req, res) => res.status(200).json(await db.bookings.list()) },
+	"admin",
+);
