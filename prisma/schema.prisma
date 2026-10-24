@@ -1,21 +1,37 @@
 generator client {
-  provider = "prisma-client-js"
+  provider     = "prisma-client"
+  output       = "../lib/generated/prisma"
+  moduleFormat = "esm"
 }
 
+// Connection URLs live in prisma.config.ts (CLI) and lib/db/prisma.ts (runtime).
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
 }
 
 model users {
   user_id    String     @id @db.VarChar(255)
   first_name String     @db.VarChar(255)
   last_name  String     @db.VarChar(255)
-  email      String     @db.VarChar(255)
-  admin      Boolean?   @default(false)
-  students   students[]
-  bookings   bookings[]
+  email         String     @unique @db.VarChar(255)
+  password_hash String?    @db.VarChar(255)
+  admin         Boolean?   @default(false)
+  created_at    DateTime   @default(now()) @db.Timestamp(6)
+  students      students[]
+  bookings      bookings[]
+  sessions      sessions[]
+}
+
+// One row per signed-in browser. `id` is the SHA-256 of the cookie token, so a
+// leaked table can't be replayed as cookies.
+model sessions {
+  id         String   @id @db.VarChar(64)
+  user_id    String   @db.VarChar(255)
+  expires_at DateTime @db.Timestamp(6)
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  user       users    @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([user_id])
 }
 
 model students {
@@ -44,7 +60,7 @@ model students {
   terms_and_conditions         Boolean?   @default(false)
   privacy_policy               Boolean?   @default(false)
   marketing_consent            Boolean?   @default(false)
-  user                         users?     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  user                         users?     @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction)
   bookings                     bookings[]
 }
 
@@ -54,7 +70,7 @@ model bookings {
   user_id        String    @db.VarChar(255)
   selected_class String    @db.VarChar(100)
   created_at     DateTime  @default(now()) @db.Timestamp(6)
-  user           users?    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  user           users?    @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction)
   student        students @relation(fields: [student_id], references: [student_id], onDelete: Cascade, onUpdate: NoAction)
 }
 

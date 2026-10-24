@@ -43,3 +43,9 @@ next-env.d.ts
 # cypress
 /cypress/videos
 /cypress/screenshots
+
+# prisma client (generated on install)
+/lib/generated/
+
+# local dev data store (used when DATABASE_URL is unset)
+/.data/
