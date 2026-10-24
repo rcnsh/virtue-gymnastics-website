@@ -3,9 +3,10 @@ import { z } from "zod";
 /* Shared by the auth forms and the API routes that receive them. */
 
 const email = z
-	.email("Enter a valid email address")
-	.max(255)
-	.transform((value) => value.trim().toLowerCase());
+	.string()
+	.trim()
+	.toLowerCase()
+	.pipe(z.email("Enter a valid email address").max(255));
 
 const newPassword = z
 	.string()
