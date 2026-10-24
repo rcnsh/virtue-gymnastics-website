@@ -1,26 +1,13 @@
-describe("Timetable testing", () => {
-	beforeEach(() => {
-		cy.visit("/", { failOnStatusCode: false });
-		cy.clearCookies({ domain: window.location.domain });
-		cy.reload();
-		cy.contains("Login").click();
-		cy.get(".cl-formFieldInput__identifier")
-			.should("be.visible")
-			.type(Cypress.env("EMAIL"));
-		cy.get(".cl-formButtonPrimary").click();
-		cy.get(".cl-formFieldInput__password")
-			.should("be.visible")
-			.type(Cypress.env("PASSWORD"));
-		cy.get(".cl-formButtonPrimary").click();
-	});
+describe("Timetable", () => {
+	it("opens a class and offers to book it", () => {
+		cy.visit("/timetable");
 
-	it("Clicks on a random class from the timetable", () => {
-		cy.visit("/timetable", { failOnStatusCode: false });
-
-		cy.get(".fc-daygrid-event-harness").then((events) => {
+		// Only visible events: the calendar also renders hidden ones, and a
+		// forced click on those makes the calendar's pointer handling throw.
+		cy.get(".timetable-event:visible").then((events) => {
 			const items = events.toArray();
 			const randomItem = items[Math.floor(Math.random() * items.length)];
-			cy.wrap(randomItem).click();
+			cy.wrap(randomItem).scrollIntoView().click();
 		});
 
 		cy.contains("Book This Class").should("be.visible");

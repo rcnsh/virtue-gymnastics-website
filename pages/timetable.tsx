@@ -83,6 +83,7 @@ function Timetable({ classes }: { classes: FlattenedClass[] }) {
 						setEventInfo(info);
 					}}
 					events={classes}
+					eventClass="timetable-event"
 					eventTimeFormat={{
 						hour: "numeric",
 						minute: "2-digit",
