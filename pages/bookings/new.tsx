@@ -242,7 +242,7 @@ function NewBooking({ students: usersStudents }: { students: students[] }) {
 																	</Button>
 																</FormControl>
 															</PopoverTrigger>
-															<PopoverContent className="w-[200px] p-0 overflow-y-auto max-h-[30rem]">
+															<PopoverContent className="w-[200px] p-0 overflow-y-auto max-h-120">
 																<Command>
 																	<CommandInput placeholder="Search classes..." />
 																	<CommandEmpty>No class found.</CommandEmpty>
@@ -303,7 +303,7 @@ function NewBooking({ students: usersStudents }: { students: students[] }) {
 																</SelectTrigger>
 															</FormControl>
 															<SelectContent
-																className={"overflow-y-auto max-h-[30rem]"}
+																className={"overflow-y-auto max-h-120"}
 															>
 																{usersStudents.map((student) => (
 																	<SelectItem

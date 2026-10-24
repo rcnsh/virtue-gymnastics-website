@@ -20,7 +20,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 			{/* speedinsights to see how page speed does */}
 			<SpeedInsights />
 			<motion.main
-				className={"w-[100vw] min-h-[100dvh]"}
+				className={"w-screen min-h-dvh"}
 				initial={{
 					opacity: 0,
 				}}

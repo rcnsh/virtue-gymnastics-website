@@ -210,7 +210,7 @@ const Index: NextPage = () => {
 				</section>
 			</main>
 			<section>
-				<div className={"flex w-[100vw]"}>
+				<div className={"flex w-screen"}>
 					<div className={"centre-inner"}>
 						<h5 className={"text-5xl m-auto w-1/3"}>LETS CHAT</h5>
 						<FooterEmailForm />
@@ -221,13 +221,13 @@ const Index: NextPage = () => {
 						width={200}
 						height={200}
 						className={
-							"relative float-right top-[5rem] right-[5rem] w-[8rem] h-[8rem]"
+							"relative float-right top-20 right-20 w-32 h-32"
 						}
 					/>
 				</div>
 			</section>
 			<section>
-				<div className={"flex w-[100vw]"}>
+				<div className={"flex w-screen"}>
 					<Image
 						src={"/footer/bottom card.webp"}
 						alt={"policies card"}

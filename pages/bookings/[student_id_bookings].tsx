@@ -87,7 +87,7 @@ function Bookings({
 				<Separator />
 				<Button
 					variant={"ghost"}
-					className={"w-[100%] m-auto"}
+					className={"w-full m-auto"}
 					size={"lg"}
 					onClick={() => {
 						router.push("/bookings/new").catch((error) => {
@@ -131,7 +131,7 @@ function Bookings({
 										<DialogTrigger>
 											<Button
 												variant={"destructive"}
-												className={"w-[100%] m-auto"}
+												className={"w-full m-auto"}
 											>
 												Remove Class Booking
 											</Button>

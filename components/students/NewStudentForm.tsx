@@ -860,7 +860,7 @@ const NewStudentForm = () => {
 								</AccordionContent>
 							</AccordionItem>
 						</Accordion>
-						<Button type="submit" className={"w-[100%] m-auto"}>
+						<Button type="submit" className={"w-full m-auto"}>
 							Register New Student
 						</Button>
 					</form>

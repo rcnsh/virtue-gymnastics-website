@@ -36,7 +36,7 @@ function Students({ students: userStudents }: { students: students[] }) {
 				<Separator />
 				<Button
 					variant={"ghost"}
-					className={"w-[100%] m-auto"}
+					className={"w-full m-auto"}
 					size={"lg"}
 					onClick={() => {
 						router.push("/students/new").catch((error) => {

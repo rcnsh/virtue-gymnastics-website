@@ -13,19 +13,19 @@ import {
  */
 const Footer = () => {
 	return (
-		<main className={"w-[100vw] bottom-0"}>
+		<main className={"w-screen bottom-0"}>
 			<section className={"backgroundTexture"}>
 				<br />
 				<br />
 				<Image
 					src={"/home/scribble.webp"}
 					alt={"scribble deco"}
-					className={"relative float-right w-[10vw] top-[15rem] right-[35vw]"}
+					className={"relative float-right w-[10vw] top-60 right-[35vw]"}
 					width={200}
 					height={200}
 				/>
 				<section id="footer-section">
-					<div className={"flex w-[100vw] justify-evenly align-middle"}>
+					<div className={"flex w-screen justify-evenly align-middle"}>
 						{/* eslint-disable-next-line @next/next/no-img-element */}
 						<img
 							src={"/virtue-icon.png"}

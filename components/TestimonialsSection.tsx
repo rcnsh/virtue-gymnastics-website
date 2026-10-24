@@ -18,7 +18,7 @@ const TestimonialsSection = () => {
 			{/* Testimonials title */}
 			<div
 				className={
-					"w-[100%] text-center text-[80px] xl:text-[100px] 2xl:text-[120px] uppercase leading-none unselectable"
+					"w-full text-center text-[80px] xl:text-[100px] 2xl:text-[120px] uppercase leading-none unselectable"
 				}
 			>
 				<h1 className={styles.testimonialsTitle}>TESTIMONIALS</h1>
