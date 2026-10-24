@@ -16,10 +16,11 @@
 		"db:migrate": "prisma migrate deploy",
 		"db:migrate:dev": "prisma migrate dev",
 		"test": "cypress run",
-		"cypress:open": "cypress open"
+		"cypress:open": "cypress open",
+		"db:seed": "node --env-file-if-exists=.env.local --env-file-if-exists=.env prisma/seed.mjs"
 	},
 	"lint-staged": {
-		"*": "biome format . --write"
+		"*": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
 	},
 	"dependencies": {
 		"@fullcalendar/react": "^7.1.3",

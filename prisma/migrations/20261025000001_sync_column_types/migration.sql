@@ -1,0 +1,36 @@
+-- Column lengths and keys that schema.prisma declared but no earlier migration created.
+-- DropForeignKey
+ALTER TABLE "Schedule" DROP CONSTRAINT "Schedule_classId_fkey";
+
+-- AlterTable
+ALTER TABLE "Class" DROP CONSTRAINT "Class_pkey",
+ALTER COLUMN "id" SET DATA TYPE VARCHAR(20),
+ADD CONSTRAINT "Class_pkey" PRIMARY KEY ("id");
+
+-- AlterTable
+ALTER TABLE "Schedule" ALTER COLUMN "classId" SET DATA TYPE VARCHAR(20),
+ALTER COLUMN "startTime" SET DATA TYPE VARCHAR(5),
+ALTER COLUMN "endTime" SET DATA TYPE VARCHAR(5);
+
+-- AlterTable
+ALTER TABLE "bookings" ALTER COLUMN "selected_class" SET DATA TYPE VARCHAR(100);
+
+-- AlterTable
+ALTER TABLE "students" ALTER COLUMN "address1" SET DATA TYPE VARCHAR(255),
+ALTER COLUMN "address2" SET DATA TYPE VARCHAR(255),
+ALTER COLUMN "city" SET DATA TYPE VARCHAR(255),
+ALTER COLUMN "county" SET DATA TYPE VARCHAR(255),
+ALTER COLUMN "postcode" SET DATA TYPE VARCHAR(8),
+ALTER COLUMN "home_phone" SET DATA TYPE VARCHAR(15),
+ALTER COLUMN "work_phone" SET DATA TYPE VARCHAR(15),
+ALTER COLUMN "mobile_phone1" SET DATA TYPE VARCHAR(15),
+ALTER COLUMN "mobile_phone2" SET DATA TYPE VARCHAR(15),
+ALTER COLUMN "hear_about_us" SET DATA TYPE VARCHAR(255),
+ALTER COLUMN "student_first_name" SET DATA TYPE VARCHAR(255),
+ALTER COLUMN "student_last_name" SET DATA TYPE VARCHAR(255),
+ALTER COLUMN "student_dob" SET DATA TYPE VARCHAR(255),
+ALTER COLUMN "student_gender" SET DATA TYPE VARCHAR(10);
+
+-- AddForeignKey
+ALTER TABLE "Schedule" ADD CONSTRAINT "Schedule_classId_fkey" FOREIGN KEY ("classId") REFERENCES "Class"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+
