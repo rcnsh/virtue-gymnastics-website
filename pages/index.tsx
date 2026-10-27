@@ -5,7 +5,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { FooterEmailForm } from "@/components/footer/footer-email-form";
 import InstagramSection from "@/components/InstagramSection";
 import LineBreaks from "@/components/line-breaks";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -210,21 +209,6 @@ const Index: NextPage = () => {
 					<div className={styles.glow} />
 				</section>
 			</main>
-			<section>
-				<div className={"flex w-screen"}>
-					<div className={"centre-inner"}>
-						<h5 className={"text-5xl m-auto w-1/3"}>LETS CHAT</h5>
-						<FooterEmailForm />
-					</div>
-					<Image
-						src={"/home/BELIEVE IN MOVEMENT.webp"}
-						alt={""}
-						width={200}
-						height={200}
-						className={"relative float-right top-20 right-20 w-32 h-32"}
-					/>
-				</div>
-			</section>
 			<section>
 				<div className={"flex w-screen"}>
 					<Image
