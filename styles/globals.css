@@ -423,16 +423,6 @@
 	bottom: 0;
 }
 
-.centre-inner {
-	margin: auto;
-	width: 50%;
-	padding-top: 1rem;
-}
-
-.underline-footer-form {
-	border-bottom: 1px solid #ffffff;
-}
-
 .rdp-vhidden {
 	@apply hidden;
 }

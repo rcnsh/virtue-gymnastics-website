@@ -88,7 +88,6 @@ All optional. See [.env.example](.env.example).
 - `DIRECT_URL`: Direct (non-pooled) connection string for migrations.
 - `ADMIN_EMAIL_DOMAINS`: Comma-separated email domains whose sign-ups become admins. Defaults to `virtuemovement.co.uk`.
 - `ADMIN_EMAILS`: Comma-separated individual emails that become admins on sign-up.
-- `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL`: The footer contact form, sent with [Resend](https://resend.com).
 
 ## 🚀 Run Locally
 
